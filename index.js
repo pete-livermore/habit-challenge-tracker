@@ -3,6 +3,8 @@ import express from 'express'
 import router from './config/routes.js'
 import { port, dbURI } from './config/environment.js'
 
+// this is a comment
+
 const app = express()
 
 const startServer = async () => {
