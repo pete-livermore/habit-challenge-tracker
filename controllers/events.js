@@ -14,8 +14,8 @@ export const getAllEvents = async (_req, res) => {
 
 export const getEvent = async (req, res) => {
   try {
-    const { id } = req.params
-    const event = await Event.findById(id)
+    const { eventId } = req.params
+    const event = await Event.findById(eventId)
     return res.status(200).json(event)
   } catch (err) {
     console.log(err)
@@ -51,3 +51,23 @@ export const getAllHabits = async (req, res) => {
   }
 }
 
+//Delete Event events/:eventId
+
+
+export const deleteEvent = async (req, res) => {
+  try {
+    const { eventId } = req.params
+    const eventToDelete = await Event.findById(eventId)
+    console.log('request',req.currentUser._id)
+    if (!eventToDelete.owner.equals(req.currentUser._id)) throw new Error('Unauthorised')
+    await eventToDelete.remove()
+  } catch (err) {
+    console.log(err)
+    return res.status(404).json({ message: err.message })
+  }
+}
+
+//async req/register
+//try and catch
+//findbyId
+//if not found throw errors
