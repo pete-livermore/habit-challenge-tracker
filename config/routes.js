@@ -6,27 +6,24 @@ import { getProfile, getAllProfile } from '../controllers/users.js'
 
 const router = express.Router()
 
-// Get all events
+// GET all events and POST event
 router.route('/events')
   .get(getAllEvents)
-
-// Add an event
-router.route('/events')
   .post(secureRoute, addEvent)
 
-//Get single event
+//GET, UPDATE and DELETE a single event + JOIN an event
 router.route('/events/:eventId')
   .get(getEvent)
   .put(secureRoute, updateEvent)
   .delete(secureRoute, deleteEvent)
   .post(secureRoute, joinEvent)
 
-// Get all habits for a specific user
+// GET and ADD all habits for a specific user
 router.route('/events/:eventId/habits')
   .get(secureRoute, getUserHabits)
   .post(secureRoute, addHabitComplete)
 
-// Update a single habit completion
+// GET, UPDATE and ADD single habit completion
 router.route('/events/:eventId/habits/:habitId')
   .get(secureRoute, getUserSingleHabit)
   .put(secureRoute, updateHabitComplete)
@@ -44,8 +41,5 @@ router.route('/register')
 
 router.route('/login')
   .post(loginUser)
-
-
-
 
 export default router

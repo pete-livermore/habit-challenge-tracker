@@ -5,6 +5,7 @@ import { secret } from '../config/environment.js'
 export const registerUser = async (req, res) => {
   try {
     const newUser = await User.create(req.body)
+    console.log(newUser)
     return res.status(202).json({ message: 'Registration Successful' })
   } catch (err) {
     console.log(err)
