@@ -8,7 +8,8 @@ const eventSchema = new Schema({
   frequency: { type: String, required: true },
   startDate: { type: Date, required: true },
   endDate: { type: Date, required: true },
-  members: [{ type: mongoose.Schema.ObjectId, ref: 'User' }]
+  members: [{ type: mongoose.Schema.ObjectId, ref: 'User' }],
+  owner: { type: mongoose.Schema.ObjectId, ref: 'User' },
 })
 
 //* Add virtuals for calculating analytics...

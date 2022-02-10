@@ -1,5 +1,5 @@
 import express from 'express'
-import { getAllEvents, getEvent } from '../controllers/events.js'
+import { getAllEvents, getAllHabits, getEvent, updateEvent } from '../controllers/events.js'
 import { registerUser, loginUser } from '../controllers/auth.js'
 import { secureRoute } from './secureRoute.js'
 import { getProfile } from '../controllers/users.js'
@@ -12,6 +12,10 @@ router.route('/events')
 //Get single event
 router.route('/events/:eventId')
   .get(getEvent)
+  .put(secureRoute, updateEvent)
+
+router.route('/habits')
+  .get(secureRoute, getAllHabits)
 
 
 // Account
