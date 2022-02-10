@@ -26,8 +26,8 @@ const eventSchema = new Schema({
 
 eventSchema.virtual('eventMembers', {
   ref: 'User',
-  localField: 'owner', 
-  foreignField: '_id', 
+  localField: '_id',
+  foreignField: 'events.ObjectId',
 })
 
 
