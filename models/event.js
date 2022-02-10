@@ -1,5 +1,7 @@
 import mongoose from 'mongoose'
 
+// State of event will change - need to think about this is rendered in DB and/or frontend
+
 const { Schema } = mongoose
 
 const eventSchema = new Schema({
