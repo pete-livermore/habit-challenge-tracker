@@ -1,9 +1,5 @@
 import express from 'express'
-<<<<<<< HEAD
-import { addEvent, getAllEvents, getEvent, updateHabitCompleted } from '../controllers/events.js'
-=======
-import { getAllEvents, getAllHabits, getEvent, updateEvent, deleteEvent } from '../controllers/events.js'
->>>>>>> development
+import { getAllEvents, getAllHabits, getEvent, updateEvent, deleteEvent, addEvent, updateHabitCompleted } from '../controllers/events.js'
 import { registerUser, loginUser } from '../controllers/auth.js'
 import { secureRoute } from './secureRoute.js'
 import { getProfile } from '../controllers/users.js'
@@ -14,34 +10,29 @@ const router = express.Router()
 router.route('/events')
   .get(getAllEvents)
 
-<<<<<<< HEAD
 // Add an event
 router.route('/events')
   .post(secureRoute, addEvent)
 //Get single event
-=======
-//Get/delete single event
->>>>>>> development
 router.route('/events/:eventId')
   .get(getEvent)
   .put(secureRoute, updateEvent)
 
-<<<<<<< HEAD
+router.route('events/eventId')
+  .delete(secureRoute, deleteEvent)
+
+// Get all habits for a specific user
+router.route('/habits')
+  .get(secureRoute, getAllHabits)
+
 // Update a single habit completion
 router.route('/habits:habitId')
   .get(secureRoute, updateHabitCompleted)
 
-
-
-=======
-router.route('/habits')
-  .get(secureRoute, getAllHabits)
-
-  .delete(secureRoute, deleteEvent)
->>>>>>> development
+router.route('profile')
+  .get(secureRoute, getProfile)
 
 // Account
-
 router.route('/register')
   .post(registerUser)
 
