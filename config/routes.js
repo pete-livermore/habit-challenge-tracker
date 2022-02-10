@@ -13,6 +13,7 @@ router.route('/events')
 // Add an event
 router.route('/events')
   .post(secureRoute, addEvent)
+
 //Get single event
 router.route('/events/:eventId')
   .get(getEvent)

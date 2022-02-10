@@ -6,7 +6,7 @@ import User from '../models/user.js'
 export const getEvent = async (req, res) => {
   try {
     const { eventId } = req.params
-    const event = await Event.findById(eventId)
+    const event = await Event.findById(eventId).populate('eventMembers')
     return res.status(200).json(event)
   } catch (err) {
     return res.status(404).json({ message: 'Not Found' })
@@ -37,9 +37,7 @@ export const joinEvent = async (req, res) => {
   try {
     const { eventId } = req.params
     const currentUserProfile = await User.findById(req.currentUser._id)
-    // const eventToAddUser = await Event.findById(eventId)
     currentUserProfile.events.push(eventId)
-    // eventToAddUser.members.push(req.currentUser._id)
     currentUserProfile.save()
     return res.status(200).json(currentUserProfile)
   } catch (err) {
@@ -82,7 +80,7 @@ export const getUserSingleHabit = async (req, res) => {
   try {
     const { habitId } = req.params
     const currentUserProfile = await User.findById(req.currentUser._id).populate('habitCompletions.event')
-    const singleHabitForUser =  currentUserProfile.habitCompletions.id(habitId)
+    const singleHabitForUser = currentUserProfile.habitCompletions.id(habitId)
     if (!singleHabitForUser) throw new Error('Habit not found')
     console.log('singe-user-habits', singleHabitForUser)
     return res.status(200).json(singleHabitForUser)
@@ -95,7 +93,7 @@ export const deleteSingleHabit = async (req, res) => {
   try {
     const { habitId } = req.params
     const currentUserProfile = await User.findById(req.currentUser._id).populate('habitCompletions.event')
-    const singleHabitForUser =  currentUserProfile.habitCompletions.id(habitId)
+    const singleHabitForUser = currentUserProfile.habitCompletions.id(habitId)
     if (!singleHabitForUser) throw new Error('Habit not found')
     if (!singleHabitForUser.owner.equals(req.currentUser._id)) throw new Error('Unauthorised')
     await singleHabitForUser.remove()
@@ -108,7 +106,7 @@ export const deleteSingleHabit = async (req, res) => {
 
 export const addHabitComplete = async (req, res) => {
   try {
-    const { eventId } =  req.params
+    const { eventId } = req.params
     const userToFetch = await User.findById(req.currentUser._id).populate('habitCompletions.event')
     const habitCompleteToadd = { ...req.body, owner: req.currentUser._id, event: eventId }
     userToFetch.habitCompletions.push(habitCompleteToadd)

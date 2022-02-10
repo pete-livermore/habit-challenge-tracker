@@ -14,26 +14,14 @@ const habitSchema = new Schema({
     timestamps: true,
   })
 
-const joinedGroupsSchema = new Schema({
-  event: { type: mongoose.Schema.ObjectId, ref: 'Event' },
-})
-
 const userSchema = new Schema({
   firstName: { type: String, required: true, maxlength: 30 },
   lastName: { type: String, required: true, maxlength: 30 },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   habitCompletions: [habitSchema],
-  events: [joinedGroupsSchema],
+  events: { type: Array },
 })
-
-// Create a virtual field for the events a user has entered
-// userSchema.virtual('enteredEvents', {
-//   ref: 'Event', // this is the opposite of where the referenced relationship is created. E.g. 'User' becomes 'Movie'
-//   localField: '_id', // localField in this case is the _id field on the User document
-//   foreignField: 'members' // localField is checked against foreignField for a match, if it matches it will be returned
-// })
-
 
 userSchema.set('toJSON', {
   virtuals: true,

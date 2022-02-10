@@ -11,25 +11,15 @@ const eventSchema = new Schema({
   startDate: { type: Date, required: true },
   endDate: { type: Date, required: true },
   owner: { type: mongoose.Schema.ObjectId, ref: 'User', required: true },
-  // members: [{ type: mongoose.Schema.ObjectId, ref: 'User' }],
 })
 
 // * Add virtuals for calculating analytics...
 
-// eventSchema.virtual('eventMembers')
-//   .get(function() {
-//     const joined = User.find({ events: this._id } )
-//     console.log('joined', joined)
-//     return joined
-//   })
-
-
 eventSchema.virtual('eventMembers', {
   ref: 'User',
   localField: '_id',
-  foreignField: 'events.ObjectId',
+  foreignField: 'events._id'
 })
-
 
 eventSchema.set('toJSON', {
   virtuals: true,
