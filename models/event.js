@@ -10,7 +10,8 @@ const eventSchema = new Schema({
   frequency: { type: String, required: true },
   startDate: { type: Date, required: true },
   endDate: { type: Date, required: true },
-  members: [{ type: mongoose.Schema.ObjectId, ref: 'User' }]
+  owner: { type: mongoose.Schema.ObjectId, ref: 'User', required: true },
+  // members: [{ type: mongoose.Schema.ObjectId, ref: 'User' }],
 })
 
 //* Add virtuals for calculating analytics...
@@ -20,6 +21,5 @@ const eventSchema = new Schema({
 //   localField: '_id', // localField in this case is the _id field on the User document
 //   foreignField: 'events' // localField is checked against foreignField for a match, if it matches it will be returned
 // })
-
 
 export default mongoose.model('Event', eventSchema)

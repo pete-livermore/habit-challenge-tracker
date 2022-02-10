@@ -11,9 +11,9 @@ const habitSchema = new Schema({
   comment: { type: String },
   event: { type: mongoose.Schema.ObjectId, ref: 'Event' },
 },
-  {
-    timestamps: true
-  })
+{
+  timestamps: true,
+})
 
 
 const userSchema = new Schema({
@@ -22,7 +22,7 @@ const userSchema = new Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   habitCompletions: [habitSchema],
-  events: [{ type: mongoose.Schema.ObjectId, ref: 'User' }]
+  events: [{ type: mongoose.Schema.ObjectId, ref: 'User' }],
 })
 
 // Create a virtual field for the events a user has entered
@@ -37,7 +37,7 @@ userSchema.set('toJSON', {
   transform(_doc, json) {
     delete json.password
     return json
-  }
+  },
 })
 
 //Virtual field for password confirmation
