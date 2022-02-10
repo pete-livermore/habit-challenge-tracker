@@ -15,7 +15,7 @@ const startServer = async () => {
       console.log(`Request received: ${req.method} - ${req.url} `)
       next()
     }))
-    app.use(router)
+    app.use('/api', router)
     app.listen(port, () => console.log(`Server running on port ${port}`))
     app.use(((_req, res) => {
       return res.status(404).json({ message: 'Route not found' })
