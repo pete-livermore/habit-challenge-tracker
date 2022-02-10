@@ -2,7 +2,7 @@ import express from 'express'
 import { getAllEvents, getEvent, updateEvent, deleteEvent, addEvent, joinEvent, getUserSingleHabit, getUserHabits, updateHabitComplete, addHabitComplete, deleteSingleHabit } from '../controllers/events.js'
 import { registerUser, loginUser } from '../controllers/auth.js'
 import { secureRoute } from './secureRoute.js'
-import { getProfile } from '../controllers/users.js'
+import { getProfile, getAllProfile } from '../controllers/users.js'
 
 const router = express.Router()
 
@@ -34,6 +34,9 @@ router.route('/events/:eventId/habits/:habitId')
 
 router.route('/profile')
   .get(secureRoute, getProfile)
+
+router.route('/profile/all')
+  .get(getAllProfile)
 
 // Account
 router.route('/register')

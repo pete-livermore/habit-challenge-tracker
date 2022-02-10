@@ -10,9 +10,14 @@ const habitSchema = new Schema({
   comment: { type: String, required: true },
   event: { type: mongoose.Schema.ObjectId, ref: 'Event' },
 },
-  {
-    timestamps: true,
-  })
+{
+  timestamps: true,
+})
+
+const joinedGroupSchema = new Schema({
+  event: { type: mongoose.Schema.ObjectId, ref: 'Event' },
+})
+
 
 const userSchema = new Schema({
   firstName: { type: String, required: true, maxlength: 30 },
@@ -20,7 +25,7 @@ const userSchema = new Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   habitCompletions: [habitSchema],
-  events: { type: Array },
+  events: [joinedGroupSchema],
 })
 
 userSchema.set('toJSON', {

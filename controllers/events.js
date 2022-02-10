@@ -26,7 +26,7 @@ export const getAllEvents = async (_req, res) => {
 
 export const addEvent = async (req, res) => {
   try {
-    const newEvent = await Event.create(req.body)
+    const newEvent = await Event.create({ ...req.body, owner: req.currentUser._id })
     return res.status(200).json(newEvent)
   } catch (err) {
     return res.status(422).json({ message: err.message })

@@ -18,7 +18,7 @@ const eventSchema = new Schema({
 eventSchema.virtual('eventMembers', {
   ref: 'User',
   localField: '_id',
-  foreignField: 'events._id'
+  foreignField: 'events._id',
 })
 
 eventSchema.set('toJSON', {
