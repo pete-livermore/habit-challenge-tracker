@@ -14,12 +14,25 @@ const eventSchema = new Schema({
   // members: [{ type: mongoose.Schema.ObjectId, ref: 'User' }],
 })
 
-//* Add virtuals for calculating analytics...
+// * Add virtuals for calculating analytics...
 
-// eventSchema.virtual('members', {
-//   ref: 'User',
-//   localField: '_id', // localField in this case is the _id field on the User document
-//   foreignField: 'events' // localField is checked against foreignField for a match, if it matches it will be returned
-// })
+// eventSchema.virtual('eventMembers')
+//   .get(function() {
+//     const joined = User.find({ events: this._id } )
+//     console.log('joined', joined)
+//     return joined
+//   })
+
+
+eventSchema.virtual('eventMembers', {
+  ref: 'User',
+  localField: 'owner', 
+  foreignField: '_id', 
+})
+
+
+eventSchema.set('toJSON', {
+  virtuals: true,
+})
 
 export default mongoose.model('Event', eventSchema)

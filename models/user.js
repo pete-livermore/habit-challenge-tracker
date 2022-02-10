@@ -5,16 +5,18 @@ import bcrypt from 'bcrypt'
 const { Schema } = mongoose
 
 const habitSchema = new Schema({
-  completionDate: { type: Date },
   owner: { type: mongoose.Schema.ObjectId, ref: 'User' },
   picture: { type: String },
-  comment: { type: String },
+  comment: { type: String, required: true },
   event: { type: mongoose.Schema.ObjectId, ref: 'Event' },
 },
 {
   timestamps: true,
 })
 
+// const joinedGroupsSchema = new Schema({
+//   event: { type: mongoose.Schema.ObjectId, ref: 'Event', required: true },
+// })
 
 const userSchema = new Schema({
   firstName: { type: String, required: true, maxlength: 30 },
@@ -22,7 +24,7 @@ const userSchema = new Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   habitCompletions: [habitSchema],
-  events: [{ type: mongoose.Schema.ObjectId, ref: 'User' }],
+  // events: [joinedGroupsSchema],
 })
 
 // Create a virtual field for the events a user has entered
@@ -31,6 +33,9 @@ const userSchema = new Schema({
 //   localField: '_id', // localField in this case is the _id field on the User document
 //   foreignField: 'members' // localField is checked against foreignField for a match, if it matches it will be returned
 // })
+
+
+
 
 userSchema.set('toJSON', {
   virtuals: true,

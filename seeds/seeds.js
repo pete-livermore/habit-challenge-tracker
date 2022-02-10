@@ -27,6 +27,7 @@ const seedDatabase = async () => {
     console.log(`${eventsAdded.length} events added`)
     console.log(`${usersAdded.length} users added`)
     console.log(eventsAdded)
+    console.log(usersAdded)
 
     // Close database connection
     await mongoose.connection.close()
