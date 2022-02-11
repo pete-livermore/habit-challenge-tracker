@@ -37,13 +37,11 @@ const Dashboard = ({ eventList }) => {
   const handleOptionChange = (e) => {
     const filtered = userEvents.filter(event => event.name === e.target.value)
     console.log('selected event =>', filtered)
-    setSelectedEvent(filtered)
+    setSelectedEvent(filtered[0])
   }
 
   const currentDateFormat = (event) => {
-    const startDate = event.startDate
-    const newDate = new Date(startDate).toLocaleDateString()
-    return newDate
+    return new Date(event.startDate).toLocaleDateString()
   }
 
   const daysLeft = (event) => {
@@ -58,8 +56,8 @@ const Dashboard = ({ eventList }) => {
     return `${input} days`
   }
 
-  const completionCalc = (input) => {
-    const perc = (input / 30) * 100
+  const completionCalc = (profileData) => {
+    const perc = (profileData.habitCompletions / 30) * 100
     return `${perc.toFixed(1)}%`
   }
 
@@ -94,7 +92,7 @@ const Dashboard = ({ eventList }) => {
               </Row>
               <Row>
                 <Col>Your completion</Col>
-                <Col>{completionCalc(profileData.habitCompletions)}</Col>
+                <Col>{completionCalc(profileData)}</Col>
               </Row>
               <Row>
                 <Col>Days left</Col>

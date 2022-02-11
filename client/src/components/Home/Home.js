@@ -21,6 +21,7 @@ const Home = () => {
 
   return (
     <>
+      <Dashboard eventList={events} />
       {events ?
         events.map(event => {
           const { name, _id, description, picture } = event
