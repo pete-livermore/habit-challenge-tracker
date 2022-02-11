@@ -33,6 +33,19 @@ export const addEvent = async (req, res) => {
   }
 }
 
+export const deleteEvent = async (req, res) => {
+  try {
+    const { eventId } = req.params
+    const eventToDelete = await Event.findById(eventId)
+    console.log('request', req.currentUser._id)
+    if (!eventToDelete.owner.equals(req.currentUser._id)) throw new Error('Unauthorised')
+    await eventToDelete.remove()
+  } catch (err) {
+    console.log(err)
+    return res.status(404).json({ message: err.message })
+  }
+}
+
 export const joinEvent = async (req, res) => {
   try {
     const { eventId } = req.params
