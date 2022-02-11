@@ -73,7 +73,7 @@ export const joinEvent = async (req, res) => {
     // console.log('events for current user =>', currentUserProfile.events)
     // console.log('current event id =>', eventId)
     // console.log('if statement',currentUserProfile.events.some(event => event._id.equals(eventId)))
-    if (currentUserProfile.events.some(event => event._id.equals(eventId))){
+    if (currentUserProfile.events.some(event => event._id.equals(eventId))) {
       console.log('condition was met')
       currentUserProfile.events.splice(currentUserProfile.events.indexOf(eventId), 1)
     } else {

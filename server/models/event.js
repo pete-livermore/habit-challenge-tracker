@@ -10,6 +10,7 @@ const eventSchema = new Schema({
   frequency: { type: String, required: true },
   startDate: { type: Date, required: true },
   endDate: { type: Date, required: true },
+  picture: { type: String },
   owner: { type: mongoose.Schema.ObjectId, ref: 'User', required: true },
 })
 
