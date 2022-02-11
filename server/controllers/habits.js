@@ -30,11 +30,19 @@ export const getUserSingleHabit = async (req, res) => {
 export const addHabitComplete = async (req, res) => {
   try {
     const { eventId } = req.params
+    const currentDate = new Date().toLocaleDateString
     const event = await Event.findById(eventId)
     console.log('event =>', event)
     console.log('is event live? =>', event.isLive)
-    if (!event.isLive) throw new Error('Event not live')
+    // if (!event.isLive) throw new Error('Event not live')
+    // any of the created dates of habitcompletion === today?
     const userToFetch = await User.findById(req.currentUser._id).populate('habitCompletions') 
+    const filtered = userToFetch.habitCompletions.filter(habitCompletion => habitCompletion.event.equals(eventId))
+    console.log('filtered =>',filtered)
+    const checkHabitToday = filtered.some(date => date.createdAt.toLocaleDateString === currentDate)
+    console.log('was habit doen already? =>',checkHabitToday)
+    if (checkHabitToday) throw new Error('You already submitted a habit for today')
+    
     const habitCompleteToadd = { ...req.body, owner: req.currentUser._id, event: eventId } 
     userToFetch.habitCompletions.push(habitCompleteToadd)
     await userToFetch.save()
