@@ -1,8 +1,9 @@
 import express from 'express'
-import { getAllEvents, getEvent, updateEvent, deleteEvent, addEvent, joinEvent, getUserSingleHabit, getUserHabits, updateHabitComplete, addHabitComplete, deleteSingleHabit } from '../controllers/events.js'
-import { registerUser, loginUser } from '../controllers/auth.js'
 import { secureRoute } from './secureRoute.js'
+import { registerUser, loginUser } from '../controllers/auth.js'
+import { getAllEvents, getEvent, updateEvent, deleteEvent, addEvent, joinEvent } from '../controllers/events.js'
 import { getProfile, getAllProfile } from '../controllers/users.js'
+import { getUserSingleHabit, getUserHabits, updateHabitComplete, addHabitComplete, deleteSingleHabit } from '../controllers/habits.js'
 
 const router = express.Router()
 
