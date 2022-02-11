@@ -46,18 +46,6 @@ export const deleteEvent = async (req, res) => {
   }
 }
 
-export const joinEvent = async (req, res) => {
-  try {
-    const { eventId } = req.params
-    const currentUserProfile = await User.findById(req.currentUser._id)
-    currentUserProfile.events.push(eventId)
-    currentUserProfile.save()
-    return res.status(200).json(currentUserProfile)
-  } catch (err) {
-    return res.status(422).json({ message: err.message })
-  }
-}
-
 export const updateEvent = async (req, res) => {
   const { eventId } = req.params
   console.log(eventId)
@@ -72,5 +60,29 @@ export const updateEvent = async (req, res) => {
   } catch (err) {
     console.log(err)
     return res.status(422).json(err)
+  }
+}
+
+export const joinEvent = async (req, res) => {
+  try {
+    const { eventId } = req.params
+    const currentUserProfile = await User.findById(req.currentUser._id)
+    const event = await Event.findById(eventId)
+    const currentDate = new Date().toLocaleDateString()
+    if (currentDate > event.startDate.toLocaleDateString()) throw new Error('Event already started')
+    // console.log('events for current user =>', currentUserProfile.events)
+    // console.log('current event id =>', eventId)
+    // console.log('if statement',currentUserProfile.events.some(event => event._id.equals(eventId)))
+    if (currentUserProfile.events.some(event => event._id.equals(eventId))){
+      console.log('condition was met')
+      currentUserProfile.events.splice(currentUserProfile.events.indexOf(eventId), 1)
+    } else {
+      currentUserProfile.events.push(eventId)
+      console.log(currentUserProfile.events)
+    }
+    currentUserProfile.save()
+    return res.status(200).json(currentUserProfile)
+  } catch (err) {
+    return res.status(422).json({ message: err.message })
   }
 }

@@ -1,4 +1,5 @@
 import User from '../models/user.js'
+import Event from '../models/event.js'
 
 // Habits completions controllers
 
@@ -26,21 +27,13 @@ export const getUserSingleHabit = async (req, res) => {
   }
 }
 
-export const joinEvent = async (req, res) => {
-  try {
-    const { eventId } = req.params
-    const currentUserProfile = await User.findById(req.currentUser._id)
-    currentUserProfile.events.push(eventId)
-    currentUserProfile.save()
-    return res.status(200).json(currentUserProfile)
-  } catch (err) {
-    return res.status(422).json({ message: err.message })
-  }
-}
-
 export const addHabitComplete = async (req, res) => {
   try {
     const { eventId } = req.params
+    const event = await Event.findById(eventId)
+    console.log('event =>', event)
+    console.log('is event live? =>', event.isLive)
+    if (!event.isLive) throw new Error('Event not live')
     const userToFetch = await User.findById(req.currentUser._id).populate('habitCompletions') 
     const habitCompleteToadd = { ...req.body, owner: req.currentUser._id, event: eventId } 
     userToFetch.habitCompletions.push(habitCompleteToadd)

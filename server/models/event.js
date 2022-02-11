@@ -15,6 +15,18 @@ const eventSchema = new Schema({
 
 // * Add virtuals for calculating analytics...
 
+eventSchema.virtual('isLive')
+  .get(function(){
+    const currentDate = new Date().toLocaleDateString()
+    if ( currentDate >= this.startDate.toLocaleDateString() && currentDate <= this.endDate.toLocaleDateString()){
+      return true
+    } else {
+      console.log('false')
+      return false
+    }
+  }
+  )
+
 eventSchema.virtual('eventMembers', {
   ref: 'User',
   localField: '_id',
@@ -24,5 +36,15 @@ eventSchema.virtual('eventMembers', {
 eventSchema.set('toJSON', {
   virtuals: true,
 })
+
+
+
+// pre save 
+// check if the event is live 
+// live => greater start date and less end date
+// return true if it is live
+
+
+
 
 export default mongoose.model('Event', eventSchema)
