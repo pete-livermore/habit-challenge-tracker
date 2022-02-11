@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import { Heading } from '@chakra-ui/react'
 
 const Home = () => {
 
@@ -19,6 +20,7 @@ const Home = () => {
 
   return (
     <>
+    <Heading>Home</Heading>
     {events ?
       events.map(event => {
         const { name, _id, description } = event
