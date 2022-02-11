@@ -18,7 +18,6 @@ const joinedGroupSchema = new Schema({
   event: { type: mongoose.Schema.ObjectId, ref: 'Event' },
 })
 
-
 const userSchema = new Schema({
   firstName: { type: String, required: true, maxlength: 30 },
   lastName: { type: String, required: true, maxlength: 30 },
@@ -60,6 +59,9 @@ userSchema
     }
     next()
   })
+
+//Validate if event is already in array of events
+
 
 //Validate
 userSchema.plugin(uniqueValidator)
