@@ -19,7 +19,7 @@ export const loginUser = async (req, res) => {
     console.log(req.body)
     const userToLogin = await User.findOne({ email: email })
     console.log(userToLogin)
-    console.log(userToLogin.validatePassword(password))
+    // console.log(userToLogin.validatePassword(password))
     if (!userToLogin || !userToLogin.validatePassword(password)) {
       return res.status(401).json({ message: 'Unauthorised' })
     }
