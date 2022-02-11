@@ -2,9 +2,8 @@ import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import NavBar from './components/NavBar'
-import Login from './components/auth/Login'
-import SignUp from './components/auth/SignUp'
-import Events from './components/Events'
+import Authentificate from './components/Authentificate'
+import Event from './components/Event'
 import Home from './components/Home'
 
 const App = () => {
@@ -13,9 +12,8 @@ const App = () => {
     <NavBar />
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/events/:eventId" element={<Events />} />
-      <Route path="/register" element={<SignUp />} />
-      <Route path="/login" element={<Login />} />
+      <Route path="/events/:eventId" element={<Event />} />
+      <Route path="/authentificate" element={<Authentificate />} />
     </Routes>
     </BrowserRouter>
   )
