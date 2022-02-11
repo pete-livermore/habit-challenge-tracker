@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-<<<<<<< HEAD
 import { Heading } from '@chakra-ui/react'
-=======
 import Dashboard from './Dashboard'
->>>>>>> development
 
 const Home = () => {
 
@@ -25,24 +22,10 @@ const Home = () => {
 
   return (
     <>
-<<<<<<< HEAD
-    <Heading>Home</Heading>
-    {events ?
-      events.map(event => {
-        const { name, _id, description } = event
-        
-        return (
-          <div key={_id}>
-            <div>{name}</div>
-            <div>{description}</div>
-          </div>
-        )  
-=======
       <Dashboard eventList={events} />
       {events ?
         events.map(event => {
           const { name, _id, description, picture } = event
->>>>>>> development
 
           return (
             <div key={_id}>
