@@ -34,7 +34,7 @@ export const addHabitComplete = async (req, res) => {
     const event = await Event.findById(eventId)
     console.log('event =>', event)
     console.log('is event live? =>', event.isLive)
-    // if (!event.isLive) throw new Error('Event not live')
+    if (!event.isLive) throw new Error('Event not live')
     // any of the created dates of habitcompletion === today?
     const userToFetch = await User.findById(req.currentUser._id).populate('habitCompletions') 
     const filtered = userToFetch.habitCompletions.filter(habitCompletion => habitCompletion.event.equals(eventId))
