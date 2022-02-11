@@ -26,18 +26,15 @@ export const getUserSingleHabit = async (req, res) => {
   }
 }
 
-export const deleteSingleHabit = async (req, res) => {
+export const joinEvent = async (req, res) => {
   try {
-    const { habitId } = req.params
+    const { eventId } = req.params
     const currentUserProfile = await User.findById(req.currentUser._id)
-    const singleHabitForUser = currentUserProfile.habitCompletions.id(habitId)
-    if (!singleHabitForUser) throw new Error('Habit not found')
-    if (!singleHabitForUser.owner.equals(req.currentUser._id)) throw new Error('Unauthorised')
-    await singleHabitForUser.remove()
-    await currentUserProfile.save()
-    return res.sendStatus(204)
-  } catch (error) {
-    console.log(error)
+    currentUserProfile.events.push(eventId)
+    currentUserProfile.save()
+    return res.status(200).json(currentUserProfile)
+  } catch (err) {
+    return res.status(422).json({ message: err.message })
   }
 }
 
@@ -66,5 +63,20 @@ export const updateHabitComplete = async (req, res) => {
     res.status(200).json(userToFetch)
   } catch (err) {
     return res.status(404).json({ message: err.message })
+  }
+}
+
+export const deleteSingleHabit = async (req, res) => {
+  try {
+    const { habitId } = req.params
+    const currentUserProfile = await User.findById(req.currentUser._id)
+    const singleHabitForUser = currentUserProfile.habitCompletions.id(habitId)
+    if (!singleHabitForUser) throw new Error('Habit not found')
+    if (!singleHabitForUser.owner.equals(req.currentUser._id)) throw new Error('Unauthorised')
+    await singleHabitForUser.remove()
+    await currentUserProfile.save()
+    return res.sendStatus(204)
+  } catch (error) {
+    console.log(error)
   }
 }
