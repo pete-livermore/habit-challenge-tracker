@@ -23,6 +23,7 @@ const userSchema = new Schema({
   lastName: { type: String, required: true, maxlength: 30 },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
+  picture: { type: String },
   habitCompletions: [habitSchema],
   events: [joinedGroupSchema],
 })

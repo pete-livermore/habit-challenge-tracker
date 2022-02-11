@@ -11,6 +11,7 @@ const Home = () => {
       try {
         const { data } = await axios.get('/api/events')
         setEvents(data)
+        console.log(data)
       } catch (err) {
         console.log(err)
       }
@@ -20,18 +21,17 @@ const Home = () => {
 
   return (
     <>
-      <Dashboard eventList={events} />
       {events ?
         events.map(event => {
-          const { name, _id, description } = event
+          const { name, _id, description, picture } = event
 
           return (
             <div key={_id}>
               <div>{name}</div>
               <div>{description}</div>
+              <img src={picture} alt='event-img' />
             </div>
           )
-
         })
         :
         <p>Nothing to see</p>
