@@ -21,25 +21,26 @@ const Home = () => {
   }, []) // Only on first render
 
   return (
+  
+    <>
     <Heading>Home</Heading>
-    // <>
-    //   <Dashboard eventList={events} />
-    //   {events ?
-    //     events.map(event => {
-    //       const { name, _id, description, picture } = event
+      <Dashboard eventList={events} />
+      {events ?
+        events.map(event => {
+          const { name, _id, description, picture } = event
 
-    //       return (
-    //         <div key={_id}>
-    //           <div>{name}</div>
-    //           <div>{description}</div>
-    //           <img src={picture} alt='event-img' />
-    //         </div>
-    //       )
-    //     })
-    //     :
-    //     <p>Nothing to see</p>
-    //   }
-    // </>
+          return (
+            <div key={_id}>
+              <div>{name}</div>
+              <div>{description}</div>
+              <img src={picture} alt='event-img' />
+            </div>
+          )
+        })
+        :
+        <p>Nothing to see</p>
+      }
+    </>
   )
 }
 

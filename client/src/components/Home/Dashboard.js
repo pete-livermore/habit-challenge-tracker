@@ -1,11 +1,11 @@
-import react, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import eventImage from '../../assets/images/coding-challenge.jpg'
 import DiscoverEvents from './DiscoverEvents'
-const jwtStr = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MjA2NzhiMWFhNjc4M2FmZTgzMjEzMzAiLCJpYXQiOjE2NDQ1OTEyOTUsImV4cCI6MTY0NTE5NjA5NX0.2F81v9QC9aFjBgSKyDnLnG4oT3J9s5zuDFDhi18msFc'
+import { getPayload } from '../helper/auth'
 
 const Dashboard = ({ eventList }) => {
   const [profileData, setProfileData] = useState([])
@@ -17,11 +17,14 @@ const Dashboard = ({ eventList }) => {
   useEffect(() => {
     const getProfileData = async () => {
       try {
+        const token = localStorage.getItem('tinyhabits-token');
         const res = await axios.get('/api/profile', {
           'headers': {
-            'Authorization': 'Bearer ' + jwtStr
+            'Authorization': 'Bearer ' + token
           }
+          
         })
+        console.log('response',res)
         setProfileData(res.data)
       } catch (err) {
       }
@@ -32,6 +35,7 @@ const Dashboard = ({ eventList }) => {
   useEffect(() => {
     eventList.forEach(event => console.log(event._id))
     const filtered = eventList.filter(event => profileData.events.some(ev => ev._id === event._id))
+    console.log('filtered',filtered)
     setUserEvents(filtered)
     setSelectedEvent(filtered[0])
   }, [profileData, eventList])
