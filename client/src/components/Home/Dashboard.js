@@ -6,6 +6,8 @@ import Col from 'react-bootstrap/Col'
 import eventImage from '../../assets/images/coding-challenge.jpg'
 import DiscoverEvents from './DiscoverEvents'
 import { getPayload } from '../helper/auth'
+import { useNavigate } from "react-router-dom"
+
 
 const Dashboard = ({ eventList }) => {
   const [profileData, setProfileData] = useState([])
@@ -13,6 +15,7 @@ const Dashboard = ({ eventList }) => {
   const [selectedEvent, setSelectedEvent] = useState({})
   const [eventHabitCompletions, setEventHabitCompletions] = useState([])
   const [widget, setWidget] = useState([])
+  const navigate = useNavigate()
 
   useEffect(() => {
     const getProfileData = async () => {
@@ -27,6 +30,7 @@ const Dashboard = ({ eventList }) => {
         console.log('response',res)
         setProfileData(res.data)
       } catch (err) {
+          navigate('/login')
       }
     }
     getProfileData()

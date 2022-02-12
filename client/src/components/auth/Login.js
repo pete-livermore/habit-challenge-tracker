@@ -15,7 +15,7 @@ import axios from 'axios'
 
 const Login = () => {
 
-  const navigate = useNavigate()
+  let navigate = useNavigate()
 
   const [ formData, setFormData ] = useState({
     email: '',
@@ -59,7 +59,7 @@ const Login = () => {
             </Box>
             <Box my={4} textAlign="left">
               {/* Email */}
-              <form onSubmit={handleSubmit}>
+              <form onSubmit={handleSubmit }>
                 <FormControl isRequired>
                   <FormLabel htmlFor='email'>Email</FormLabel>
                   <Input onChange={handleChange} type="email" name="email" placeholder='Email' defaultValue={formData.email} />

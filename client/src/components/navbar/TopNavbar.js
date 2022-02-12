@@ -45,7 +45,7 @@ const MenuLinks = ({ isOpen }) => {
     // Remove token
     window.localStorage.removeItem('tinyhabits-token')
     // Redirect to the home page
-    navigate('/')
+    navigate('/login')
   }
 
   return (
@@ -60,7 +60,7 @@ const MenuLinks = ({ isOpen }) => {
         direction={["column", "row", "row", "row"]}
         pt={[4, 4, 0, 0]}
       >
-      <MenuItem to="/login">Events </MenuItem>
+      <MenuItem to="/events">Events </MenuItem>
       { userIsAuthenticated() ?
         <>
         <MenuItem to="/user/profile">Profile </MenuItem>
