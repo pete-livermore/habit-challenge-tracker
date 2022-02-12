@@ -3,14 +3,16 @@ import axios from 'axios'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import eventImage from '../../assets/images/sample-event-image.jpg'
+import eventImage from '../../assets/images/coding-challenge.jpg'
+import DiscoverEvents from './DiscoverEvents'
 const jwtStr = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MjA2NzhiMWFhNjc4M2FmZTgzMjEzMzAiLCJpYXQiOjE2NDQ1OTEyOTUsImV4cCI6MTY0NTE5NjA5NX0.2F81v9QC9aFjBgSKyDnLnG4oT3J9s5zuDFDhi18msFc'
 
 const Dashboard = ({ eventList }) => {
   const [profileData, setProfileData] = useState([])
   const [userEvents, setUserEvents] = useState([])
   const [selectedEvent, setSelectedEvent] = useState({})
-
+  const [eventHabitCompletions, setEventHabitCompletions] = useState([])
+  const [widget, setWidget] = useState([])
 
   useEffect(() => {
     const getProfileData = async () => {
@@ -52,59 +54,119 @@ const Dashboard = ({ eventList }) => {
     return `${daysDifference} days`
   }
 
-  const streakCalc = (input) => {
-    return `${input} days`
+  const calcStreak = () => {
+    if (!eventHabitCompletions.length) return 0
+    if (selectedEvent && Object.keys(selectedEvent).length) {
+      const strDate = Date.parse(selectedEvent.startDate)
+      const endDate = Date.parse(selectedEvent.endDate)
+      const days = []
+      for (let i = new Date(strDate); i <= endDate; i.setDate(i.getDate() + 1)) {
+        days.push(new Date(i).toLocaleDateString())
+      }
+      console.log(days)
+      const completedDates = eventHabitCompletions.map(habit => new Date(habit.createdAt).toLocaleDateString())
+      console.log(completedDates)
+      const mapped = days.map(date => {
+        return completedDates.includes(date) ? 1 : 0
+      })
+      let streaks = mapped.reduce((res, n) =>
+        (n ? res[res.length - 1]++ : res.push(0), res)
+        , [0])
+      console.log(streaks.join(","))
+      return Math.max(...streaks)
+    }
   }
 
-  const completionCalc = (profileData) => {
-    const perc = (profileData.habitCompletions / 30) * 100
-    return `${perc.toFixed(1)}%`
-  }
+  useEffect(() => {
+    if (profileData.habitCompletions && selectedEvent && Object.keys(selectedEvent).length) {
+      const filtered = profileData.habitCompletions.filter(habit => habit.event === selectedEvent._id)
+      setEventHabitCompletions(filtered)
+    }
+  }, [profileData, selectedEvent])
 
-  // useEffect(() => {
-  //   console.log(new Date(selectedEvent.startDate))
-  // }, [selectedEvent])
+
+  useEffect(() => {
+    const arr = []
+    if (selectedEvent && Object.keys(selectedEvent).length) {
+      const strDate = Date.parse(selectedEvent.startDate)
+      const endDate = Date.parse(selectedEvent.endDate)
+      const days = []
+      for (let i = new Date(strDate); i <= endDate; i.setDate(i.getDate() + 1)) {
+        days.push(new Date(i).toLocaleDateString())
+      }
+      days.forEach((day, i) => {
+        arr.push(<div className='widgetCells' key={day} id={day}>{`Day ${i + 1}`}</div>)
+      })
+      if (eventHabitCompletions.length) {
+        const completedDates = eventHabitCompletions.map(habit => new Date(habit.createdAt).toLocaleDateString())
+        const completedCells = arr.filter(obj => obj.key === String(completedDates))
+        completedCells.forEach(obj => {
+          arr[arr.indexOf(obj)] = <div className='widgetCells completed' key={obj.key} id={obj.key}>Completed</div>
+        })
+        setWidget(arr)
+      } else {
+        setWidget(arr)
+      }
+    }
+  }, [selectedEvent, eventHabitCompletions])
+
 
   return (
     <Container>
-      {userEvents &&
-        <select onChange={handleOptionChange}>
-          {userEvents.map(event => {
-            return <option key={event.name} value={event.name}>{event.name}</option>
-          })}
-        </select>
-      }
+      <Col lg={8} className='mx-auto'>
+        <h2>User dashboard</h2>
+        {userEvents &&
+          <>
+            <label htmlFor='event-selector'>Select event:</label>
+            <select name='event-selector' onChange={handleOptionChange}>
+              {userEvents.map(event => {
+                return <option key={event.name} value={event.name}>{event.name}</option>
+              })}
+            </select>
+          </>
+        }
+      </Col>
       <>
         {selectedEvent &&
-          <Row>
-            <h2>{selectedEvent.name}</h2>
-            <Col lg={4}>
-              <img src={eventImage} alt="30-day coding challenge" className='w-100' />
-            </Col>
+          <Row className='flex-column align-items-center mt-4'>
             <Col lg={8}>
-              <Row>
-                <Col>Start date</Col>
-                <Col>{currentDateFormat(selectedEvent)}</Col>
-              </Row>
-              <Row>
-                <Col>Your running streak</Col>
-                <Col>{streakCalc(5)}</Col>
-              </Row>
-              <Row>
-                <Col>Your completion</Col>
-                <Col>{completionCalc(profileData)}</Col>
-              </Row>
-              <Row>
-                <Col>Days left</Col>
-                <Col>{daysLeft(selectedEvent)}</Col>
-              </Row>
+              <h3>{selectedEvent.name}</h3>
+            </Col>
+            <Col lg={8} className='d-flex flex-wrap'>
+              <Col>
+                {/* Commented out code below is the actual code. The code below that is just so we can see an image for example purposes
+              <img src={selectedEvent.picture} alt={selectedEvent.name} className='w-100' /> */}
+                <img src={eventImage} alt={selectedEvent.name} className='w-100' />
+              </Col>
+              <Col className='ps-2'>
+                <Row>
+                  <Col><h6>Start date:</h6></Col>
+                  <Col>{currentDateFormat(selectedEvent)}</Col>
+                </Row>
+                <Row>
+                  <Col><h6>Your habit completion streak:</h6></Col>
+                  <Col>{calcStreak()}</Col>
+                </Row>
+                <Row>
+                  <Col><h6>Your completion %:</h6></Col>
+                  <Col>{`${((eventHabitCompletions.length / 30) * 100).toFixed(2)}%`}</Col>
+                </Row>
+                <Row>
+                  <Col><h6>Days of challenge left:</h6></Col>
+                  <Col>{daysLeft(selectedEvent)}</Col>
+                </Row>
+              </Col>
             </Col>
           </Row>
         }
+        <Row>
+          <Col lg={8} className='d-flex flex-wrap mt-4 mx-auto'>
+            {widget.length && widget}
+          </Col>
+        </Row>
+        <Row>
+        </Row>
       </>
-      <Row>
-        This is where the widget goes
-      </Row>
     </Container>
   )
 }

@@ -17,9 +17,9 @@ const eventSchema = new Schema({
 // * Add virtuals for calculating analytics...
 
 eventSchema.virtual('isLive')
-  .get(function(){
-    const currentDate = new Date().toLocaleDateString()
-    if ( currentDate >= this.startDate.toLocaleDateString() && currentDate <= this.endDate.toLocaleDateString()){
+  .get(function () {
+    const currentDate = new Date()
+    if (currentDate >= Date.parse(this.startDate) && currentDate <= Date.parse(this.endDate)) {
       return true
     } else {
       console.log('false')

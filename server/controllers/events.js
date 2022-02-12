@@ -37,11 +37,9 @@ export const deleteEvent = async (req, res) => {
   try {
     const { eventId } = req.params
     const eventToDelete = await Event.findById(eventId)
-    console.log('request', req.currentUser._id)
     if (!eventToDelete.owner.equals(req.currentUser._id)) throw new Error('Unauthorised')
     await eventToDelete.remove()
   } catch (err) {
-    console.log(err)
     return res.status(404).json({ message: err.message })
   }
 }
@@ -51,14 +49,11 @@ export const updateEvent = async (req, res) => {
   console.log(eventId)
   try {
     const eventToUpdate = await Event.findById(eventId)
-    console.log('eventToUpdate', eventToUpdate)
     if (!eventToUpdate.owner.equals(req.currentUser._id)) throw new Error('Unauthorised')
-    console.log(req.body)
     Object.assign(eventToUpdate, req.body)
     await eventToUpdate.save()
     return res.status(201).json(eventToUpdate)
   } catch (err) {
-    console.log(err)
     return res.status(422).json(err)
   }
 }
