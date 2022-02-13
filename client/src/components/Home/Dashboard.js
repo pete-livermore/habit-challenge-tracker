@@ -1,4 +1,4 @@
-import react, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Container } from '@chakra-ui/react'
 import { Flex, Spacer } from '@chakra-ui/react'
@@ -10,7 +10,9 @@ import { createBreakpoints } from '@chakra-ui/theme-tools'
 import { Wrap, WrapItem } from '@chakra-ui/react'
 import eventImage from '../../assets/images/coding-challenge.jpg'
 import DiscoverEvents from './DiscoverEvents'
-const jwtStr = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MjA2NzhiMWFhNjc4M2FmZTgzMjEzMzAiLCJpYXQiOjE2NDQ1OTEyOTUsImV4cCI6MTY0NTE5NjA5NX0.2F81v9QC9aFjBgSKyDnLnG4oT3J9s5zuDFDhi18msFc'
+import { getPayload } from '../helper/auth'
+import { useNavigate } from "react-router-dom"
+
 
 const Dashboard = ({ eventList }) => {
   const [profileData, setProfileData] = useState([])
@@ -25,17 +27,22 @@ const Dashboard = ({ eventList }) => {
     xl: '80em',
     '2xl': '96em',
   })
+  const navigate = useNavigate()
 
   useEffect(() => {
     const getProfileData = async () => {
       try {
+        const token = localStorage.getItem('tinyhabits-token');
         const res = await axios.get('/api/profile', {
           'headers': {
-            'Authorization': 'Bearer ' + jwtStr
+            'Authorization': 'Bearer ' + token
           }
+
         })
+        console.log('response', res)
         setProfileData(res.data)
       } catch (err) {
+        navigate('/login')
       }
     }
     getProfileData()
@@ -44,6 +51,7 @@ const Dashboard = ({ eventList }) => {
   useEffect(() => {
     eventList.forEach(event => console.log(event._id))
     const filtered = eventList.filter(event => profileData.events.some(ev => ev._id === event._id))
+    console.log('filtered', filtered)
     setUserEvents(filtered)
     setSelectedEvent(filtered[0])
   }, [profileData, eventList])

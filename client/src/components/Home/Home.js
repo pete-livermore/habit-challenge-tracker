@@ -21,7 +21,9 @@ const Home = () => {
   }, []) // Only on first render
 
   return (
+  
     <>
+    <Heading>Home</Heading>
       <Dashboard eventList={events} />
       {events ?
         events.map(event => {

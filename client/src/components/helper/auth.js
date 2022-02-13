@@ -1,3 +1,6 @@
+
+import {Buffer} from 'buffer';
+
 // This function is simply to extract the token from the localStorage and return it
 const getTokenFromLocalStorage = () => {
   return window.localStorage.getItem('tinyhabits-token')
