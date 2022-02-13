@@ -30,3 +30,29 @@ export const loginUser = async (req, res) => {
     return res.status(401).json(err)
   }
 }
+
+export const createSession = async (req, res) => {
+
+  try {
+    const stripe = require('stripe')('sk_test_TyMeY76Ef4pXsM1rA5rznKax')
+    const { priceId } = req.body
+    
+    const session = await stripe.checkout.sessions.create({
+      mode: 'subscription',
+      line_items: [
+        {
+          price: priceId,
+          // For metered billing, do not pass quantity
+          quantity: 1,
+        }
+      ],
+
+      success_url: 'http://localhost:3000/?session_id={CHECKOUT_SESSION_ID}',
+      cancel_url: 'http://localhost:3000',
+    })
+    console.log(session)
+  } catch (error) {
+    console.log(error)
+  }
+
+}

@@ -4,9 +4,8 @@ import { Container, Flex, Spacer, Box, Heading, Select, Image, Wrap, WrapItem, S
 import { createBreakpoints } from '@chakra-ui/theme-tools'
 import eventImage from '../../assets/images/coding-challenge.jpg'
 import DiscoverEvents from './DiscoverEvents'
-import { getPayload } from '../helper/auth'
 import { useNavigate, Link } from "react-router-dom"
-
+import { getTokenFromLocalStorage, userIsAuthenticated } from '../helper/auth'
 
 const Dashboard = ({ eventList }) => {
   const [profileData, setProfileData] = useState([])
@@ -26,26 +25,27 @@ const Dashboard = ({ eventList }) => {
   const navigate = useNavigate()
 
   useEffect(() => {
+
+    !userIsAuthenticated() && navigate('/login')
+
     const getProfileData = async () => {
       try {
-        const token = localStorage.getItem('tinyhabits-token');
         const res = await axios.get('/api/profile', {
-          'headers': {
-            'Authorization': 'Bearer ' + token
-          }
-
+          headers: {
+            Authorization: `Bearer ${getTokenFromLocalStorage()}`,
+          },
         })
         console.log('response', res)
         setProfileData(res.data)
       } catch (err) {
-        navigate('/login')
+        console.log(err)
       }
     }
     getProfileData()
   }, [navigate])
 
   useEffect(() => {
-    if (profileData) {
+    if (profileData && eventList) {
       const filtered = eventList.filter(event => profileData.events.some(ev => ev._id === event._id))
       console.log('filtered', filtered)
       setUserEvents(filtered)
