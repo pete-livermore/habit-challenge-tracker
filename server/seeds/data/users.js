@@ -1,4 +1,4 @@
-// export default [
+export default [
 //   {
 //     firstName: 'pete',
 //     lastName: 'livermore',
@@ -23,4 +23,4 @@
 //     passwordConfirmation: 'pass',
 //     picture: 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644522696/project_3_sei61/blueEmoji3_ymmhq0.jpg',
 //   }
-// ]
+]

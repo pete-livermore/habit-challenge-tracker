@@ -1,4 +1,4 @@
-// export default [
+export default [
 //   {
 //     name: '30-day coding challenge',
 //     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ultricies, odio et consequat mollis, eros nisi scelerisque velit.',
@@ -23,6 +23,6 @@
 //     endDate: '2022-05-11',
 //     picture: 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644522820/project_3_sei61/alcohol_rbzw0o.jpg',
 //   }
-// ]
+]
 
 

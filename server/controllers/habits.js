@@ -32,10 +32,16 @@ export const addHabitComplete = async (req, res) => {
     const { eventId } = req.params
     const currentDate = new Date().toLocaleDateString
     const event = await Event.findById(eventId)
+    const currentUserProfile = await User.findById(req.currentUser._id)
     console.log('event =>', event)
     console.log('is event live? =>', event.isLive)
     if (!event.isLive) throw new Error('Event not live')
     // any of the created dates of habitcompletion === today?
+    console.log('eventid',eventId)
+    if (!currentUserProfile.events.some(event => event._id.equals(eventId))) { //If the user has not joined the event yet, it will add the user to the event
+      currentUserProfile.events.push(eventId)
+    } else console.log('Found')
+    currentUserProfile.save()
     const userToFetch = await User.findById(req.currentUser._id).populate('habitCompletions') 
     const filtered = userToFetch.habitCompletions.filter(habitCompletion => habitCompletion.event.equals(eventId))
     console.log('filtered =>',filtered)
