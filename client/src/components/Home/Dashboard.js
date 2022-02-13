@@ -1,23 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { Container } from '@chakra-ui/react'
-import { Flex, Spacer } from '@chakra-ui/react'
-import { Box } from '@chakra-ui/react'
-import { Heading } from '@chakra-ui/react'
-import { Select } from '@chakra-ui/react'
-import { Image } from '@chakra-ui/react'
+import { Container, Flex, Spacer, Box, Heading, Select, Image, Wrap, WrapItem, Stat, StatLabel, StatNumber, StatHelpText, StatArrow, StatGroup, Progress } from '@chakra-ui/react'
 import { createBreakpoints } from '@chakra-ui/theme-tools'
-import { Wrap, WrapItem } from '@chakra-ui/react'
 import eventImage from '../../assets/images/coding-challenge.jpg'
 import DiscoverEvents from './DiscoverEvents'
 import { getPayload } from '../helper/auth'
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 
 
 const Dashboard = ({ eventList }) => {
   const [profileData, setProfileData] = useState([])
   const [userEvents, setUserEvents] = useState([])
-  const [selectedEvent, setSelectedEvent] = useState({})
+  const [selectedEvent, setSelectedEvent] = useState({
+    name: ''
+  })
   const [eventHabitCompletions, setEventHabitCompletions] = useState([])
   const [widget, setWidget] = useState([])
   const breakpoints = createBreakpoints({
@@ -46,14 +42,15 @@ const Dashboard = ({ eventList }) => {
       }
     }
     getProfileData()
-  }, [])
+  }, [navigate])
 
   useEffect(() => {
-    eventList.forEach(event => console.log(event._id))
-    const filtered = eventList.filter(event => profileData.events.some(ev => ev._id === event._id))
-    console.log('filtered', filtered)
-    setUserEvents(filtered)
-    setSelectedEvent(filtered[0])
+    if (profileData) {
+      const filtered = eventList.filter(event => profileData.events.some(ev => ev._id === event._id))
+      console.log('filtered', filtered)
+      setUserEvents(filtered)
+      setSelectedEvent(filtered[0])
+    }
   }, [profileData, eventList])
 
   const handleOptionChange = (e) => {
@@ -75,6 +72,7 @@ const Dashboard = ({ eventList }) => {
   }
 
   const calcStreak = () => {
+    console.log(selectedEvent)
     if (!eventHabitCompletions.length) return 0
     if (selectedEvent && Object.keys(selectedEvent).length) {
       const strDate = Date.parse(selectedEvent.startDate)
@@ -115,13 +113,13 @@ const Dashboard = ({ eventList }) => {
         days.push(new Date(i).toLocaleDateString())
       }
       days.forEach((day, i) => {
-        arr.push(<WrapItem className='widgetCells' key={day} id={day}>{`Day ${i + 1}`}</WrapItem>)
+        arr.push(<WrapItem border='1px' h='25px' w='25px' borderColor='gray.200' borderRadius='50%' justifyContent='center' key={day} id={day}></WrapItem>)
       })
       if (eventHabitCompletions.length) {
         const completedDates = eventHabitCompletions.map(habit => new Date(habit.createdAt).toLocaleDateString())
         const completedCells = arr.filter(obj => obj.key === String(completedDates))
         completedCells.forEach(obj => {
-          arr[arr.indexOf(obj)] = <WrapItem className='widgetCells completed' key={obj.key} id={obj.key}>Completed</WrapItem>
+          arr[arr.indexOf(obj)] = <WrapItem border='1px' h='25px' w='25px' backgroundColor='#48BB78' borderColor='gray.200' borderRadius='50%' justifyContent='center' key={obj.key} id={obj.key}></WrapItem>
         })
         setWidget(arr)
       } else {
@@ -132,11 +130,11 @@ const Dashboard = ({ eventList }) => {
 
 
   return (
-    <Container maxW='container.lg'>
+    <Container maxW='container.lg' mb='6'>
       <Heading>User dashboard</Heading>
-      {userEvents &&
+      {userEvents.length &&
         <Box mt='4' w={[400, 500, 600]}>
-          <Select onChange={handleOptionChange} value={selectedEvent}>
+          <Select onChange={handleOptionChange} value={selectedEvent.name}>
             {userEvents.map(event => {
               return <option key={event.name} value={event.name}>{event.name}</option>
             })}
@@ -144,46 +142,45 @@ const Dashboard = ({ eventList }) => {
         </Box>
       }
       <>
+
         {selectedEvent &&
-          <Flex direction='column' justify='center' mt='4'>
+          <Flex direction='column' justify='center' mt='4' px='6' py='4' boxShadow='base' p='6' rounded='md' bg='brand.900' color='white'>
             <Box>
               <Heading as='h3' size='lg'>{selectedEvent.name}</Heading>
             </Box>
-            <Flex>
-              <Box w={[400, 500, 500]}>
-                <Image
-                  objectFit='cover'
-                  src={eventImage}
-                  alt={selectedEvent.name}
-                />
+            <Flex mt='4'>
+              <Box w='40%'>
+                <Link to={`/events/${selectedEvent._id}`}>
+                  <Image
+                    objectFit='cover'
+                    /* Commented out code below is the actual code. The code below that is just so we can see an image for example purposes
+              <img src={selectedEvent.picture} alt={selectedEvent.name}/> */
+                    src={eventImage}
+                    alt={selectedEvent.name}
+                  />
+                </Link>
               </Box>
-              {/* Commented out code below is the actual code. The code below that is just so we can see an image for example purposes
-              <img src={selectedEvent.picture} alt={selectedEvent.name} className='w-100' /> */}
-              {/* <img src={eventImage} alt={selectedEvent.name} className='w-100' /> */}
-              <Box flexGrow='1' pl='3'>
-                <Flex>
-                  <Box mr='2'>Start date:</Box>
-                  <Box>{currentDateFormat(selectedEvent)}</Box>
-                </Flex>
-                <Flex>
-                  <Box mr='2'>Your habit completion streak:</Box>
-                  <Box>{calcStreak()}</Box>
-                </Flex>
-                <Flex>
-                  <Box mr='2'>Your completion %:</Box>
-                  <Box>{`${((eventHabitCompletions.length / 30) * 100).toFixed(2)}%`}</Box>
-                </Flex>
-                <Flex>
-                  <Box mr='2'>Days of challenge left:</Box>
-                  <Box>{daysLeft(selectedEvent)}</Box>
-                </Flex>
-              </Box>
+              <Flex w='60%' flexDirection='column' ml='6' justifyContent='space-evenly'>
+                <StatGroup w='100%' flexWrap='wrap'>
+                  <Stat flexBasis='50%'>
+                    <StatLabel>Start date</StatLabel>
+                    <StatNumber>{currentDateFormat(selectedEvent)}</StatNumber>
+                  </Stat>
+                  <Stat flexBasis='50%'>
+                    <StatLabel>Days of challenge left</StatLabel>
+                    <StatNumber>{daysLeft(selectedEvent)}</StatNumber>
+                  </Stat>
+                </StatGroup>
+                <Box mt='4'>
+                  <p>Your completion progress: {((eventHabitCompletions.length / 30) * 100).toFixed(1)}%</p>
+                  <Progress borderRadius="1rem" colorScheme='green' size='lg' value={((eventHabitCompletions.length / 30) * 100).toFixed(1)} />
+                </Box>
+                <Wrap mt='6'>{widget}</Wrap>
+              </Flex>
             </Flex>
           </Flex>
         }
-        <Wrap mt='4'>
-          {widget.length && widget}
-        </Wrap>
+
       </>
     </Container>
   )

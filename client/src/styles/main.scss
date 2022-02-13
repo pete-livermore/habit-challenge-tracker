@@ -1,5 +1,11 @@
+@import './common/variables.scss';
 @import './components/dashboard.scss';
+@import './components/event.scss';
 
 * {
   box-sizing: border-box;
+}
+
+.site-wrapper {
+  background-color: #f7fafc;
 }
