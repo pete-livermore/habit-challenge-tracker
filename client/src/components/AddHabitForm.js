@@ -56,7 +56,25 @@ const AddHabitForm = () => {
           'Authorization': 'Bearer ' + token
         }
         })
-      navigate('/profile')
+
+        const getProfileId = async () => {
+          try {  
+            const token = localStorage.getItem('tinyhabits-token')
+      console.log(token)
+            const { data } = await axios.get('/api/profile', {
+              'headers': {
+                'Authorization': 'Bearer ' + token
+              }
+              })
+               console.log('data', data.id)
+               navigate(`/profile/${data.id}`)
+              //  setUserProfileId(data.id)
+          } catch (err) {
+            console.log(err)
+          }
+        }
+        getProfileId()
+
       // Redirect using the navigate variable, passing in the route we want to redirect to
     } catch (err) {
       console.log(err.response.data.message)

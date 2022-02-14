@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { Navigate, useParams, useNavigate } from 'react-router-dom'
+import { Link, Navigate, useParams, useNavigate } from 'react-router-dom'
 import { Container, Box, Heading, Flex, Avatar, Text, Textarea, Badge, Image, Button } from '@chakra-ui/react'
 import eventImage from '../assets/images/coding-challenge.jpg'
 
@@ -9,6 +9,7 @@ const Event = () => {
   const [isError, setIsError] = useState({ error: false, message: '' })
   const params = useParams()
   const [value, setValue] = React.useState('')
+  const [profileDetails, setProfileDetails] = useState(null)
 
   const navigate = useNavigate()
 
@@ -16,7 +17,6 @@ const Event = () => {
     let inputValue = e.target.value
     setValue(inputValue)
   }
-
 
   useEffect(() => {
     const getEventData = async () => {
@@ -29,6 +29,27 @@ const Event = () => {
     }
     getEventData()
   }, [params])
+
+  useEffect(() => {
+      const getProfile = async () => {
+        try {  
+          const token = localStorage.getItem('tinyhabits-token')
+    console.log(token)
+    console.log('owner inside profile get', eventData.owner)
+          const { data } = await axios.get(`/api/profile/${eventData.owner}`, {
+            'headers': {
+              'Authorization': 'Bearer ' + token
+            }
+            })
+            // console.log('data', data)
+          setProfileDetails(data)
+        } catch (err) {
+          console.log(err)
+        }
+      }
+      getProfile()
+    
+  }, [eventData]) // Only on first render
 
   useEffect(() => {
     console.log(Object.keys(eventData))
@@ -56,7 +77,9 @@ const toAddHabitPage = () => {
               </Box>
               <Heading pl='4' as='h1' size='xl' mb='4'>{eventData.name}</Heading>
               <Flex>
-                <Avatar src='https://bit.ly/sage-adebayo' />
+              <Link to={`/profile/${eventData.owner}`}>
+                <Avatar  src={profileDetails ? profileDetails.picture : ''} />
+                </Link>
                 <Box ml='3'>
                   <Text fontSize='sm' >
                     Created by
@@ -80,7 +103,9 @@ const toAddHabitPage = () => {
                   <Flex mt='4' w='100%'>
                     {eventData.eventMembers.map(members => {
                       return (
-                        <Avatar key={members._id} mr='4' src='https://bit.ly/sage-adebayo' />
+                        <Link to={`/profile/${members._id}`}>
+                        <Avatar key={members._id} mr='4' src={members.picture} />
+                        </Link>
                       )
                     })}
                   </Flex>
