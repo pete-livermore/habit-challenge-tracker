@@ -1,6 +1,8 @@
 export default [
   {
-    name: '30-day coding challenge',
+    emoji: '👩‍💻',
+    name: 'Code Every Day',
+    subTitle: '30 DAY CHALLENGE',
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ultricies, odio et consequat mollis, eros nisi scelerisque velit.',
     frequency: 'Daily',
     startDate: '2022-02-09',
@@ -9,7 +11,9 @@ export default [
     _id: '620970bfebd967d62df75734',
   },
   {
-    name: 'No alcohol for 30 days',
+    emoji: '🍷',
+    name: 'Drink No Alcohol',
+    subTitle: '30 DAY CHALLENGE',
     description: 'Alcohol is a proven depressant and only covers up the effects of anxiety… a crutch that’s gone in the morning. The result, as your body dedicates its resources to processing the toxins you’ve poured into it is – you guessed it – even more anxiety. Break the cycle and thrive with real confidence.',
     frequency: 'Daily',
     startDate: '2022-03-10',
@@ -18,7 +22,9 @@ export default [
     _id: '620a1935c600f37f9715d83e',
   },
   {
+    emoji: '🥂',
     name: 'Don\'t stop drinking for 30 days',
+    subTitle: '30 DAY CHALLENGE',
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ultricies, odio et consequat mollis, eros nisi scelerisque velit.',
     frequency: 'Daily',
     startDate: '2022-04-11',

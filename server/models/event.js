@@ -5,7 +5,9 @@ import mongoose from 'mongoose'
 const { Schema } = mongoose
 
 const eventSchema = new Schema({
+  emoji: { type: String, required: true }, 
   name: { type: String, required: true, unique: true },
+  subTitle: { type: String, required: true },
   description: { type: String, required: true, maxlength: 500 },
   frequency: { type: String, required: true },
   startDate: { type: Date, required: true },
