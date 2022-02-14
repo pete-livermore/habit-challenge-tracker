@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { useParams } from 'react-router-dom'
+import { Navigate, useParams, useNavigate } from 'react-router-dom'
 import { Container, Box, Heading, Flex, Avatar, Text, Textarea, Badge, Image, Button } from '@chakra-ui/react'
 import eventImage from '../assets/images/coding-challenge.jpg'
 
@@ -10,6 +10,7 @@ const Event = () => {
   const params = useParams()
   const [value, setValue] = React.useState('')
 
+  const navigate = useNavigate()
 
   const handleInputChange = (e) => {
     let inputValue = e.target.value
@@ -33,6 +34,10 @@ const Event = () => {
     console.log(Object.keys(eventData))
     console.log(eventData)
   }, [eventData])
+
+const toAddHabitPage = () => {
+  navigate(`/events/${params.eventId}/AddHabitCompletion`)
+}
 
   return (
     <>
@@ -86,6 +91,7 @@ const Event = () => {
                     <p>Startdate to end date</p>
                   </Box>
                   <Button my='6' w='60%' backgroundColor='#ffbb0f' boxShadow='lg' p='6' rounded='md' bg='white' color='white'>Join today</Button>
+                  <Button onClick={toAddHabitPage} my='6' w='60%' backgroundColor='#ffbb0f' boxShadow='lg' p='6' rounded='md' bg='white' color='white'>Add Completed Habit</Button>
                 </Flex>
               </Box>
             </Flex>

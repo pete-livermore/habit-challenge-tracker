@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { Container, Flex, Spacer, Box, Heading, Select, Image, Wrap, WrapItem, Stat, StatLabel, StatNumber, StatHelpText, StatArrow, StatGroup, Progress } from '@chakra-ui/react'
+import { Button, Container, Flex, Spacer, Box, Heading, Select, Image, Wrap, WrapItem, Stat, StatLabel, StatNumber, StatHelpText, StatArrow, StatGroup, Progress } from '@chakra-ui/react'
 import { createBreakpoints } from '@chakra-ui/theme-tools'
 import eventImage from '../../assets/images/coding-challenge.jpg'
 import DiscoverEvents from './DiscoverEvents'
@@ -127,6 +127,7 @@ const Dashboard = ({ eventList }) => {
       }
     }
   }, [selectedEvent, eventHabitCompletions])
+
 
 
   return (
