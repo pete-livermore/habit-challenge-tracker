@@ -4,12 +4,22 @@ import './styles/main.scss'
 import App from './App'
 import { ChakraProvider, extendTheme } from '@chakra-ui/react'
 
+
 const theme = extendTheme({
-  colors: {
-    brand: {
-      100: "#a9d1ff",
-      // ...
-      900: "#0075ff",
+  semanticTokens: {
+    colors: {
+      primary: {
+        default: 'a9d1ff',
+        _dark: 'red.400',
+      },
+      secondary: {
+        default: 'white',
+        _dark: 'red.700',
+      },
+      thirdary: {
+        default: '#0075ff',
+        _dark: 'red.700',
+      },
     },
   },
 })
