@@ -104,7 +104,7 @@ console.log('filter habits array', filterHabits)
       }
       </Box>
       </Center>
-      <Flex flexDirection='row' justifyContent='center' alignItems='flex-start'>
+      <Flex flexDirection='row' justifyContent='center'>
         <HStack spacing='24px'>
         <Box>
     {habitsFiltered ?
