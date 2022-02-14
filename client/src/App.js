@@ -8,11 +8,12 @@ import Home from './components/Home/Home'
 import AddHabitForm from './components/AddHabitForm'
 import TopNavbar from './components/navbar/TopNavbar'
 import SingleProfile from './components/SingleProfile'
+import Comments from './components/Comments'
 
 const App = () => {
   return (
     <BrowserRouter>
-    <TopNavbar />
+      <TopNavbar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/events/:eventId" element={<Event />} />
@@ -20,6 +21,7 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/events/:eventId/AddHabitCompletion" element={<AddHabitForm />} />
         <Route path="/profile/:userId" element={<SingleProfile />} />
+        <Route path="/comments" element={<Comments />} />
       </Routes>
     </BrowserRouter>
   )
