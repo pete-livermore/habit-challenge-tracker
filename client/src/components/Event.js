@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Link, useParams, useNavigate } from 'react-router-dom'
-import { Container, VStack, Spacer, Box, Heading, Flex, Avatar, Text, Textarea, Button } from '@chakra-ui/react'
-import { userIsAuthenticated } from './helper/auth'
+import { Container, VStack, Box, Heading, Flex, Avatar, Text, Textarea, Button } from '@chakra-ui/react'
 import { currentDateFormat, endDateFormat, daysLeft} from './helper/eventData'
 
 
@@ -12,6 +11,7 @@ const Event = () => {
   const params = useParams()
   const [value, setValue] = React.useState('')
   const [profileDetails, setProfileDetails] = useState(null)
+
 
   const navigate = useNavigate()
 
@@ -31,6 +31,7 @@ const Event = () => {
     }
     getEventData()
   }, [params])
+
 
   useEffect(() => {
       const getProfile = async () => {
@@ -62,6 +63,8 @@ const toAddHabitPage = () => {
   navigate(`/events/${params.eventId}/AddHabitCompletion`)
 }
 
+// const newFilteredHabits = habits.filter(habit => habit.eventId === eventId) 
+
 return (
   <>
     {Object.keys(eventData).length ?
@@ -70,10 +73,10 @@ return (
           <VStack display='flex' name="content" mr='10' direction='column' width='70%' alignItems='flex-start'>
             <Box name="header" mb='105px' >   
               <Box name="image" w='450px'>
-                  <Heading fontSize="6em">👩‍💻</Heading>
+                  <Heading fontSize="6em">{eventData.emoji}</Heading>
               </Box>
               <Box name="headline">
-                <Text mt='10' size='lg' color='secondary'>30 DAY CHALLENGE</Text>
+                <Text mt='10' size='lg' color='secondary'>{eventData.subTitle}</Text>
                 <Heading color='white' mt='4' as='h1' size='2xl' mb='4'>{eventData.name}</Heading>
               </Box>
               <Box mt='6' name="event-owner" display='flex'>
@@ -93,6 +96,7 @@ return (
                 <Text>{eventData.description}</Text>
                 
             </Box>
+
             <Flex name="comments" direction='column' boxShadow='base' p='6' rounded='md' width="100%" mt='4' backgroundColor='#F7FAFC'>
               <Textarea backgroundColor='#FFFFFF'
                 value={value}
@@ -123,11 +127,12 @@ return (
                  <Text fontSize={{ base:'12px', md:'16px', lg:'24px' }} fontWeight='bold' textAlign='center'>The challenge<br></br> starts in {daysLeft(eventData)}</Text> }
                 <Text textAlign='center' mt='4'>{currentDateFormat(eventData)} - {endDateFormat(eventData)}</Text>
                 <Button fontSize='16px' fontWeight='bold' my='6' w='60%' backgroundColor='#ffbb0f' boxShadow='lg' p='6' rounded='md' bg='white' color='white'>JOIN TODAY</Button>
-                {userIsAuthenticated() && <Button onClick={toAddHabitPage} my='6' w='60%' backgroundColor='#ffbb0f' boxShadow='lg' p='6' rounded='md' bg='white' color='white'>Add Completed Habit</Button>}
-                
+     
             </Flex>
           </Container>
-          <Box width='100%' zIndex='-1' position='absolute' top='0' left='0' bgGradient='linear(to-r, primary, thirdary)' height={{base:'460px', md: '460x', lg: '460'}}></Box>
+          <Box width='100%' zIndex='-1' position='absolute' top='0' left='0' bgGradient='linear(to-r, primary, thirdary)' height={{base:'460px', md: '460x', lg: '460'}}>
+                  <Text opacity='30%' color='primary' fontSize='400px'>30</Text>
+          </Box>
         </Flex>
         
       </>

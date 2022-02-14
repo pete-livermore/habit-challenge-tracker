@@ -140,7 +140,7 @@ const Dashboard = ({ eventList }) => {
                   })}
                 </Select>
               </Box>
-              <Flex direction='column' justify='center' mt='4' px='6' py='4' boxShadow='base' p='6' rounded='md' bg='brand.900' color='white'>
+              <Flex direction='column' justify='center' mt='4' px='6' py='4' boxShadow='base' p='6' rounded='md' bg='brand.900'>
                 <Box>
                   <Heading as='h3' size='lg'>{selectedEvent.name}</Heading>
                 </Box>
