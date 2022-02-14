@@ -20,7 +20,7 @@ const NavBar = (props) => {
     <NavBarContainer {...props} pt='4'>
       <Logo
         w="100px"
-        color={["black", "black", "primary.500", "primary.500"]}
+        color={["white", "white", "primary.500", "primary.500"]}
       />
       <MenuToggle toggle={toggle} isOpen={isOpen} />
       <MenuLinks isOpen={isOpen} />
@@ -82,6 +82,7 @@ const MenuLinks = ({ isOpen }) => {
     <Box
       display={{ base: isOpen ? "block" : "none", md: "block" }}
       flexBasis={{ base: "100%", md: "auto" }}
+      justifyContent='space-between'
     >
       <Stack
         spacing={8}
@@ -98,7 +99,7 @@ const MenuLinks = ({ isOpen }) => {
           </>
           :
           <>
-            <MenuItem to="/login">Login </MenuItem>
+            <MenuItem to="/login">Login</MenuItem>
             <MenuItem to="/register" isLast>
               <Button
                 size="sm"

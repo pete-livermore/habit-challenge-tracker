@@ -22,6 +22,7 @@ export default [
     password: 'pass',
     passwordConfirmation: 'pass',
     picture: 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644522696/project_3_sei61/blueEmoji3_ymmhq0.jpg',
+    _id: '620970bfebd967d62df7572a',
     events: [
       {
         '_id': '620970bfebd967d62df75734',

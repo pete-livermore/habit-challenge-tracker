@@ -4,6 +4,7 @@ import { registerUser, loginUser } from '../controllers/auth.js'
 import { getAllEvents, getEvent, updateEvent, deleteEvent, addEvent, joinEvent } from '../controllers/events.js'
 import { getSingleProfile, getProfile, getAllProfile } from '../controllers/users.js'
 import { getUserSingleHabit, getUserHabits, updateHabitComplete, addHabitComplete, deleteSingleHabit } from '../controllers/habits.js'
+import { addComment, getAllComments } from '../controllers/comments.js'
 
 const router = express.Router()
 
@@ -23,6 +24,11 @@ router.route('/events/:eventId')
 router.route('/events/:eventId/habits')
   .get(secureRoute, getUserHabits)
   .post(secureRoute, addHabitComplete)
+
+// ADD a comment for a specific event
+router.route('/events/:eventId/comments')
+  .post(secureRoute, addComment)
+  .get(getAllComments)
 
 // GET, UPDATE and ADD single habit completion
 router.route('/events/:eventId/habits/:habitId')
