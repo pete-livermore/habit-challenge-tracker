@@ -7,6 +7,7 @@ const uploadPreset = process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET
 export const ImageUpload = ({ handleImageUrl, value }) => {
 
   const handleUpload = async event => {
+    console.log(event)
     const data = new FormData()
     data.append('file', event.target.files[0])
     data.append('upload_preset', uploadPreset)

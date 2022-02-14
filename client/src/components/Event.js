@@ -36,7 +36,7 @@ const Event = () => {
           const token = localStorage.getItem('tinyhabits-token')
     console.log(token)
     console.log('owner inside profile get', eventData.owner)
-          const { data } = await axios.get(`/api/profile/${eventData.owner}`, {
+          const { data } = await axios.get(`/api/profile/${eventData.owner.id}`, {
             'headers': {
               'Authorization': 'Bearer ' + token
             }
@@ -59,7 +59,7 @@ const Event = () => {
 const toAddHabitPage = () => {
   navigate(`/events/${params.eventId}/AddHabitCompletion`)
 }
-
+console.log(eventData)
 return (
   <>
     {Object.keys(eventData).length ?
@@ -76,7 +76,7 @@ return (
                 <Heading color='white' mt='4' as='h1' size='2xl' mb='4'>{eventData.name}</Heading>
               </Box>
               <Box name="event-owner" display='flex'>
-                <Link to={`/profile/${eventData.owner}`}>
+                <Link to={`/profile/${eventData.owner.id}`}>
                   <Avatar  src={profileDetails ? profileDetails.picture : ''} />
                 </Link>
                     <Box ml='3'>
@@ -109,8 +109,8 @@ return (
                 <Flex mt='4' w='100%'>
                   {eventData.eventMembers.map(members => {
                     return (
-                      <Link to={`/profile/${members._id}`}>
-                        <Avatar key={members._id} mr='4' src={members.picture} />
+                      <Link key={members._id} to={`/profile/${members._id}`}>
+                        <Avatar mr='4' src={members.picture} />
                       </Link>
                     )
                   })}
