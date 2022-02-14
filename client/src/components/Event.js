@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { useParams } from 'react-router-dom'
+import { Link, Navigate, useParams, useNavigate } from 'react-router-dom'
 import { Container, Box, Heading, Flex, Avatar, Text, Textarea, Badge, Image, Button } from '@chakra-ui/react'
 import eventImage from '../assets/images/coding-challenge.jpg'
 
@@ -9,13 +9,14 @@ const Event = () => {
   const [isError, setIsError] = useState({ error: false, message: '' })
   const params = useParams()
   const [value, setValue] = React.useState('')
+  const [profileDetails, setProfileDetails] = useState(null)
 
+  const navigate = useNavigate()
 
   const handleInputChange = (e) => {
     let inputValue = e.target.value
     setValue(inputValue)
   }
-
 
   useEffect(() => {
     const getEventData = async () => {
@@ -30,9 +31,34 @@ const Event = () => {
   }, [params])
 
   useEffect(() => {
+      const getProfile = async () => {
+        try {  
+          const token = localStorage.getItem('tinyhabits-token')
+    console.log(token)
+    console.log('owner inside profile get', eventData.owner)
+          const { data } = await axios.get(`/api/profile/${eventData.owner}`, {
+            'headers': {
+              'Authorization': 'Bearer ' + token
+            }
+            })
+            // console.log('data', data)
+          setProfileDetails(data)
+        } catch (err) {
+          console.log(err)
+        }
+      }
+      getProfile()
+    
+  }, [eventData]) // Only on first render
+
+  useEffect(() => {
     console.log(Object.keys(eventData))
     console.log(eventData)
   }, [eventData])
+
+const toAddHabitPage = () => {
+  navigate(`/events/${params.eventId}/AddHabitCompletion`)
+}
 
   return (
     <>
@@ -51,7 +77,9 @@ const Event = () => {
               </Box>
               <Heading pl='4' as='h1' size='xl' mb='4'>{eventData.name}</Heading>
               <Flex>
-                <Avatar src='https://bit.ly/sage-adebayo' />
+              <Link to={`/profile/${eventData.owner}`}>
+                <Avatar  src={profileDetails ? profileDetails.picture : ''} />
+                </Link>
                 <Box ml='3'>
                   <Text fontSize='sm' >
                     Created by
@@ -75,7 +103,9 @@ const Event = () => {
                   <Flex mt='4' w='100%'>
                     {eventData.eventMembers.map(members => {
                       return (
-                        <Avatar key={members._id} mr='4' src='https://bit.ly/sage-adebayo' />
+                        <Link to={`/profile/${members._id}`}>
+                        <Avatar key={members._id} mr='4' src={members.picture} />
+                        </Link>
                       )
                     })}
                   </Flex>
@@ -86,6 +116,7 @@ const Event = () => {
                     <p>Startdate to end date</p>
                   </Box>
                   <Button my='6' w='60%' backgroundColor='#ffbb0f' boxShadow='lg' p='6' rounded='md' bg='white' color='white'>Join today</Button>
+                  <Button onClick={toAddHabitPage} my='6' w='60%' backgroundColor='#ffbb0f' boxShadow='lg' p='6' rounded='md' bg='white' color='white'>Add Completed Habit</Button>
                 </Flex>
               </Box>
             </Flex>

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { HStack, Center, Container, Box, Heading, Flex, Avatar, Text, Textarea, Badge, Image, Button } from '@chakra-ui/react'
+import { useParams } from 'react-router-dom'
 
-const Profile = () => {
+const SingleProfile = () => {
 
   const [profileDetails, setProfileDetails] = useState(null)
   const [eventData, setEventData] = useState({})
@@ -13,6 +14,8 @@ const Profile = () => {
   const [ habitsFiltered, setHabitsFiltered ] = useState(null)
 
   // const [isError, setIsError] = useState({ error: false, message: '' })
+
+  const { userId } = useParams()
 
   useEffect(() => {
 
@@ -31,7 +34,7 @@ const Profile = () => {
       try {  
         const token = localStorage.getItem('tinyhabits-token')
   console.log(token)
-        const { data } = await axios.get('/api/profile', {
+        const { data } = await axios.get(`/api/profile/${userId}`, {
           'headers': {
             'Authorization': 'Bearer ' + token
           }
@@ -209,4 +212,4 @@ console.log('filter habits array', filterHabits)
 
 }
 
-export default Profile
+export default SingleProfile

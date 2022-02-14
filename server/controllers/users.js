@@ -20,3 +20,15 @@ export const getAllProfile = async (req, res) => {
     return res.status(404).json({ message: err.message })
   }
 }
+
+export const getSingleProfile = async (req, res) => {
+  try {
+    const { userId } = req.params
+    const userToFetch = await User.findById(userId)
+    console.log(userToFetch)
+    if (!userToFetch) throw new Error('User not found')
+    return res.status(200).json(userToFetch)
+  } catch (err) {
+    return res.status(404).json({ message: err.message })
+  }
+}

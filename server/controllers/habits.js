@@ -30,7 +30,7 @@ export const getUserSingleHabit = async (req, res) => {
 export const addHabitComplete = async (req, res) => {
   try {
     const { eventId } = req.params
-    const currentDate = new Date().toLocaleDateString
+    const currentDate = new Date().toLocaleDateString()
     console.log('currentDate', currentDate)
     const event = await Event.findById(eventId)
     const currentUserProfile = await User.findById(req.currentUser._id)
@@ -45,7 +45,7 @@ export const addHabitComplete = async (req, res) => {
     currentUserProfile.save()
     const userToFetch = await User.findById(req.currentUser._id).populate('habitCompletions') 
     const filtered = userToFetch.habitCompletions.filter(habitCompletion => habitCompletion.event.equals(eventId))
-    console.log('filtered =>',filtered)
+    // console.log('filtered =>',filtered)
     const checkHabitToday = filtered.some(date => date.createdAt.toLocaleDateString() === currentDate)
     console.log('was habit doen already? =>',checkHabitToday)
     if (checkHabitToday) throw new Error('You already submitted a habit for today')
