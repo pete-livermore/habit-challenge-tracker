@@ -94,8 +94,8 @@ const Register = () => {
               </FormControl>
               {/* Password Confirmation */}
               <FormControl isRequired mt={6}>
-                <FormLabel htmlFor='passwordConfirmmation'>Password Confirmation</FormLabel>
-                <Input onChange={handleChange} type="passwordConfirmmation" name="passwordConfirmmation" placeholder='Password Confirmation' defaultValue={formData.passwordConfirmation} />
+                <FormLabel htmlFor='passwordConfirmation'>Password Confirmation</FormLabel>
+                <Input onChange={handleChange} type="password" name="passwordConfirmation" placeholder='Password Confirmation' defaultValue={formData.passwordConfirmation} />
                 {formError.passwordConfirmation && <Alert status='error' mt={4}>{formError.passwordConfirmation}</Alert>}
               </FormControl>
               {/* Error + Button */}

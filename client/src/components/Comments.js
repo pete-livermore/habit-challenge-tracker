@@ -84,13 +84,13 @@ const Comments = () => {
       {userIsAuthenticated() &&
         <>
 
-          <Box mt='4' p='4' backgroundColor='#F7FAFC'>
+          <Box mt='6' p='4' backgroundColor='#F7FAFC' w='450px'>
             <form onSubmit={handleSubmit}>
-              <Text mb='8px'>Comment: {commentFormData.text}</Text>
+              <Text mb='8px'>Join the conversation</Text>
               <Textarea backgroundColor='#FFFFFF'
                 value={commentFormData.text}
                 onChange={handleInputChange}
-                placeholder='Here is a sample placeholder'
+                placeholder='Submit your comment here'
                 size='sm'
               />
               <Button type='submit'>Submit comment</Button>

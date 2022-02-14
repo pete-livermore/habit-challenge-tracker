@@ -13,7 +13,7 @@ import Comments from './components/Comments'
 const App = () => {
   return (
     <BrowserRouter>
-      <TopNavbar />
+      <TopNavbar zIndex='1' />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/events/:eventId" element={<Event />} />
