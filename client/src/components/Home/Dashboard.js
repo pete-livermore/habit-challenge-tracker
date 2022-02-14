@@ -113,8 +113,8 @@ const Dashboard = ({ eventList }) => {
       })
       if (eventHabitCompletions.length) {
         const completedDates = eventHabitCompletions.map(habit => new Date(habit.createdAt).toLocaleDateString())
-        const completedCells = arr.filter(obj => obj.key === String(completedDates))
-        completedCells.forEach(obj => {
+        console.log('completed dates =>', completedDates)
+        arr.filter(obj => completedDates.includes(obj.key)).forEach(obj => {
           arr[arr.indexOf(obj)] = <WrapItem border='1px' h='25px' w='25px' backgroundColor='#48BB78' borderColor='gray.200' borderRadius='50%' justifyContent='center' key={obj.key} id={obj.key}></WrapItem>
         })
         setWidget(arr)

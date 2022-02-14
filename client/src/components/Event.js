@@ -4,6 +4,7 @@ import { Link, useParams, useNavigate } from 'react-router-dom'
 import { Container, VStack, Box, Heading, Flex, Avatar, Text, Textarea, Button } from '@chakra-ui/react'
 import { currentDateFormat, endDateFormat, daysLeft} from './helper/eventData'
 
+import Comments from './Comments'
 
 const Event = () => {
   const [eventData, setEventData] = useState({})
@@ -37,9 +38,9 @@ const Event = () => {
       const getProfile = async () => {
         try {  
           const token = localStorage.getItem('tinyhabits-token')
-        console.log(token)
-        console.log('owner inside profile get', eventData.owner)
-          const { data } = await axios.get(`/api/profile/${eventData.owner}`, {
+    console.log(token)
+    console.log('owner inside profile get', eventData.owner)
+          const { data } = await axios.get(`/api/profile/${eventData.owner.id}`, {
             'headers': {
               'Authorization': 'Bearer ' + token
             }
@@ -50,18 +51,19 @@ const Event = () => {
           console.log(err)
         }
       }
-      getProfile()
     
+    getProfile()
   }, [eventData]) // Only on first render
+
 
   useEffect(() => {
     console.log(Object.keys(eventData))
     console.log(eventData)
   }, [eventData])
 
-const toAddHabitPage = () => {
-  navigate(`/events/${params.eventId}/AddHabitCompletion`)
-}
+  const toAddHabitPage = () => {
+    navigate(`/events/${params.eventId}/AddHabitCompletion`)
+  }
 
 // const newFilteredHabits = habits.filter(habit => habit.eventId === eventId) 
 
@@ -96,6 +98,7 @@ return (
                 <Text>{eventData.description}</Text>
                 
             </Box>
+            <Comments />
 
             <Flex name="comments" direction='column' boxShadow='base' p='6' rounded='md' width="100%" mt='4' backgroundColor='#F7FAFC'>
               <Textarea backgroundColor='#FFFFFF'
@@ -113,8 +116,8 @@ return (
                 <Flex mt='4' w='100%'>
                   {eventData.eventMembers.map(members => {
                     return (
-                      <Link to={`/profile/${members._id}`}>
-                        <Avatar key={members._id} mr='4' src={members.picture} />
+                      <Link key={members._id} to={`/profile/${members._id}`}>
+                        <Avatar mr='4' src={members.picture} />
                       </Link>
                     )
                   })}

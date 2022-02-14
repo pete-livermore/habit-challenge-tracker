@@ -36,6 +36,7 @@ const Register = () => {
   const handleChange = (e) => {
     const newObj = { ...formData, [e.target.name]: e.target.value } //Spreading formData makes sure we maintain the data structure of formData
     setFormData(newObj)
+    
     setFormError({ ...formError, [e.target.name]: '' })
   }
   
@@ -51,14 +52,14 @@ const Register = () => {
       const { data } = await axios.post('/api/register', formData) //Posting the data from the form
       console.log('token', data.token)
       setTokenToLocalStorage(data.token) // pass on the token to the localStorage
-      navigate('/')
+      navigate('/login')
     } catch (err) {
       console.log('form error ->',formError)
       console.log(err.response)
       setFormError(err.response.data.message)
     }
   }
-
+console.log(formData)
   return (
     <Flex width="full" align="center" justifyContent="center">
       <Box p={8} maxWidth="500px" borderWidth={1} borderRadius={8} boxShadow="lg">

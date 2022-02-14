@@ -4,6 +4,22 @@ import mongoose from 'mongoose'
 
 const { Schema } = mongoose
 
+const commentSchema = new Schema({
+  owner: { type: mongoose.Schema.ObjectId, ref: 'User', required: true },
+  text: { type: String, required: true },
+  reply: { type: Array },
+},
+  {
+    timestamps: true,
+  })
+
+commentSchema.virtual('fullOwner', {
+  ref: 'User',
+  localField: 'owner',
+  foreignField: '_id'
+})
+
+
 const eventSchema = new Schema({
   emoji: { type: String, required: true }, 
   name: { type: String, required: true, unique: true },
@@ -14,6 +30,7 @@ const eventSchema = new Schema({
   endDate: { type: Date, required: true },
   picture: { type: String },
   owner: { type: mongoose.Schema.ObjectId, ref: 'User', required: true },
+  comments: [commentSchema]
 })
 
 // * Add virtuals for calculating analytics...

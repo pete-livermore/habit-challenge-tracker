@@ -79,8 +79,10 @@ export const deleteSingleHabit = async (req, res) => {
   try {
     const { habitId } = req.params
     const currentUserProfile = await User.findById(req.currentUser._id)
+    console.log(currentUserProfile)
     const singleHabitForUser = currentUserProfile.habitCompletions.id(habitId)
     if (!singleHabitForUser) throw new Error('Habit not found')
+    console.log(singleHabitForUser)
     if (!singleHabitForUser.owner.equals(req.currentUser._id)) throw new Error('Unauthorised')
     await singleHabitForUser.remove()
     await currentUserProfile.save()
