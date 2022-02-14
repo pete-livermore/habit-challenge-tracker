@@ -31,6 +31,7 @@ export const addHabitComplete = async (req, res) => {
   try {
     const { eventId } = req.params
     const currentDate = new Date().toLocaleDateString
+    console.log('currentDate', currentDate)
     const event = await Event.findById(eventId)
     console.log('event =>', event)
     console.log('is event live? =>', event.isLive)
@@ -39,7 +40,7 @@ export const addHabitComplete = async (req, res) => {
     const userToFetch = await User.findById(req.currentUser._id).populate('habitCompletions') 
     const filtered = userToFetch.habitCompletions.filter(habitCompletion => habitCompletion.event.equals(eventId))
     console.log('filtered =>',filtered)
-    const checkHabitToday = filtered.some(date => date.createdAt.toLocaleDateString === currentDate)
+    const checkHabitToday = filtered.some(date => date.createdAt.toLocaleDateString() === currentDate)
     console.log('was habit doen already? =>',checkHabitToday)
     if (checkHabitToday) throw new Error('You already submitted a habit for today')
     
@@ -49,6 +50,7 @@ export const addHabitComplete = async (req, res) => {
     return res.status(201).json(userToFetch)
   } catch (err) {
     console.log(err)
+    return res.status(404).json({ message: err.message })
   }
 }
 

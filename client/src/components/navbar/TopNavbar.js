@@ -63,7 +63,7 @@ const MenuLinks = ({ isOpen }) => {
       <MenuItem to="/events">Events </MenuItem>
       { userIsAuthenticated() ?
         <>
-        <MenuItem to="/user/profile">Profile </MenuItem>
+        <MenuItem to="/profile">Profile </MenuItem>
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
         </>
         :

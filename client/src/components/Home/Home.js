@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Heading } from '@chakra-ui/react'
-import Dashboard from './Dashboard'
+import Dashboard from './Dashboard.js'
 
 const Home = () => {
 
