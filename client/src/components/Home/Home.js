@@ -25,7 +25,7 @@ const Home = () => {
     <>
     <Heading>Home</Heading>
       <Dashboard eventList={events} />
-      {events ?
+      {events &&
         events.map(event => {
           const { name, _id, description, picture } = event
 
@@ -37,8 +37,6 @@ const Home = () => {
             </div>
           )
         })
-        :
-        <p>Nothing to see</p>
       }
     </>
   )

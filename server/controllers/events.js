@@ -68,11 +68,10 @@ export const joinEvent = async (req, res) => {
     // console.log('events for current user =>', currentUserProfile.events)
     // console.log('current event id =>', eventId)
     // console.log('if statement',currentUserProfile.events.some(event => event._id.equals(eventId)))
-    if (currentUserProfile.events.some(event => event._id.equals(eventId))) {
-      console.log('condition was met')
+    if (currentUserProfile.events.some(event => event._id.equals(eventId))) { //If the user already joined the event, it will remove the user from the event
       currentUserProfile.events.splice(currentUserProfile.events.indexOf(eventId), 1)
     } else {
-      currentUserProfile.events.push(eventId)
+      currentUserProfile.events.push(eventId) //Otherwise add the user to the event
       console.log(currentUserProfile.events)
     }
     currentUserProfile.save()
