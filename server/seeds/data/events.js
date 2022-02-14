@@ -10,7 +10,7 @@ export default [
   },
   {
     name: 'No alcohol for 30 days',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ultricies, odio et consequat mollis, eros nisi scelerisque velit.',
+    description: 'Alcohol is a proven depressant and only covers up the effects of anxiety… a crutch that’s gone in the morning. The result, as your body dedicates its resources to processing the toxins you’ve poured into it is – you guessed it – even more anxiety. Break the cycle and thrive with real confidence.',
     frequency: 'Daily',
     startDate: '2022-03-10',
     endDate: '2022-04-10',
