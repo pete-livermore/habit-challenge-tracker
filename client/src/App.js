@@ -12,7 +12,7 @@ import SingleProfile from './components/SingleProfile'
 const App = () => {
   return (
     <BrowserRouter>
-    <TopNavbar />
+    <TopNavbar zIndex='1' />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/events/:eventId" element={<Event />} />
