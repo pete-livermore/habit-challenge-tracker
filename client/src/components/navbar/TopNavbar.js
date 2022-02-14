@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, Box, Text, Button, Stack } from "@chakra-ui/react";
-import { MenuToggle} from './MenuToggle'
+import { MenuToggle } from './MenuToggle'
 import { userIsAuthenticated } from '../helper/auth'
 import { useNavigate } from "react-router-dom"
 import NavBarContainer from "./NavBarContainer"
@@ -14,7 +14,7 @@ const NavBar = (props) => {
   const toggle = () => setIsOpen(!isOpen);
 
   return (
-    <NavBarContainer {...props}>
+    <NavBarContainer {...props} pt='4'>
       <Logo
         w="100px"
         color={["black", "black", "primary.500", "primary.500"]}
@@ -41,11 +41,12 @@ const MenuLinks = ({ isOpen }) => {
   // const location = useLocation()
   // console.log(location)
 
-  const handleLogout = () => {
+  const handleLogout = (e) => {
+    e.preventDefault()
     // Remove token
     window.localStorage.removeItem('tinyhabits-token')
     // Redirect to the home page
-    navigate('/login')
+    navigate('/')
   }
 
   return (
@@ -60,29 +61,29 @@ const MenuLinks = ({ isOpen }) => {
         direction={["column", "row", "row", "row"]}
         pt={[4, 4, 0, 0]}
       >
-      <MenuItem to="/events">Events </MenuItem>
-      { userIsAuthenticated() ?
-        <>
-        <MenuItem to="/profile">Profile </MenuItem>
-        <MenuItem onClick={handleLogout}>Logout</MenuItem>
-        </>
-        :
-        <>
-        <MenuItem to="/login">Login </MenuItem>
-        <MenuItem to="/register" isLast>
-          <Button
-            size="sm"
-            rounded="md"
-            color={["primary.500", "primary.500", "white", "white"]}
-            bg={["black", "black", "primary.500", "primary.500"]}
-            _hover={{
-              bg: ["primary.100", "primary.100", "primary.600", "primary.600"]
-            }}
-          >
-            Register
-          </Button>
-        </MenuItem>
-        </>
+        <MenuItem to="/events">Events </MenuItem>
+        {userIsAuthenticated() ?
+          <>
+            <MenuItem to="/profile">Profile </MenuItem>
+            <MenuItem onClick={handleLogout}>Logout</MenuItem>
+          </>
+          :
+          <>
+            <MenuItem to="/login">Login </MenuItem>
+            <MenuItem to="/register" isLast>
+              <Button
+                size="sm"
+                rounded="md"
+                color={["primary.500", "primary.500", "white", "white"]}
+                bg={["black", "black", "primary.500", "primary.500"]}
+                _hover={{
+                  bg: ["primary.100", "primary.100", "primary.600", "primary.600"]
+                }}
+              >
+                Register
+              </Button>
+            </MenuItem>
+          </>
         }
       </Stack>
     </Box>
