@@ -6,7 +6,7 @@ import User from '../models/user.js'
 export const getEvent = async (req, res) => {
   try {
     const { eventId } = req.params
-    const event = await Event.findById(eventId).populate('eventMembers')
+    const event = await Event.findById(eventId).populate('eventMembers').populate('owner')
     return res.status(200).json(event)
   } catch (err) {
     return res.status(404).json({ message: 'Not Found' })
