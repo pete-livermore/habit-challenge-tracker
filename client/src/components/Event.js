@@ -103,8 +103,8 @@ const toAddHabitPage = () => {
                   <Flex mt='4' w='100%'>
                     {eventData.eventMembers.map(members => {
                       return (
-                        <Link to={`/profile/${members._id}`}>
-                        <Avatar key={members._id} mr='4' src={members.picture} />
+                        <Link key={members._id} to={`/profile/${members._id}`}>
+                        <Avatar mr='4' src={members.picture} />
                         </Link>
                       )
                     })}
