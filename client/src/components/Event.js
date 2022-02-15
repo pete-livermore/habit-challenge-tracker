@@ -13,7 +13,6 @@ const Event = () => {
   const [isError, setIsError] = useState({ error: false, message: '' })
   const params = useParams()
   const [value, setValue] = React.useState('')
-  const [profileDetails, setProfileDetails] = useState(null)
   const [profileData, setProfileData] = useState({})
   const [eventHabitCompletions, setEventHabitCompletions] = useState([])
   const [widget, setWidget] = useState([])
@@ -31,6 +30,7 @@ const Event = () => {
       try {
         const { data } = await axios.get(`/api/events/${params.eventId}`)
         setEventData(data)
+        console.log('This is setEventData -> ', data)
       } catch (err) {
         setIsError({ error: true, message: 'Server error' })
       }
@@ -98,7 +98,7 @@ return (
               </Box>
               <Box mt='6' name="event-owner" display='flex'>
                 <Link to={`/profile/${eventData.owner.id}`}>
-                  <Avatar size='md' src={profileDetails ? profileDetails.picture : ''} />
+                  <Avatar size='md' src={profileData ? profileData.picture : ''} />
                 </Link>
                     <Box ml='3'>
                       <Text fontSize='sm'color='secondary' >
@@ -147,7 +147,7 @@ return (
                 <Text textAlign='center' mt='4'>{currentDateFormat(eventData)} - {endDateFormat(eventData)}</Text>
               {userJoinedEvent ?
                
-                <p mt='10'>You are part of this</p>
+                <Button onClick={toAddHabitPage} fontSize='16px' fontWeight='bold' my='6' w='60%' backgroundColor='#ffbb0f' boxShadow='lg' p='6' rounded='md' bg='white' color='white'>Add Habit</Button>
                 :
                 <Button fontSize='16px' fontWeight='bold' my='6' w='60%' backgroundColor='#ffbb0f' boxShadow='lg' p='6' rounded='md' bg='white' color='white'>JOIN TODAY</Button>
 
