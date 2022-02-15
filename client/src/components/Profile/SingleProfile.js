@@ -2,106 +2,100 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Select, Spinner, VStack, HStack, Center, Container, Box, Heading, Flex, Avatar, Text, Textarea, Badge, Image, Button } from '@chakra-ui/react'
 import { Link, useParams } from 'react-router-dom'
+import { getTokenFromLocalStorage, userIsAuthenticated } from '../helper/auth'
+import { HabitsActivity} from '../helper/habitStats'
 
 const SingleProfile = () => {
 
-    const [profileDetails, setProfileDetails] = useState(null)
-    const [loggedUserDetails, setLoggedUserDetails] = useState(null)
-    const [eventData, setEventData] = useState([])
-    const [filterHabits, setFilterHabits] = useState({
-        event: '',
-        date: ''
-    })
-    const [habitsFiltered, setHabitsFiltered] = useState(null)
+  const [profileData, setProfileData] = useState(null)
+  const [loggedInProfile, setLoggedInProfile] = useState(null)
+  const [eventData, setEventData] = useState([])
+  const [filterHabits, setFilterHabits] = useState({
+    event: '',
+    date: ''
+  })
+  const [habitsFiltered, setHabitsFiltered] = useState(null)
 
-    // const [isError, setIsError] = useState({ error: false, message: '' })
-    // const navigate = useNavigate()
+  // const [isError, setIsError] = useState({ error: false, message: '' })
+  // const navigate = useNavigate()
 
-    const { userId } = useParams()
+  const { userId } = useParams()
 
-    useEffect(() => {
+  useEffect(() => {
 
-        const getEventData = async () => {
-            try {
-                const { data } = await axios.get(`/api/events`)
-                setEventData(data)
-                console.log('event indie effect', data)
-                // console.log(data)
-            } catch (err) {
-                // setIsError({ error: true, message: 'Server error' })
-            }
+    const getEventsData = async () => {
+      try {
+        const { data } = await axios.get(`/api/events`)
+        setEventData(data)
+        console.log('This is setEventData -> ', data)
+        // console.log(data)
+      } catch (err) {
+        // setIsError({ error: true, message: 'Server error' })
+      }
+    }
+    getEventsData()
+
+    const getProfileData = async () => {
+        try {
+            const token = localStorage.getItem('tinyhabits-token')
+            console.log(token)
+            const { data } = await axios.get(`/api/profile/${userId}`)
+            console.log('data', data)
+            setProfileData(data)
+        } catch (err) {
+            console.log(err)
         }
-        getEventData()
+    }
+    getProfileData()
+  }, [userId]) // Only on first render
 
-        const getProfile = async () => {
-            try {
-                const token = localStorage.getItem('tinyhabits-token')
-                console.log(token)
-                const { data } = await axios.get(`/api/profile/${userId}`, {
-                    'headers': {
-                        'Authorization': 'Bearer ' + token
-                    }
-                })
-                console.log('data', data)
-                setProfileDetails(data)
-            } catch (err) {
-                console.log(err)
-            }
+  useEffect(() => {
+    const getLoggedInProfile = async () => {
+        try {
+            const token = localStorage.getItem('tinyhabits-token')
+            console.log(token)
+            const { data } = await axios.get(`/api/profile`, {
+                headers: {
+                  Authorization: `Bearer ${getTokenFromLocalStorage()}`,
+                }
+            })
+            // console.log('data', data)
+            setLoggedInProfile(data)
+        } catch (err) {
+            console.log(err)
         }
-        getProfile()
-    }, [userId])
+    }
+    getLoggedInProfile()
+}, [])
 
-    useEffect(() => {
-        const getLoggedInProfile = async () => {
-            try {
-                const token = localStorage.getItem('tinyhabits-token')
-                console.log(token)
-                const { data } = await axios.get(`/api/profile`, {
-                    'headers': {
-                        'Authorization': 'Bearer ' + token
-                    }
-                })
-                // console.log('data', data)
-                setLoggedUserDetails(data)
-            } catch (err) {
-                console.log(err)
-            }
-        }
-        getLoggedInProfile()
-    }, []) // Only on first render
+  function filterHabitsFunction(e) {
+    console.log(e.target.value)
+    console.log(e.target.name)
+    setFilterHabits({ ...filterHabits, [e.target.name]: e.target.value })
+  }
 
-    function filterHabitsFunction(e) {
-        console.log(e.target.value)
-        console.log(e.target.name)
-        setFilterHabits({ ...filterHabits, [e.target.name]: e.target.value })
+  useEffect(() => {
+    if (profileData) {
+      let filteredHabits
+      if ((filterHabits.event === 'All' | filterHabits.event === '') && (filterHabits.date === 'All' | filterHabits.date === '')) {
+        filteredHabits = profileData.habitCompletions
+      } else if (filterHabits.event === 'All' | filterHabits.event === '') {
+        filteredHabits = profileData.habitCompletions.filter(habit => new Date(habit.createdAt).toLocaleDateString() === filterHabits.date)
+      } else if (filterHabits.date === 'All' | filterHabits.date === '') {
+        filteredHabits = profileData.habitCompletions.filter(habit => eventData.filter(event => event._id === habit.event)[0].name === filterHabits.event)
+      } else {
+        filteredHabits = profileData.habitCompletions.filter(habit => (new Date(habit.createdAt).toLocaleDateString() === filterHabits.date) && (eventData.filter(event => event._id === habit.event)[0].name === filterHabits.event))
+      }
+      console.log('filtered habits ->', filteredHabits)
+      setHabitsFiltered(filteredHabits)
     }
 
-    useEffect(() => {
-        if (profileDetails) {
-            let filteredHabits
-            if ((filterHabits.event === 'All' | filterHabits.event === '') && (filterHabits.date === 'All' | filterHabits.date === '')) {
-                filteredHabits = profileDetails.habitCompletions
-            } else if (filterHabits.event === 'All' | filterHabits.event === '') {
-                filteredHabits = profileDetails.habitCompletions.filter(habit => new Date(habit.createdAt).toLocaleDateString() === filterHabits.date)
-            } else if (filterHabits.date === 'All' | filterHabits.date === '') {
-                filteredHabits = profileDetails.habitCompletions.filter(habit => eventData.filter(event => event._id === habit.event)[0].name === filterHabits.event)
-            } else {
-                filteredHabits = profileDetails.habitCompletions.filter(habit => (new Date(habit.createdAt).toLocaleDateString() === filterHabits.date) && (eventData.filter(event => event._id === habit.event)[0].name === filterHabits.event))
-            }
-            // console.log(filteredHabits)
-            setHabitsFiltered(filteredHabits)
-        }
 
+  }, [filterHabits, profileData, eventData])
 
-    }, [filterHabits, profileDetails, eventData])
-
-    console.log('profile', profileDetails)
-    console.log('logged profile', loggedUserDetails)
-    console.log('event', eventData)
-    console.log('filter habits array', filterHabits)
-    return (
+  return (
         <>
-            {profileDetails ?
+            {profileData ?
                 <>
                     <Flex zIndex='0' p='0' mt='5' name="wrapper" width='80%' direction={{ base: 'column', md: 'row' }}>
                         <VStack display='flex' name="content" direction='column' width='70%' alignItems='flex-start'>
@@ -110,18 +104,18 @@ const SingleProfile = () => {
                                     <Avatar
                                         borderRadius='full'
                                         boxSize='150px'
-                                        src={profileDetails.picture !== '' ? profileDetails.picture : ''}
+                                        src={profileData.picture !== '' ? profileData.picture : ''}
                                         alt='profile picture' />
                                 </Box>
                                 <Box name="headline">
-                                    <Text mt='3' size='lg' color='secondary'>Email: {profileDetails.email}</Text>
-                                    <Heading color='white' mt='3' as='h1' size='2xl' mb='4'>{profileDetails.firstName + ' ' + profileDetails.lastName}</Heading>
+                                    <Text mt='3' size='lg' color='secondary'>Email: {profileData.email}</Text>
+                                    <Heading color='white' mt='3' as='h1' size='2xl' mb='4'>{profileData.firstName + ' ' + profileData.lastName}</Heading>
                                 </Box>
-                                {loggedUserDetails ? profileDetails.id === loggedUserDetails.id ?
-                                    <Link to={`/profile/${profileDetails.id}/edit-profile`}>
+                                {loggedInProfile && userIsAuthenticated() && loggedInProfile.id === userId ?
+                                    <Link to={`/profile/${profileData.id}/edit-profile`}>
                                         <Button w='20%' mt='3' backgroundColor='#ffbb0f' boxShadow='lg' rounded='md' bg='white' color='white'>Edit</Button>
                                     </Link>
-                                    : '' : ''}
+                                    : ''}
                             </Box>
                             <Box>
                                 <Flex flexDirection='row' justifyContent='center'>
@@ -135,7 +129,7 @@ const SingleProfile = () => {
                                                             <Select mr='1' width='60%' className='filterHabit' name="event" id="event" onChange={filterHabitsFunction}>
                                                                 <option hidden>Event</option>
                                                                 <option>All</option>
-                                                                {profileDetails.events.map(joinedEvent => {
+                                                                {profileData.events.map(joinedEvent => {
                                                                     // console.log('CHECKKK', eventData.filter(event => event._id === joinedEvent._id)[0].name)
                                                                     return (
                                                                         <option key={joinedEvent._id}>{eventData.length ? eventData.filter(event => event._id === joinedEvent._id)[0].name : '...'}</option>
@@ -145,7 +139,7 @@ const SingleProfile = () => {
                                                             <Select ml='1' width='30%' className='filterHabit' name="date" id="date" onChange={filterHabitsFunction}>
                                                             <option hidden>Date</option>
                                                             <option>All</option>
-                                                            {profileDetails.habitCompletions.sort(function (a, b) {
+                                                            {profileData.habitCompletions.sort(function (a, b) {
                                                                 return new Date(b.createdAt) - new Date(a.createdAt)
                                                             }).map(habit => {
                                                                 return (
@@ -192,22 +186,21 @@ const SingleProfile = () => {
                                                                             {habit.comment}
                                                                         </Box>
                                                                     </Box>
-                                                                    {loggedUserDetails ? profileDetails.id === loggedUserDetails.id ?
+                                                                    {loggedInProfile && userIsAuthenticated() && loggedInProfile.id === userId ?
                                                                         <Box>
                                                                             <Flex flexDirection='row' justifyContent='center'>
                                                                                 <Box mr='2'>
-                                                                                <Link to={`/profile/${profileDetails.id}/${habit.event}/${habit._id}/edit`}>
+                                                                                <Link to={`/profile/${profileData.id}/${habit.event}/${habit._id}/edit`}>
                                                                                 <Button w='100%' mb='5' backgroundColor='#ffbb0f' boxShadow='lg' rounded='md' bg='white' color='white'>Edit</Button>
                                                                                 </Link>
                                                                                 </Box>
                                                                                 <Box mr='2'>
-                                                                                <Link to={`/profile/${profileDetails.id}/${habit.event}/${habit._id}/delete-habit`}>
+                                                                                <Link to={`/profile/${profileData.id}/${habit.event}/${habit._id}/delete-habit`}>
                                                                                 <Button w='100%' mb='5' backgroundColor='#ffbb0f' boxShadow='lg' rounded='md' bg='white' color='white'>Delete</Button>
                                                                                 </Link>
                                                                                 </Box>
                                                                             </Flex>
                                                                         </Box>
-                                                                        : ''
                                                                         : ''}
                                                                 </Box>
                                                             )
@@ -227,7 +220,7 @@ const SingleProfile = () => {
                                 <Heading as='h5' size='md'>Joined Events</Heading>
                             </Box>
                             <Flex name="joined-events" p='3' mt='0' bg='white' w='100%' flexDirection='column' alignItems='center' boxShadow='lg' borderBottomRadius='10'>
-                                {profileDetails.events.length ? profileDetails.events.map(joinedEvent => {
+                                {profileData.events.length ? profileData.events.map(joinedEvent => {
                                     return (
                                         <Text key={joinedEvent._id} as='h4' mb='1.5' mt='1.5' size='md'>- {eventData.length ? eventData.filter(event => event._id === joinedEvent._id)[0].name : '...'}</Text>
                                     )
@@ -243,13 +236,8 @@ const SingleProfile = () => {
             }
             <Box width='100%' zIndex='-1' position='absolute' top='0' left='0' bgGradient='linear(to-r, primary, thirdary)' height={{ base: '460px', md: '460x', lg: '460' }}>
             </Box>
-        </>
-    )
-
-
-
-
-
+    </>
+  )
 }
 
 export default SingleProfile

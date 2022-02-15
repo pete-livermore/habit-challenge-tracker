@@ -21,7 +21,7 @@ commentSchema.virtual('fullOwner', {
 
 
 const eventSchema = new Schema({
-  emoji: { type: String, required: true }, 
+  emoji: { type: String, required: true },
   name: { type: String, required: true, unique: true },
   subTitle: { type: String, required: true },
   description: { type: String, required: true, maxlength: 500 },
@@ -30,7 +30,8 @@ const eventSchema = new Schema({
   endDate: { type: Date, required: true },
   picture: { type: String },
   owner: { type: mongoose.Schema.ObjectId, ref: 'User', required: true },
-  comments: [commentSchema]
+  comments: [commentSchema],
+  likes: { type: Number, required: true }
 })
 
 // * Add virtuals for calculating analytics...

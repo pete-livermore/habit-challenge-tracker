@@ -9,6 +9,7 @@ export default [
     endDate: '2022-03-09',
     picture: 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644571393/project_3_sei61/chehvev8sgnrnuwwuswv.jpg',
     _id: '620970bfebd967d62df75734',
+    likes: 0,
   },
   {
     emoji: '🍷',
@@ -20,6 +21,7 @@ export default [
     endDate: '2022-04-10',
     picture: 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644522818/project_3_sei61/quitAlcohol_wnwteq.jpg',
     _id: '620a1935c600f37f9715d83e',
+    likes: 0,
   },
   {
     emoji: '🥂',
@@ -31,6 +33,7 @@ export default [
     endDate: '2022-05-11',
     picture: 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644522820/project_3_sei61/alcohol_rbzw0o.jpg',
     _id: '620a1935c600f37f9715d83f',
+    likes: 0,
   }
 ]
 
