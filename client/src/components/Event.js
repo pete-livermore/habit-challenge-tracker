@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Link, useParams, useNavigate } from 'react-router-dom'
-import { Container, VStack, Box, Heading, Flex, Avatar, Text, Textarea, Button } from '@chakra-ui/react'
+import { Container, Image, Badge, VStack, Box, Heading, Flex, Avatar, Text, Textarea, Button } from '@chakra-ui/react'
 import { currentDateFormat, endDateFormat, daysLeft} from './helper/eventData'
 import { getTokenFromLocalStorage } from './helper/auth'
 import { HabitsCompleted, HabitsActivity } from './helper/habitStats'
@@ -11,7 +11,7 @@ import Comments from './Comments'
 const Event = () => {
   const [eventData, setEventData] = useState({})
   const [isError, setIsError] = useState({ error: false, message: '' })
-  const params = useParams()
+  const { eventId } = useParams()
   const [value, setValue] = React.useState('')
   const [profileData, setProfileData] = useState({})
   const [eventHabitCompletions, setEventHabitCompletions] = useState([])
@@ -30,14 +30,15 @@ const Event = () => {
   useEffect(() => {
     const getEventData = async () => {
       try {
-        const { data } = await axios.get(`/api/events/${params.eventId}`)
+        const { data } = await axios.get(`/api/events/${eventId}`)
+        console.log(data)
         setEventData(data)
       } catch (err) {
         setIsError({ error: true, message: 'Server error' })
       }
     }
     getEventData()
-  }, [params])
+  }, [eventId])
 
 
   useEffect(() => {
@@ -69,7 +70,7 @@ const Event = () => {
   }, [eventData])
 
   const toAddHabitPage = () => {
-    navigate(`/events/${params.eventId}/AddHabitCompletion`)
+    navigate(`/events/${eventId}/AddHabitCompletion`)
   } 
 
   const userJoinedEvent = () => {
@@ -79,31 +80,22 @@ const Event = () => {
     return userJoined  
   } 
 
-//   useEffect(() => {
-//     if (eventData) {
-//       const filteredHabits = (eventData.eventMembers)
-//       .map(member => member)
-//       .map(habit => habit.habitCompletions)
-//       .filter(event => event.event === eventData.event)
-//     console.log('members.filtered',filteredHabits);
-//     setHabitsFiltered(filteredHabits) 
-//     }
-//         // show me every eventMembers.habitCompletions where the event id equals the event
-      
+  useEffect(() => {
+    if (Object.keys(eventData).length) {
+      const filteredHabits = (eventData.eventMembers)
+      .map(member => member)
+      .map(habit => habit.habitCompletions)
+      .filter(event => event.event === eventData.event)
+      console.log('members.filtered',filteredHabits);
+      setHabitsFiltered(filteredHabits) 
+    }
+  },[eventData])
 
-// },[eventData])
 
-    
-    // 
-    //   .filter(habit => Object.key(habitCompletions.event === eventData.id))
-    // console.log('membersFiltered ->', membersFiltered)
-
-  
-// const newFilteredHabits = habits.filter(habit => habit.eventId === eventId) 
-
+console.log('eventdata',eventData)
 return (
   <>
-    {Object.keys(eventData).length ?
+    {habitsFiltered && Object.keys(eventData).length ?
       <>
         <Flex zIndex='0' p='0' mt='5' name="wrapper" width='80%' direction={{ base: 'column', md: 'row' }}>
           <VStack display='flex' name="content" mr='10' direction='column' width='70%' alignItems='flex-start'>
@@ -132,6 +124,51 @@ return (
                 <Text>{eventData.description}</Text>
                 
             </Box>
+
+            <Flex name='widget' bg='white' w='100%' flexDirection='column' alignItems='center' boxShadow='lg' rounded='md'>
+            {habitsFiltered.map(userhabit => {
+              return userhabit.map(habit => {
+                return (
+                <Box key={habit._id} maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden'>
+                <Link to={`/events/${habit.event}`}><Image src={habit.picture} alt='habit-pic' /></Link>
+
+                <Box p='6'>
+                  <Box display='flex' alignItems='baseline'>
+                    <Badge borderRadius='full' px='2' colorScheme='teal'>
+                      Completed
+                    </Badge>
+                    <Box
+                      color='gray.500'
+                      fontWeight='semibold'
+                      letterSpacing='wide'
+                      fontSize='xs'
+                      textTransform='uppercase'
+                      ml='2'
+                    >
+                      {new Date(habit.createdAt).toLocaleDateString()}
+                    </Box>
+                  </Box>
+                  <Box
+                    mt='1'
+                    fontWeight='semibold'
+                    as='h4'
+                    lineHeight='tight'
+                    isTruncated
+                  >
+                    {eventData.length ? eventData.filter(event => event._id === habit.event)[0].name : '...'}
+                  </Box>
+
+                  <Box>
+                    {habit.comment}
+                  </Box>
+                </Box>
+              
+              </Box>
+            )
+              }) }) 
+        }
+          </Flex>
+
             <Comments />
 
             <Flex name="comments" direction='column' boxShadow='base' p='6' rounded='md' width="100%" mt='4' backgroundColor='#F7FAFC'>
@@ -163,7 +200,7 @@ return (
                 :
                 <Text fontSize={{ base:'12px', md:'16px', lg:'24px' }} fontWeight='bold' textAlign='center'>The challenge<br></br> starts in {daysLeft(eventData)}</Text> }
                 <HabitsCompleted m='3' eventHabitCompletions={eventHabitCompletions} /> 
-                <HabitsActivity habitsFiltered={habitsFiltered} eventData={eventData} profileData={profileData} /> 
+
                 <Text textAlign='center' mt='4'>{currentDateFormat(eventData)} - {endDateFormat(eventData)}</Text>
               {userJoinedEvent ?
                

@@ -15,9 +15,12 @@ export const HabitsCompleted = ({ eventHabitCompletions }) => {
 }
 
 export const HabitsActivity = ({ habitsFiltered, eventData, profileData }) => { 
+  console.log('habitsFiltered =>', habitsFiltered[0][0].comment)
+  console.log(userIsAuthenticated())
   return (
     <Flex bg='white' w='100%' flexDirection='column' alignItems='center' boxShadow='lg' rounded='md'>
-     {habitsFiltered && habitsFiltered.map(habit => {
+     {habitsFiltered.map(userhabit => {
+       return userhabit.map(habit => {
         return (
         <Box key={habit._id} maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden'>
         <Link to={`/events/${habit.event}`}><Image src={habit.picture} alt='habit-pic' /></Link>
@@ -52,7 +55,7 @@ export const HabitsActivity = ({ habitsFiltered, eventData, profileData }) => {
             {habit.comment}
           </Box>
         </Box>
-        { userIsAuthenticated &&
+        { userIsAuthenticated() ?
           <Box>
             <Flex flexDirection='row'>
               <Link to={`/profile/${profileData.id}/${habit.event}/${habit._id}/edit`}>
@@ -63,10 +66,12 @@ export const HabitsActivity = ({ habitsFiltered, eventData, profileData }) => {
               </Link>
             </Flex>
           </Box>
+          :
+          <p>Nothing to see</p>
         }
-      </Box>
+       </Box>
     )
-  }) 
+       }) }) 
 }
 </Flex>
     
