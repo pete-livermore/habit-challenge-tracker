@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link, Box, Text, Button, Stack } from "@chakra-ui/react";
 import { MenuToggle } from './MenuToggle'
 import { userIsAuthenticated } from '../helper/auth'
@@ -8,8 +8,6 @@ import axios from 'axios'
 
 
 import Logo from "./Logo";
-
-
 
 const NavBar = (props) => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -91,7 +89,6 @@ const MenuLinks = ({ isOpen }) => {
         direction={["column", "row", "row", "row"]}
         pt={[4, 4, 0, 0]}
       >
-        <MenuItem to="/events">Events </MenuItem>
         {userIsAuthenticated() ?
           <>
             <MenuItem onClick={gotToUserProfile}>Profile </MenuItem>
@@ -104,8 +101,8 @@ const MenuLinks = ({ isOpen }) => {
               <Button
                 size="sm"
                 rounded="md"
-                color={["primary.500", "primary.500", "white", "white"]}
-                bg={["black", "black", "primary.500", "primary.500"]}
+                color={["primary.500", "primary.500", "thirdary", "thirdary"]}
+                bg={["white", "white", "primary.500", "primary.500"]}
                 _hover={{
                   bg: ["primary.100", "primary.100", "primary.600", "primary.600"]
                 }}

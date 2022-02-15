@@ -6,6 +6,7 @@ import eventImage from '../../assets/images/coding-challenge.jpg'
 import DiscoverEvents from './DiscoverEvents'
 import { useNavigate, Link } from "react-router-dom"
 import { getTokenFromLocalStorage, userIsAuthenticated } from '../helper/auth'
+import { currentDateFormat, daysLeft} from '../helper/eventData'
 
 const Dashboard = ({ eventList }) => {
   const [profileData, setProfileData] = useState({})
@@ -57,19 +58,12 @@ const Dashboard = ({ eventList }) => {
     setSelectedEvent(filtered[0])
   }
 
-  // Changing the format of the current date
-  const currentDateFormat = (event) => {
-    return new Date(event.startDate).toLocaleDateString()
-  }
+  // // Changing the format of the current date
+  // const currentDateFormat = (event) => {
+  //   return new Date(event.startDate).toLocaleDateString()
+  // }
 
   // Calculating the days remaining of the event
-  const daysLeft = (event) => {
-    const currentDate = new Date()
-    const endDate = new Date(event.endDate)
-    const timeDifference = Math.abs(endDate - currentDate)
-    const daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24))
-    return `${daysDifference} days`
-  }
 
   // Calculating the user's best habit completion streak
   const calcStreak = () => {
@@ -146,7 +140,7 @@ const Dashboard = ({ eventList }) => {
                   })}
                 </Select>
               </Box>
-              <Flex direction='column' justify='center' mt='4' px='6' py='4' boxShadow='base' p='6' rounded='md' bg='brand.900' color='white'>
+              <Flex direction='column' justify='center' mt='4' px='6' py='4' boxShadow='base' p='6' rounded='md' bg='brand.900'>
                 <Box>
                   <Heading as='h3' size='lg'>{selectedEvent.name}</Heading>
                 </Box>

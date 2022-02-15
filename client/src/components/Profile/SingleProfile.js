@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Spinner, HStack, Center, Container, Box, Heading, Flex, Avatar, Text, Textarea, Badge, Image, Button } from '@chakra-ui/react'
-import { Link, Navigate, useParams, useNavigate } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 const SingleProfile = () => {
 
@@ -15,7 +15,7 @@ const SingleProfile = () => {
     const [habitsFiltered, setHabitsFiltered] = useState(null)
 
     // const [isError, setIsError] = useState({ error: false, message: '' })
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
 
     const { userId } = useParams()
 
