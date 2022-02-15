@@ -42,7 +42,7 @@ const SingleProfile = () => {
                         'Authorization': 'Bearer ' + token
                     }
                 })
-                // console.log('data', data)
+                console.log('data', data)
                 setProfileDetails(data)
             } catch (err) {
                 console.log(err)
@@ -95,21 +95,14 @@ const SingleProfile = () => {
 
     }, [filterHabits, profileDetails, eventData])
 
-
-// const gotToDeleteHabit = (e) => {
-//     console.log(e)
-//     // navigate(`/profile/${userId}/${}/DeleteHabit`)
-// }
-
-
     console.log('profile', profileDetails)
     console.log('logged profile', loggedUserDetails)
     console.log('event', eventData)
     console.log('filter habits array', filterHabits)
     return (
         <>
-        {profileDetails ?  
-        <><Center>
+            {profileDetails ?
+                <><Center>
                     <Box>
                         {profileDetails ?
                             <>
@@ -165,14 +158,16 @@ const SingleProfile = () => {
                                                     {profileDetails.events.map(joinedEvent => {
                                                         // console.log('CHECKKK', eventData.filter(event => event._id === joinedEvent._id)[0].name)
                                                         return (
-                                                            <option key={joinedEvent._id}>{eventData.filter(event => event._id === joinedEvent._id).length ? eventData.filter(event => event._id === joinedEvent._id)[0].name : '...'}</option>
+                                                            <option key={joinedEvent._id}>{eventData.length ? eventData.filter(event => event._id === joinedEvent._id)[0].name : '...'}</option>
                                                         )
                                                     })}
                                                 </select>
                                                 <select className='filterHabit' name="date" id="date" onChange={filterHabitsFunction}>
                                                     <option hidden>Filter Date</option>
                                                     <option>All</option>
-                                                    {profileDetails.habitCompletions.map(habit => {
+                                                    {profileDetails.habitCompletions.sort(function (a, b) {
+                                                        return new Date(b.createdAt) - new Date(a.createdAt)
+                                                    }).map(habit => {
                                                         return (
                                                             <option key={habit._id}>{new Date(habit.createdAt).toLocaleDateString()}</option>
                                                         )
@@ -183,7 +178,7 @@ const SingleProfile = () => {
                                                 {habitsFiltered.length ? habitsFiltered.map(habit => {
                                                     return (
                                                         <Box key={habit._id} maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden'>
-                                                            <Image src={habit.picture} alt='habit-pic' />
+                                                            <Link to={`/events/${habit.event}`}><Image src={habit.picture} alt='habit-pic' /></Link>
 
                                                             <Box p='6'>
                                                                 <Box display='flex' alignItems='baseline'>
@@ -208,7 +203,7 @@ const SingleProfile = () => {
                                                                     lineHeight='tight'
                                                                     isTruncated
                                                                 >
-                                                                    {eventData.filter(event => event._id === habit.event).length ? eventData.filter(event => event._id === habit.event)[0].name : '...'}
+                                                                    {eventData.length ? eventData.filter(event => event._id === habit.event)[0].name : '...'}
                                                                 </Box>
 
                                                                 <Box>
@@ -218,7 +213,9 @@ const SingleProfile = () => {
                                                             {loggedUserDetails ? profileDetails.id === loggedUserDetails.id ?
                                                                 <Box>
                                                                     <Flex flexDirection='row'>
-                                                                        <Button w='20%' backgroundColor='green' boxShadow='lg' p='6' rounded='md' bg='white' color='white'>Edit</Button>
+                                                                        <Link to={`/profile/${profileDetails.id}/${habit.event}/${habit._id}/edit`}>
+                                                                            <Button w='20%' backgroundColor='green' boxShadow='lg' p='6' rounded='md' bg='white' color='white'>Edit</Button>
+                                                                        </Link>
                                                                         <Link to={`/profile/${profileDetails.id}/${habit.event}/${habit._id}/delete-habit`}>
                                                                             <Button w='20%' backgroundColor='red' boxShadow='lg' p='6' rounded='md' bg='white' color='white'>Delete</Button>
                                                                         </Link>
@@ -238,11 +235,11 @@ const SingleProfile = () => {
 
                         </Flex>
                     </Box></>
-    : 
-    <Flex flexDirection='row' justifyContent='center'>
-    <Spinner />
-    </Flex>
-    }
+                :
+                <Flex flexDirection='row' justifyContent='center'>
+                    <Spinner />
+                </Flex>
+            }
         </>
     )
 
