@@ -7,6 +7,7 @@ import DiscoverEvents from './DiscoverEvents'
 import { useNavigate, Link } from "react-router-dom"
 import { getTokenFromLocalStorage, userIsAuthenticated } from '../helper/auth'
 import { currentDateFormat, daysLeft} from '../helper/eventData'
+import { HabitsCompleted } from '../helper/habitStats'
 
 const Dashboard = ({ eventList }) => {
   const [profileData, setProfileData] = useState({})
@@ -168,8 +169,7 @@ const Dashboard = ({ eventList }) => {
                       </Stat>
                     </StatGroup>
                     <Box mt='4'>
-                      <p>Your completion progress: {((eventHabitCompletions.length / 30) * 100).toFixed(1)}%</p>
-                      <Progress borderRadius="1rem" colorScheme='green' size='lg' value={((eventHabitCompletions.length / 30) * 100).toFixed(1)} />
+                      <p>Your completion progress:<HabitsCompleted eventHabitCompletions={eventHabitCompletions} /></p>
                     </Box>
                     <Box mt='4'>
                       <p>Your best completion streak is: {calcStreak()}</p>

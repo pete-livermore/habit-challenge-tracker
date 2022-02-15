@@ -3,6 +3,8 @@ import axios from 'axios'
 import { Link, useParams, useNavigate } from 'react-router-dom'
 import { Container, VStack, Box, Heading, Flex, Avatar, Text, Textarea, Button } from '@chakra-ui/react'
 import { currentDateFormat, endDateFormat, daysLeft} from './helper/eventData'
+import { getTokenFromLocalStorage } from './helper/auth'
+import { HabitsCompleted } from './helper/habitStats'
 
 import Comments from './Comments'
 
@@ -12,7 +14,10 @@ const Event = () => {
   const params = useParams()
   const [value, setValue] = React.useState('')
   const [profileDetails, setProfileDetails] = useState(null)
-
+  const [profileData, setProfileData] = useState({})
+  const [eventHabitCompletions, setEventHabitCompletions] = useState([])
+  const [widget, setWidget] = useState([])
+  const [hasError, setHasError] = useState({ error: false, message: '' })
 
   const navigate = useNavigate()
 
@@ -35,34 +40,44 @@ const Event = () => {
 
 
   useEffect(() => {
-      const getProfile = async () => {
-        try {  
-          const token = localStorage.getItem('tinyhabits-token')
-    console.log(token)
-    console.log('owner inside profile get', eventData.owner)
-          const { data } = await axios.get(`/api/profile/${eventData.owner.id}`, {
-            'headers': {
-              'Authorization': 'Bearer ' + token
-            }
-            })
-            // console.log('data', data)
-          setProfileDetails(data)
-        } catch (err) {
-          console.log(err)
-        }
+    const getProfileData = async () => {
+      try {
+        const res = await axios.get('/api/profile', {
+          headers: {
+            Authorization: `Bearer ${getTokenFromLocalStorage()}`,
+          },
+        })
+        console.log('response', res.data)
+        setProfileData(res.data)
+        userJoinedEvent()
+      } catch (err) {
+        setHasError({ error: true, message: err.message })
       }
-    
-    getProfile()
-  }, [eventData]) // Only on first render
+    }
+    getProfileData()
+  }, [eventData])
 
+  useEffect(() => {
+    if (profileData.habitCompletions && eventData && Object.keys(eventData).length) {
+      const filtered = profileData.habitCompletions.filter(habit => habit.event === eventData._id)
+      setEventHabitCompletions(filtered)
+    }
+  }, [profileData, eventData])
 
   useEffect(() => {
     console.log(Object.keys(eventData))
-    console.log(eventData)
+    console.log('eventdata  ->', eventData)
   }, [eventData])
 
   const toAddHabitPage = () => {
     navigate(`/events/${params.eventId}/AddHabitCompletion`)
+  }
+
+  const userJoinedEvent = () => {
+   
+    const userJoined = profileData.events.some(ev => ev._id === eventData._id)
+    console.log('userJoined', userJoined)
+    return userJoined
   }
 
 // const newFilteredHabits = habits.filter(habit => habit.eventId === eventId) 
@@ -112,7 +127,7 @@ return (
           </VStack>
           <Container width={{ base: '100%', md: '40%'}} name="widget">
               <Box name="challengers" p='8' mt='0' backgroundColor='#0075ff' color='white'  borderTopRadius='10' w='100%'>
-                <Heading size='sm'>Challengers ({eventData.eventMembers.length})</Heading>
+              <Heading size='sm'>Challengers ({eventData.eventMembers.length})</Heading>
                 <Flex mt='4' w='100%'>
                   {eventData.eventMembers.map(members => {
                     return (
@@ -123,14 +138,20 @@ return (
                   })}
                 </Flex>
               </Box>
-              <Flex name="actions" p='8' mt='0' bg='white' w='100%' flexDirection='column' alignItems='center' boxShadow='lg'  borderBottomRadius='10'>
-                {eventData.isLive ?
+              <Flex name="actions" p='8' mt='0' bg='white' w='100%' flexDirection='column' alignItems='center' boxShadow='lg'  borderBottomRadius='10'>  
+              {eventData.isLive ?
                 <Text>The Challenge is live!</Text>
                 :
-                 <Text fontSize={{ base:'12px', md:'16px', lg:'24px' }} fontWeight='bold' textAlign='center'>The challenge<br></br> starts in {daysLeft(eventData)}</Text> }
+                <Text fontSize={{ base:'12px', md:'16px', lg:'24px' }} fontWeight='bold' textAlign='center'>The challenge<br></br> starts in {daysLeft(eventData)}</Text> }
+                <HabitsCompleted m='3' eventHabitCompletions={eventHabitCompletions} />  
                 <Text textAlign='center' mt='4'>{currentDateFormat(eventData)} - {endDateFormat(eventData)}</Text>
+              {userJoinedEvent ?
+               
+                <p mt='10'>You are part of this</p>
+                :
                 <Button fontSize='16px' fontWeight='bold' my='6' w='60%' backgroundColor='#ffbb0f' boxShadow='lg' p='6' rounded='md' bg='white' color='white'>JOIN TODAY</Button>
-     
+
+              }
             </Flex>
           </Container>
           <Box width='100%' zIndex='-1' position='absolute' top='0' left='0' bgGradient='linear(to-r, primary, thirdary)' height={{base:'460px', md: '460x', lg: '460'}}>
