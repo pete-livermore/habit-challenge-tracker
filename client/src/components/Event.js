@@ -1,41 +1,38 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Link, useParams, useNavigate } from 'react-router-dom'
-import { Container, VStack, Box, Heading, Flex, Avatar, Text, Textarea, Button, Spinner } from '@chakra-ui/react'
+import { Container, VStack, Box, Heading, Flex, Avatar, Text, Image, Button, Spinner } from '@chakra-ui/react'
 import { currentDateFormat, endDateFormat, daysLeft } from './helper/eventData'
 import { getTokenFromLocalStorage } from './helper/auth'
 import { HabitsCompleted } from './helper/habitStats'
 import Comments from './Comments'
+import likeIcon from '../assets/images/like_icon_unclicked.png'
+import likeIconClicked from '../assets/images/like_icon_clicked.png'
 
 const Event = () => {
   const [eventData, setEventData] = useState({})
   const [isError, setIsError] = useState({ error: false, message: '' })
-  const params = useParams()
-  const [value, setValue] = React.useState('')
+  const { eventId } = useParams()
   const [profileDetails, setProfileDetails] = useState(null)
   const [profileData, setProfileData] = useState({})
   const [eventHabitCompletions, setEventHabitCompletions] = useState([])
   const [widget, setWidget] = useState([])
   const [hasError, setHasError] = useState({ error: false, message: '' })
+  const [likeClick, setLikeClick] = useState({ liked: false, operator: 1 })
 
   const navigate = useNavigate()
-
-  const handleInputChange = (e) => {
-    let inputValue = e.target.value
-    setValue(inputValue)
-  }
 
   useEffect(() => {
     const getEventData = async () => {
       try {
-        const { data } = await axios.get(`/api/events/${params.eventId}`)
+        const { data } = await axios.get(`/api/events/${eventId}`)
         setEventData(data)
       } catch (err) {
         setIsError({ error: true, message: 'Server error' })
       }
     }
     getEventData()
-  }, [params])
+  }, [eventId, likeClick])
 
 
   useEffect(() => {
@@ -54,7 +51,7 @@ const Event = () => {
       }
     }
     getProfileData()
-  }, [eventData])
+  }, [eventId])
 
   useEffect(() => {
     if (profileData.habitCompletions && eventData && Object.keys(eventData).length) {
@@ -69,7 +66,7 @@ const Event = () => {
   }, [eventData])
 
   const toAddHabitPage = () => {
-    navigate(`/events/${params.eventId}/AddHabitCompletion`)
+    navigate(`/events/${eventId}/AddHabitCompletion`)
   }
 
   const userJoinedEvent = () => {
@@ -81,12 +78,41 @@ const Event = () => {
 
   // const newFilteredHabits = habits.filter(habit => habit.eventId === eventId) 
 
+  // handles click of the like icon
+  const handleClick = () => {
+    if (!likeClick.liked) {
+      setLikeClick({ liked: true, operator: -1 })
+    } else {
+      setLikeClick({ liked: false, operator: 1 })
+    }
+  }
+
+  useEffect(() => {
+    const addLike = async () => {
+      try {
+        await axios.put(`/api/events/${eventId}/likes`, likeClick, {
+          headers: {
+            Authorization: `Bearer ${getTokenFromLocalStorage()}`,
+          },
+        })
+      } catch (err) {
+        setHasError({ error: true, message: err.message })
+      }
+    }
+    addLike()
+  }, [eventId, likeClick])
+
+
+  useEffect(() => {
+    console.log(likeClick)
+  }, [likeClick])
+
   return (
     <>
       {Object.keys(eventData).length ?
         <>
           <Flex zIndex='0' p='0' mt='5' name="wrapper" width='80%' direction={{ base: 'column', md: 'row' }}>
-            <VStack display='flex' name="content" mr='10' direction='column' width='70%' alignItems='flex-start'>
+            <VStack display='flex' name="content" mr='10' direction='column' width='70%' alignItems='flex-start' mb='6'>
               <Box name="header" mb='105px' >
                 <Box name="image" w='450px'>
                   <Heading fontSize="6em">{eventData.emoji}</Heading>
@@ -140,8 +166,10 @@ const Event = () => {
                   </>
                   :
                   <Button fontSize='16px' fontWeight='bold' my='6' w='60%' backgroundColor='#ffbb0f' boxShadow='lg' p='6' rounded='md' bg='white' color='white'>JOIN TODAY</Button>
-
                 }
+                {/* This is the like click functionality */}
+                <Text>Likes({eventData.likes})</Text>
+                <Image mt='2' boxSize='30px' onClick={handleClick} style={{ cursor: 'pointer' }} src={!likeClick.liked ? likeIcon : likeIconClicked}></Image>
               </Flex>
             </Container>
             <Box width='100%' zIndex='-1' position='absolute' top='0' left='0' bgGradient='linear(to-r, primary, thirdary)' height={{ base: '460px', md: '460x', lg: '460' }}>

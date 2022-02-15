@@ -33,7 +33,6 @@ const Comments = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      console.log('hello')
       const token = localStorage.getItem('tinyhabits-token')
       await axios.post(`/api/events/${eventId}/comments`, commentFormData, {
         'headers': {
@@ -42,11 +41,6 @@ const Comments = () => {
       })
       setFormSubmitted(true)
       setCommentFormData({ text: '' })
-      // const timer = setTimeout(() => {
-      //   console.log('timer')
-
-      // }, 1000)
-      // return clearTimeout(timer)
     } catch (err) {
       // setBackEndError(err.response.data.message)
       // setFormErrors(err.response.data.errors)
@@ -80,7 +74,7 @@ const Comments = () => {
     <>
       {userIsAuthenticated() &&
         <>
-          <Box mt='6' p='4' backgroundColor='#F7FAFC' w='100%' boxShadow='lg' rounded='md'>
+          <Box mt='6' p='4' backgroundColor='#F7FAFC' w='100%' boxShadow='base' rounded='md'>
             <form onSubmit={handleSubmit}>
               <Text mb='8px' fontWeight='700'>Join the conversation</Text>
               <Textarea backgroundColor='#FFFFFF'
@@ -99,7 +93,7 @@ const Comments = () => {
             }
           </Box>
           {comments !== null ?
-            <Box ml='4' mt='6' p='4' backgroundColor='#F7FAFC' w='100%' boxShadow='lg' rounded='md'>
+            <Box ml='4' mt='6' p='4' backgroundColor='#F7FAFC' w='100%' boxShadow='base' rounded='md'>
               <Heading as='h3' size='sm' mb='4'>Comments</Heading>
               {comments.length ?
                 comments.map(comment => {
@@ -120,7 +114,9 @@ const Comments = () => {
                   )
                 })
                 :
-                <Text color='gray.500'>No comments yet</Text>
+                <Box color='gray.500'>
+                  <Text backgroundColor='white' p='4' >No comments yet</Text>
+                </Box>
               }
             </Box>
             : hasError.error ? (

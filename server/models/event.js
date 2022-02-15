@@ -30,7 +30,8 @@ const eventSchema = new Schema({
   endDate: { type: Date, required: true },
   picture: { type: String },
   owner: { type: mongoose.Schema.ObjectId, ref: 'User', required: true },
-  comments: [commentSchema]
+  comments: [commentSchema],
+  likes: { type: Number, required: true }
 })
 
 // * Add virtuals for calculating analytics...
