@@ -6,7 +6,7 @@ import User from '../models/user.js'
 export const getEvent = async (req, res) => {
   try {
     const { eventId } = req.params
-    const event = await Event.findById(eventId).populate('eventMembers').populate('owner')
+    const event = await Event.findById(eventId).populate('eventMembers').populate('owner').populate('owner.habitCompletions.event')
     return res.status(200).json(event)
   } catch (err) {
     return res.status(404).json({ message: 'Not Found' })
@@ -64,7 +64,7 @@ export const joinEvent = async (req, res) => {
     const currentUserProfile = await User.findById(req.currentUser._id)
     const event = await Event.findById(eventId)
     const currentDate = new Date().toLocaleDateString()
-    if (currentDate > event.startDate.toLocaleDateString()) throw new Error('Event already started')
+    if (currentDate < event.startDate.toLocaleDateString()) throw new Error('Event already started')
     // console.log('events for current user =>', currentUserProfile.events)
     // console.log('current event id =>', eventId)
     // console.log('if statement',currentUserProfile.events.some(event => event._id.equals(eventId)))

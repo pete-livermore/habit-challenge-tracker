@@ -86,7 +86,7 @@ const SingleProfile = () => {
             <Center><Avatar
               borderRadius='full'
               boxSize='150px'
-              src={profileData.picture !== '' ? profileData.picture : ''}
+              src={profileData.profilePicture !== '' ? profileData.profilePicture : ''}
               alt='profile picture' /></Center>
           </Box>
           <Flex bg='white' w='100%' flexDirection='column' alignItems='center' boxShadow='lg' rounded='md'>

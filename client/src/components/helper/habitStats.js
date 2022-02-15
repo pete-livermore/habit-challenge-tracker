@@ -15,12 +15,12 @@ export const HabitsCompleted = ({ eventHabitCompletions }) => {
 }
 
 export const HabitsActivity = ({ habitsFiltered, eventData, profileData }) => { 
-  console.log('habitsFiltered =>', habitsFiltered[0][0].comment)
+  console.log('habitsFiltered =>', habitsFiltered)
   console.log(userIsAuthenticated())
   return (
     <Flex bg='white' w='100%' flexDirection='column' alignItems='center' boxShadow='lg' rounded='md'>
-     {habitsFiltered.map(userhabit => {
-       return userhabit.map(habit => {
+     {habitsFiltered.map(habit => {
+       
         return (
         <Box key={habit._id} maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden'>
         <Link to={`/events/${habit.event}`}><Image src={habit.picture} alt='habit-pic' /></Link>
@@ -71,7 +71,7 @@ export const HabitsActivity = ({ habitsFiltered, eventData, profileData }) => {
         }
        </Box>
     )
-       }) }) 
+       }) 
 }
 </Flex>
     

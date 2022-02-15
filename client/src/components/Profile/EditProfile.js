@@ -24,14 +24,14 @@ const EditProfile = () => {
         firstName: '',
         lastName: '',
         email: '',
-        picture: '',
+        profilePicture: '',
     })
 
     const [formError, setFormError] = useState({
         firstName: '',
         lastName: '',
         email: '',
-        picture: '',
+        profilePicture: '',
     })
     const handleChange = (e) => {
         const newObj = { ...formData, [e.target.name]: e.target.value } //Spreading formData makes sure we maintain the data structure of formData
@@ -51,7 +51,7 @@ const EditProfile = () => {
                     }
                 })
                 // console.log('data', data)
-                const filterData = { firstName: data.firstName, lastName: data.lastName, email: data.email, picture: data.picture }
+                const filterData = { firstName: data.firstName, lastName: data.lastName, email: data.email, profilePicture: data.profilePicture }
                 setFormData(filterData)
             } catch (err) {
                 console.log(err)
@@ -83,7 +83,7 @@ const EditProfile = () => {
     }
 
     const handleImageUrl = url => {
-        setFormData({ ...formData, picture: url })
+        setFormData({ ...formData, profilePicture: url })
     }
 
     console.log(formData)
@@ -115,10 +115,10 @@ const EditProfile = () => {
                                 {formError.email && <Alert status='error' mt={4}>{formError.email}</Alert>}
                             </FormControl>
                             <FormControl mt={6}>
-                                <FormLabel htmlFor='picture'>Add Profile Picture</FormLabel>
+                                <FormLabel htmlFor='profilePicture'>Add Profile Picture</FormLabel>
                                 <ImageUpload
-                                    value={formData.picture}
-                                    name='picture'
+                                    value={formData.profilePicture}
+                                    name='profilePicture'
                                     handleImageUrl={handleImageUrl}
                                 />
                             </FormControl>

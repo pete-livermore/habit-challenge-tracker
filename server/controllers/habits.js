@@ -42,6 +42,7 @@ export const addHabitComplete = async (req, res) => {
     console.log('eventid',eventId)
     if (!currentUserProfile.events.some(event => event._id.equals(eventId))) { //If the user has not joined the event yet, it will add the user to the event
       currentUserProfile.events.push(eventId)
+      console.log('curent user profile ->', currentUserProfile)
     } else console.log('Found')
     currentUserProfile.save()
     const userToFetch = await User.findById(req.currentUser._id).populate('habitCompletions') 
@@ -51,7 +52,7 @@ export const addHabitComplete = async (req, res) => {
     console.log('was habit doen already? =>',checkHabitToday)
     if (checkHabitToday) throw new Error('You already submitted a habit for today')
     
-    const habitCompleteToadd = { ...req.body, owner: req.currentUser._id, event: eventId } 
+    const habitCompleteToadd = { ...req.body, owner: req.currentUser._id, firstName: currentUserProfile.firstName, lastName: currentUserProfile.lastName, profilePicture: currentUserProfile.profilePicture, event: eventId } 
     userToFetch.habitCompletions.push(habitCompleteToadd)
     await userToFetch.save()
     return res.status(201).json(userToFetch)

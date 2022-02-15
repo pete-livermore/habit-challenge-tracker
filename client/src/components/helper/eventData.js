@@ -1,4 +1,4 @@
-let options = { weekday: 'short', month: 'long', day: 'numeric' };
+let options = { weekday: 'short', month: 'long', day: 'numeric', year: 'numeric' };
 
 
 export const currentDateFormat = (event) => {
@@ -7,6 +7,10 @@ export const currentDateFormat = (event) => {
 
 export const endDateFormat = (event) => {
   return new Date(event.endDate).toLocaleDateString('en-US', options)
+}
+
+export const habitDateFormat = (habit) => {
+  return new Date(habit.createdAt).toLocaleDateString('en-US', options)
 }
 
 export const daysLeft = (event) => {
