@@ -128,11 +128,11 @@ return (
           <Container width={{ base: '100%', md: '40%'}} name="widget">
               <Box name="challengers" p='8' mt='0' backgroundColor='#0075ff' color='white'  borderTopRadius='10' w='100%'>
               <Heading size='sm'>Challengers ({eventData.eventMembers.length})</Heading>
-                <Flex mt='4' w='100%'>
+                <Flex flexWrap='wrap' mt='4' w='100%'>
                   {eventData.eventMembers.map(members => {
                     return (
                       <Link key={members._id} to={`/profile/${members._id}`}>
-                        <Avatar mr='4' src={members.picture} />
+                        <Avatar mb='4' mr='4' src={members.picture} />
                       </Link>
                     )
                   })}
