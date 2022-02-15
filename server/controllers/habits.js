@@ -24,6 +24,7 @@ export const getUserSingleHabit = async (req, res) => {
     return res.status(200).json(singleHabitForUser)
   } catch (err) {
     console.log(err)
+    return res.status(404).json({ message: err.message })
   }
 }
 

@@ -97,7 +97,7 @@ return (
                 <Heading color='white' mt='4' as='h1' size='2xl' mb='4'>{eventData.name}</Heading>
               </Box>
               <Box mt='6' name="event-owner" display='flex'>
-                <Link to={`/profile/${eventData.owner}`}>
+                <Link to={`/profile/${eventData.owner.id}`}>
                   <Avatar size='md' src={profileDetails ? profileDetails.picture : ''} />
                 </Link>
                     <Box ml='3'>
