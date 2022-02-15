@@ -124,7 +124,7 @@ const Event = () => {
         <>
           <Flex zIndex='0' p='0' mt='5' name="wrapper" width='80%' direction={{ base: 'column', md: 'row' }}>
             <VStack display='flex' name="content" mr='10' direction='column' width='70%' alignItems='flex-start' mb='6'>
-              <Box name="header" mb='105px' >
+              <Box name="header" mb='45px' >
                 <Box name="image" w='450px'>
                   <Heading fontSize="6em">{eventData.emoji}</Heading>
                 </Box>
@@ -143,21 +143,6 @@ const Event = () => {
                     <Text fontWeight='bold' color='secondary'>{eventData.owner.firstName} {eventData.owner.lastName}</Text>
                   </Box>
                 </Box>
-              </Box>
-              <Box name="headline">
-                <Text mt='10' size='lg' color='secondary'>{eventData.subTitle}</Text>
-                <Heading color='white' mt='4' as='h1' size='2xl' mb='4'>{eventData.name}</Heading>
-              </Box>
-              <Box mt='6' name="event-owner" display='flex'>
-                <Link to={`/profile/${eventData.owner.id}`}>
-                  <Avatar size='md' src={profileData ? profileData.picture : ''} />
-                </Link>
-                    <Box ml='3'>
-                      <Text fontSize='sm'color='secondary' >
-                        Created by
-                      </Text>
-                      <Text fontWeight='bold' color='secondary'>{eventData.owner.firstName} {eventData.owner.lastName}</Text>
-                    </Box>
               </Box>
             <Box name="description" width='100%' boxShadow='base' p='6' rounded='md' bg='#FFFFFF' mr='4'>
                 <Heading size='sm' mb='5'>Event description</Heading>
