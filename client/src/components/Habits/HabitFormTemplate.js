@@ -24,20 +24,21 @@ const HabitFormTemplate = ({ formData, formErrors, handleChange, handleSubmit, h
           <Box my={4} textAlign="left">
             <form onSubmit={handleSubmit}>
             {/* Comment */}
-            <FormControl isRequired>
+            <FormControl isRequired mt={6}>
             <FormLabel htmlFor='comment'>Comment</FormLabel>
             <Input onChange={handleChange} type="text" name="comment" placeholder='comment' defaultValue={formData.comment} />
             {/* {formErrors.comment && <Alert status='error' mt={4}>{formErrors.comment}</Alert>} */}
             </FormControl>
               {/* Picture */}
-            <FormControl isRequired>
+              <FormControl mt={6}>
+              <FormLabel htmlFor='picture'>Add Picture</FormLabel>
             <ImageUpload
                 value={formData.picture}
                 name='picture'
                 handleImageUrl={handleImageUrl}
               />
+              </FormControl>
               {/* {formErrors.picture && <Alert status='error' mt={4}>{formErrors.picture}</Alert>} */}
-            </FormControl>
             {/* Error + Button */}
             <Button type="submit" width="full" mt={4}>Submit</Button>      
             </form>

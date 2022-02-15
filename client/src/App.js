@@ -11,6 +11,7 @@ import SingleProfile from './components/Profile/SingleProfile'
 import DeleteHabit from './components/Habits/DeleteHabit'
 import Comments from './components/Comments'
 import EditHabit from './components/Habits/EditHabit'
+import EditProfile from './components/Profile/EditProfile'
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/events/:eventId/AddHabitCompletion" element={<AddHabitForm />} />
         <Route path="/profile/:userId" element={<SingleProfile />} />
+        <Route path="/profile/:userId/edit-profile" element={<EditProfile />} />
         <Route path="/profile/:userId/:eventId/:habitId/edit" element={<EditHabit />} />
         <Route path="/profile/:userId/:eventId/:habitId/delete-habit" element={<DeleteHabit />} />
         <Route path="/comments" element={<Comments />} />

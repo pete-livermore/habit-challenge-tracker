@@ -2,11 +2,9 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Container, Flex, Box, Heading, Select, Image, Wrap, WrapItem, Stat, StatLabel, StatNumber, StatGroup, Progress, Spinner, Text, Button } from '@chakra-ui/react'
 import { createBreakpoints } from '@chakra-ui/theme-tools'
-import eventImage from '../../assets/images/coding-challenge.jpg'
-import DiscoverEvents from './DiscoverEvents'
 import { useNavigate, Link } from "react-router-dom"
 import { getTokenFromLocalStorage, userIsAuthenticated } from '../helper/auth'
-import { currentDateFormat, daysLeft} from '../helper/eventData'
+import { currentDateFormat, daysLeft } from '../helper/eventData'
 import { HabitsCompleted } from '../helper/habitStats'
 
 const Dashboard = ({ eventList }) => {
@@ -45,6 +43,7 @@ const Dashboard = ({ eventList }) => {
 
   // Setting the list of events user has joined and initially populating the selected event
   useEffect(() => {
+    console.log(profileData)
     if (eventList.length && Object.keys(profileData).length) {
       const filtered = eventList.filter(event => profileData.events.some(ev => ev._id === event._id))
       setUserEvents(filtered)
@@ -58,11 +57,6 @@ const Dashboard = ({ eventList }) => {
     console.log('selected event =>', filtered)
     setSelectedEvent(filtered[0])
   }
-
-  // // Changing the format of the current date
-  // const currentDateFormat = (event) => {
-  //   return new Date(event.startDate).toLocaleDateString()
-  // }
 
   // Calculating the days remaining of the event
 
@@ -130,60 +124,66 @@ const Dashboard = ({ eventList }) => {
   return (
     <>
       {userIsAuthenticated() ?
-        <Container maxW='container.lg' mb='6'>
-          <Heading as='h2' size='lg'>User dashboard</Heading>
-          {userEvents.length && Object.keys(selectedEvent).length ?
-            <>
-              <Box mt='4' w={[400, 500, 600]}>
-                <Select onChange={handleOptionChange} value={selectedEvent.name}>
-                  {userEvents.map(event => {
-                    return <option key={event.name} value={event.name}>{event.name}</option>
-                  })}
-                </Select>
-              </Box>
-              <Flex direction='column' justify='center' mt='4' px='6' py='4' boxShadow='base' p='6' rounded='md' bg='brand.900'>
-                <Box>
-                  <Heading as='h3' size='lg'>{selectedEvent.name}</Heading>
+        userEvents.length ?
+          <Container maxW='container.lg' mb='6'>
+            <Heading as='h2' size='lg'>User dashboard</Heading>
+            {Object.keys(selectedEvent).length ?
+              <>
+                <Box mt='4' w={[400, 500, 600]}>
+                  <Select onChange={handleOptionChange} value={selectedEvent.name}>
+                    {userEvents.map(event => {
+                      return <option key={event.name} value={event.name}>{event.name}</option>
+                    })}
+                  </Select>
                 </Box>
-                <Flex mt='4'>
-                  <Box w='40%'>
-                    <Link to={`/events/${selectedEvent._id}`}>
-                      <Image
-                        objectFit='cover'
-                        /* Commented out code below is the actual code. The code below that is just so we can see an image for example purposes
-                  <img src={selectedEvent.picture} alt={selectedEvent.name}/> */
-                        src={eventImage}
-                        alt={selectedEvent.name}
-                      />
-                    </Link>
+                <Flex direction='column' justify='center' mt='4' px='6' py='4' boxShadow='base' p='6' rounded='md' bg='brand.900'>
+                  <Box>
+                    <Heading as='h3' size='lg'>{selectedEvent.name}</Heading>
                   </Box>
-                  <Flex w='60%' flexDirection='column' ml='6' justifyContent='space-evenly'>
-                    <StatGroup w='100%' flexWrap='wrap'>
-                      <Stat flexBasis='50%'>
-                        <StatLabel>Start date</StatLabel>
-                        <StatNumber>{currentDateFormat(selectedEvent)}</StatNumber>
-                      </Stat>
-                      <Stat flexBasis='50%'>
-                        <StatLabel>Days of challenge left</StatLabel>
-                        <StatNumber>{daysLeft(selectedEvent)}</StatNumber>
-                      </Stat>
-                    </StatGroup>
-                    <Box mt='4'>
-                      <p>Your completion progress:<HabitsCompleted eventHabitCompletions={eventHabitCompletions} /></p>
+                  <Flex mt='4'>
+                    <Box w='40%'>
+                      <Link to={`/events/${selectedEvent._id}`}>
+                        <Image
+                          objectFit='cover'
+                          /* Commented out code below is the actual code. The code below that is just so we can see an image for example purposes
+                    <img src={selectedEvent.picture} alt={selectedEvent.name}/> */
+                          src={selectedEvent.picture}
+                          alt={selectedEvent.name}
+                        />
+                      </Link>
                     </Box>
-                    <Box mt='4'>
-                      <p>Your best completion streak is: {calcStreak()}</p>
-                      <Wrap mt='2'>{widget}</Wrap>
-                    </Box>
+                    <Flex w='60%' flexDirection='column' ml='6' justifyContent='space-evenly'>
+                      <StatGroup w='100%' flexWrap='wrap'>
+                        <Stat flexBasis='50%'>
+                          <StatLabel>Start date</StatLabel>
+                          <StatNumber>{currentDateFormat(selectedEvent)}</StatNumber>
+                        </Stat>
+                        <Stat flexBasis='50%'>
+                          <StatLabel>Days of challenge left</StatLabel>
+                          <StatNumber>{daysLeft(selectedEvent)}</StatNumber>
+                        </Stat>
+                      </StatGroup>
+                      <Box mt='4'>
+                        <p>Your completion progress:<HabitsCompleted eventHabitCompletions={eventHabitCompletions} /></p>
+                      </Box>
+                      <Box mt='4'>
+                        <p>Your best completion streak is: {calcStreak()}</p>
+                        <Wrap mt='2'>{widget}</Wrap>
+                      </Box>
+                    </Flex>
                   </Flex>
                 </Flex>
-              </Flex>
-            </>
-            :
-            hasError.error ?
-              <p>{hasError.message}</p> : <Spinner />
-          }
-        </Container>
+              </>
+              :
+              hasError.error ?
+                <p>{hasError.message}</p> : <Spinner />
+            }
+          </Container>
+          :
+          <>
+            <Heading>Welcome {profileData.firstName}</Heading>
+            <Text>Start your challenge journey by signing up for a challenge below: </Text>
+          </>
         :
         <Container mb='4'>
           <Heading textAlign='center' as='h1' size='lg'>Welcome to TinyHabit</Heading>

@@ -15,14 +15,14 @@ const AddHabitForm = () => {
     picture: '',
   })
 
-  const [ formErrors, setFormErrors ] = useState({
+  const [formErrors, setFormErrors] = useState({
     comment: '',
     picture: '',
   })
 
-  const [ backEndError, setBackEndError] = useState('')
+  const [backEndError, setBackEndError] = useState('')
 
-  const [ getEvent, setGetEvent ] = useState([])
+  const [getEvent, setGetEvent] = useState([])
 
   function handleChange(e) {
     const newObj = { ...habitFormData, [e.target.name]: e.target.value }
@@ -38,31 +38,31 @@ const AddHabitForm = () => {
     e.preventDefault() // prevent reload
     try {
       const token = localStorage.getItem('tinyhabits-token')
-  console.log(token)
-  
+      console.log(token)
+
       await axios.post(`/api/events/${eventId}/habits`, habitFormData, {
         'headers': {
           'Authorization': 'Bearer ' + token
         }
-        })
+      })
 
-        const getProfileId = async () => {
-          try {  
-            const token = localStorage.getItem('tinyhabits-token')
-      console.log(token)
-            const { data } = await axios.get('/api/profile', {
-              'headers': {
-                'Authorization': 'Bearer ' + token
-              }
-              })
-               console.log('data', data.id)
-               navigate(`/profile/${data.id}`)
-              //  setUserProfileId(data.id)
-          } catch (err) {
-            console.log(err)
-          }
+      const getProfileId = async () => {
+        try {
+          const token = localStorage.getItem('tinyhabits-token')
+          console.log(token)
+          const { data } = await axios.get('/api/profile', {
+            'headers': {
+              'Authorization': 'Bearer ' + token
+            }
+          })
+          console.log('data', data.id)
+          navigate(`/profile/${data.id}`)
+          //  setUserProfileId(data.id)
+        } catch (err) {
+          console.log(err)
         }
-        getProfileId()
+      }
+      getProfileId()
 
       // Redirect using the navigate variable, passing in the route we want to redirect to
     } catch (err) {
@@ -77,31 +77,31 @@ const AddHabitForm = () => {
   }
 
   useEffect(() => {
-   const getEventDetails = async () => {
-    try {
-      const { data } = await axios.get(`/api/events/${eventId}`)
-  console.log(data)
-  setGetEvent(data)
-    } catch (error) {
-      console.log(error)
+    const getEventDetails = async () => {
+      try {
+        const { data } = await axios.get(`/api/events/${eventId}`)
+        console.log(data)
+        setGetEvent(data)
+      } catch (error) {
+        console.log(error)
+      }
     }
-   }
-   getEventDetails()
+    getEventDetails()
   }, [eventId])
 
-  
+
   console.log(habitFormData)
   console.log(getEvent)
   console.log(backEndError)
   return (
-<HabitFormTemplate 
-          handleSubmit={handleSubmit} 
-          handleChange={handleChange} 
-          formData={habitFormData}
-          formErrors={formErrors}
-          habitError={backEndError}
-          handleImageUrl={handleImageUrl}
-        />
+    <HabitFormTemplate
+      handleSubmit={handleSubmit}
+      handleChange={handleChange}
+      formData={habitFormData}
+      formErrors={formErrors}
+      habitError={backEndError}
+      handleImageUrl={handleImageUrl}
+    />
   )
 }
 

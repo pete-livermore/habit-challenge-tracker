@@ -21,7 +21,7 @@ const [ formErrors, setFormErrors ] = useState({
   const [ habitError, setHabitError ] = useState('')
 
     useEffect(() => {
-        const getLoggedInProfile = async () => {
+        const getSingleHabitDetails = async () => {
             try {
                 const token = localStorage.getItem('tinyhabits-token')
                 console.log(token)
@@ -40,7 +40,7 @@ const [ formErrors, setFormErrors ] = useState({
 
             }
         }
-        getLoggedInProfile()
+        getSingleHabitDetails()
     }, [params]) // Only on first render
 
 
