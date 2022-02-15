@@ -3,10 +3,9 @@ import axios from 'axios'
 import { Container, Flex, Box, Heading, Select, Image, Wrap, WrapItem, Stat, StatLabel, StatNumber, StatGroup, Progress, Spinner, Text, Button } from '@chakra-ui/react'
 import { createBreakpoints } from '@chakra-ui/theme-tools'
 import eventImage from '../../assets/images/coding-challenge.jpg'
-import DiscoverEvents from './DiscoverEvents'
 import { useNavigate, Link } from "react-router-dom"
 import { getTokenFromLocalStorage, userIsAuthenticated } from '../helper/auth'
-import { currentDateFormat, daysLeft} from '../helper/eventData'
+import { currentDateFormat, daysLeft } from '../helper/eventData'
 
 const Dashboard = ({ eventList }) => {
   const [profileData, setProfileData] = useState({})
@@ -44,6 +43,7 @@ const Dashboard = ({ eventList }) => {
 
   // Setting the list of events user has joined and initially populating the selected event
   useEffect(() => {
+    console.log(profileData)
     if (eventList.length && Object.keys(profileData).length) {
       const filtered = eventList.filter(event => profileData.events.some(ev => ev._id === event._id))
       setUserEvents(filtered)
@@ -57,11 +57,6 @@ const Dashboard = ({ eventList }) => {
     console.log('selected event =>', filtered)
     setSelectedEvent(filtered[0])
   }
-
-  // // Changing the format of the current date
-  // const currentDateFormat = (event) => {
-  //   return new Date(event.startDate).toLocaleDateString()
-  // }
 
   // Calculating the days remaining of the event
 

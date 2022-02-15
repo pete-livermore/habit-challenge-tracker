@@ -21,7 +21,7 @@ commentSchema.virtual('fullOwner', {
 
 
 const eventSchema = new Schema({
-  emoji: { type: String, required: true }, 
+  emoji: { type: String, required: true },
   name: { type: String, required: true, unique: true },
   subTitle: { type: String, required: true },
   description: { type: String, required: true, maxlength: 500 },

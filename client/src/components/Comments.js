@@ -1,6 +1,6 @@
 import react, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Box, Text, Textarea, Flex, Avatar, Heading, FormControl, FormLabel, Button } from '@chakra-ui/react'
+import { Box, Text, Textarea, Flex, Avatar, Heading, FormControl, FormLabel, Button, Spinner, Alert, AlertIcon } from '@chakra-ui/react'
 import { userIsAuthenticated } from './helper/auth'
 import axios from 'axios'
 
@@ -13,56 +13,40 @@ const Comments = () => {
   // })
 
   // const [backEndError, setBackEndError] = useState('')
-  // const [userProfileData, setUserProfileData] = useState([])
-  const [comments, setComments] = useState([])
+  const [comments, setComments] = useState(null)
   const [hasError, setHasError] = useState({ error: false, message: '' })
   const { eventId } = useParams()
   const [FormSubmitted, setFormSubmitted] = useState(false)
 
-  // useEffect(() => {
-  //   const getUserProfileData = async () => {
-  //     try {
-  //       const token = localStorage.getItem('tinyhabits-token')
-  //       console.log(token)
-  //       const { data } = await axios.get('/api/profile', {
-  //         'headers': {
-  //           'Authorization': 'Bearer ' + token
-  //         }
-  //       })
-  //       setUserProfileData(data)
-  //     } catch (err) {
-  //       setHasError({ error: true, message: err.message })
-  //     }
-  //   }
-  //   getUserProfileData()
-  // }, [])
-
   useEffect(() => {
     const getAllComments = async () => {
       try {
-        const { data } = await axios.get('/api/events/6206a53687eae40ed28bf654/comments')
+        const { data } = await axios.get(`/api/events/${eventId}/comments`)
         setComments(data)
       } catch (err) {
         setHasError({ error: true, message: err.message })
       }
     }
     getAllComments()
-  }, [FormSubmitted])
+  }, [FormSubmitted, eventId])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
       const token = localStorage.getItem('tinyhabits-token')
-      console.log(commentFormData)
-      await axios.post(`/api/events/6206a53687eae40ed28bf654/comments`, commentFormData, {
+      await axios.post(`/api/events/${eventId}/comments`, commentFormData, {
         'headers': {
           'Authorization': 'Bearer ' + token
         }
       })
-      if (!FormSubmitted) setFormSubmitted(true)
-      else setFormSubmitted(false)
+      setFormSubmitted(true)
+      setCommentFormData({ text: '' })
+      const timer = setTimeout(() => {
+        setFormSubmitted(false)
+      }, 1000)
+      return () => clearTimeout(timer)
     } catch (err) {
-      console.log(err.response.data.message)
+      console.log('hello')
       // setBackEndError(err.response.data.message)
       // setFormErrors(err.response.data.errors)
     }
@@ -72,49 +56,73 @@ const Comments = () => {
     setCommentFormData({
       text: e.target.value
     })
-    console.log(commentFormData)
   }
 
   const handleClick = () => {
     console.log('hello')
   }
 
+  const generateDate = (comment) => {
+    if (new Date(comment.createdAt).toLocaleDateString() === new Date().toLocaleDateString()) return 'Today'
+    if (new Date(comment.createdAt).getDate() === new Date().getDate() - 1) return 'Yesterday'
+    else return new Date(comment.createdAt).toLocaleDateString()
+  }
+
+  useEffect(() => {
+    console.log(comments)
+  }, [comments])
+
+
   return (
     <>
       {userIsAuthenticated() &&
         <>
-
-          <Box mt='6' p='4' backgroundColor='#F7FAFC' w='450px'>
+          <Box mt='6' p='4' backgroundColor='#F7FAFC' w='100%' boxShadow='lg' rounded='md'>
             <form onSubmit={handleSubmit}>
-              <Text mb='8px'>Join the conversation</Text>
+              <Text mb='8px' fontWeight='700'>Join the conversation</Text>
               <Textarea backgroundColor='#FFFFFF'
                 value={commentFormData.text}
                 onChange={handleInputChange}
-                placeholder='Submit your comment here'
+                placeholder='Leave a comment'
                 size='sm'
               />
-              <Button type='submit'>Submit comment</Button>
+              <Button colorScheme='blue' mt='2' type='submit'>Comment</Button>
             </form>
+            {FormSubmitted &&
+              <Alert mt='4' status='success'>
+                <AlertIcon />
+                'Comment submitted!'
+              </Alert>
+            }
           </Box>
-
-          {comments.length &&
-            <Box ml='4'>
-              <Heading as='h2' size='md' mb='4'>Comments</Heading>
-              {comments.map(comment => {
-                return (
-                  <Flex key={comment._id} backgroundColor='white' mb='2' ml='2'>
-                    <Avatar src='' />
-                    <Box ml='3'>
-                      <Text fontWeight='bold'>
-                        {comment.owner}
-                      </Text>
-                      <Text fontSize='sm'>{comment.text}</Text>
-                      <Text onClick={handleClick}>reply</Text>
-                    </Box>
-                  </Flex>
-                )
-              })}
-            </Box>
+          {comments !== null ?
+            (comments &&
+              <Box ml='4' mt='6' p='4' backgroundColor='#F7FAFC' w='100%' boxShadow='lg' rounded='md'>
+                <Heading as='h3' size='sm' mb='4'>Comments</Heading>
+                {comments.map(comment => {
+                  return (
+                    <Flex key={comment._id} backgroundColor='white' mb='4' ml='2' p='2'>
+                      <Avatar src='' />
+                      <Box ml='3'>
+                        <Flex>
+                          <Text fontWeight='bold' mr='2'>
+                            {`${comment.owner.firstName} ${comment.owner.lastName} `}
+                          </Text>
+                          <Text fontSize='sm' color='gray.500' lineHeight='190%'>{`  ${generateDate(comment)} at ${String(comment.createdAt).substring(11, 16)}`}</Text>
+                        </Flex>
+                        <Text fontSize='sm'>{comment.text}</Text>
+                        <Text fontSize='sm' color='gray.500' onClick={handleClick}>Reply</Text>
+                      </Box>
+                    </Flex>
+                  )
+                })}
+              </Box>
+            )
+            : hasError.error ? (
+              <Alert status='error'>
+                <AlertIcon />
+                {hasError.message}
+              </Alert>) : <Spinner />
           }
         </>
       }

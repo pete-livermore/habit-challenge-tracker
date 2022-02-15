@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 import { Heading, Flex, Box, Container, Text, Image, Spinner } from '@chakra-ui/react'
 import Dashboard from './Dashboard.js'
 
@@ -33,9 +34,11 @@ const Home = () => {
                   const { name, _id, description, picture } = event
                   return (
                     <Box key={_id} w='30%' boxShadow='lg' p='6' rounded='md'>
-                      <Text fontWeight='600'>{name}</Text>
-                      <Image src={picture} alt='event-img' />
-                      <Text>{description}</Text>
+                      <Link to={`/events/${_id}`}>
+                        <Text fontWeight='600'>{name}</Text>
+                        <Image src={picture} alt='event-img' />
+                        <Text>{description}</Text>
+                      </Link>
                     </Box>
                   )
                 })}

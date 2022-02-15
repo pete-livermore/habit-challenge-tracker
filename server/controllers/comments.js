@@ -19,7 +19,7 @@ export const addComment = async (req, res) => {
 export const getAllComments = async (req, res) => {
   try {
     const { eventId } = req.params
-    const event = await Event.findById(eventId)
+    const event = await Event.findById(eventId).populate('comments.owner')
     const commentsToFetch = event.comments
     return res.status(200).json(commentsToFetch)
   } catch (err) {
