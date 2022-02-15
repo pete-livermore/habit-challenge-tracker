@@ -16,7 +16,7 @@ const Comments = () => {
   const [comments, setComments] = useState(null)
   const [hasError, setHasError] = useState({ error: false, message: '' })
   const { eventId } = useParams()
-  const [FormSubmitted, setFormSubmitted] = useState(false)
+  const [formSubmitted, setFormSubmitted] = useState(false)
 
   useEffect(() => {
     const getAllComments = async () => {
@@ -28,11 +28,12 @@ const Comments = () => {
       }
     }
     getAllComments()
-  }, [FormSubmitted, eventId])
+  }, [formSubmitted, eventId])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
+      console.log('hello')
       const token = localStorage.getItem('tinyhabits-token')
       await axios.post(`/api/events/${eventId}/comments`, commentFormData, {
         'headers': {
@@ -41,16 +42,23 @@ const Comments = () => {
       })
       setFormSubmitted(true)
       setCommentFormData({ text: '' })
-      const timer = setTimeout(() => {
-        setFormSubmitted(false)
-      }, 1000)
-      return () => clearTimeout(timer)
+      // const timer = setTimeout(() => {
+      //   console.log('timer')
+
+      // }, 1000)
+      // return clearTimeout(timer)
     } catch (err) {
-      console.log('hello')
       // setBackEndError(err.response.data.message)
       // setFormErrors(err.response.data.errors)
     }
   }
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setFormSubmitted(false)
+    }, 1000)
+    return () => clearTimeout(timer);
+  }, [formSubmitted])
 
   const handleInputChange = (e) => {
     setCommentFormData({
@@ -68,11 +76,6 @@ const Comments = () => {
     else return new Date(comment.createdAt).toLocaleDateString()
   }
 
-  useEffect(() => {
-    console.log(comments)
-  }, [comments])
-
-
   return (
     <>
       {userIsAuthenticated() &&
@@ -88,7 +91,7 @@ const Comments = () => {
               />
               <Button colorScheme='blue' mt='2' type='submit'>Comment</Button>
             </form>
-            {FormSubmitted &&
+            {formSubmitted &&
               <Alert mt='4' status='success'>
                 <AlertIcon />
                 'Comment submitted!'
@@ -96,10 +99,10 @@ const Comments = () => {
             }
           </Box>
           {comments !== null ?
-            (comments &&
-              <Box ml='4' mt='6' p='4' backgroundColor='#F7FAFC' w='100%' boxShadow='lg' rounded='md'>
-                <Heading as='h3' size='sm' mb='4'>Comments</Heading>
-                {comments.map(comment => {
+            <Box ml='4' mt='6' p='4' backgroundColor='#F7FAFC' w='100%' boxShadow='lg' rounded='md'>
+              <Heading as='h3' size='sm' mb='4'>Comments</Heading>
+              {comments.length ?
+                comments.map(comment => {
                   return (
                     <Flex key={comment._id} backgroundColor='white' mb='4' ml='2' p='2'>
                       <Avatar src='' />
@@ -115,9 +118,11 @@ const Comments = () => {
                       </Box>
                     </Flex>
                   )
-                })}
-              </Box>
-            )
+                })
+                :
+                <Text color='gray.500'>No comments yet</Text>
+              }
+            </Box>
             : hasError.error ? (
               <Alert status='error'>
                 <AlertIcon />

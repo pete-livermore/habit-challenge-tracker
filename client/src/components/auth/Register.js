@@ -12,6 +12,7 @@ import {
 } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { ImageUpload } from '../helper/ImageUpload'
 
 
 const Register = () => {
@@ -24,6 +25,7 @@ const Register = () => {
     email: '',
     password: '',
     passwordConfirmation: '',
+    picture: '',
   })
 
   const [ formError, setFormError ] = useState({
@@ -32,6 +34,7 @@ const Register = () => {
     email: '',
     password: '',
     passwordConfirmation: '',
+    picture: '',
   })
   const handleChange = (e) => {
     const newObj = { ...formData, [e.target.name]: e.target.value } //Spreading formData makes sure we maintain the data structure of formData
@@ -59,6 +62,11 @@ const Register = () => {
       setFormError(err.response.data.message)
     }
   }
+
+  const handleImageUrl = url => {
+    setFormData({ ...formData, picture: url })
+  }
+
 console.log(formData)
   return (
     <Flex width="full" align="center" justifyContent="center">
@@ -98,6 +106,14 @@ console.log(formData)
                 <FormLabel htmlFor='passwordConfirmation'>Password Confirmation</FormLabel>
                 <Input onChange={handleChange} type="password" name="passwordConfirmation" placeholder='Password Confirmation' defaultValue={formData.passwordConfirmation} />
                 {formError.passwordConfirmation && <Alert status='error' mt={4}>{formError.passwordConfirmation}</Alert>}
+              </FormControl>
+              <FormControl mt={6}>
+              <FormLabel htmlFor='picture'>Add Profile Picture</FormLabel>
+              <ImageUpload
+                value={formData.picture}
+                name='picture'
+                handleImageUrl={handleImageUrl}
+              />
               </FormControl>
               {/* Error + Button */}
               <Button type="submit" width="full" mt={4}>Register</Button>      

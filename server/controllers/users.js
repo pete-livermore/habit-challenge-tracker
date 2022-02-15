@@ -32,3 +32,15 @@ export const getSingleProfile = async (req, res) => {
     return res.status(404).json({ message: err.message })
   }
 }
+
+export const updateProfile = async (req, res) => {
+  try {
+    const userToFetch = await User.findById(req.currentUser._id)
+    if (!userToFetch) throw new Error('Event not found')
+    Object.assign(userToFetch, req.body)
+    await userToFetch.save()
+    res.status(200).json(userToFetch)
+  } catch (err) {
+    return res.status(404).json({ message: err.message })
+  }
+}
