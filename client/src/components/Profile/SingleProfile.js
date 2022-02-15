@@ -49,7 +49,7 @@ const SingleProfile = () => {
             }
         }
         getProfile()
-    }, [userId]) // Only on first render
+    }, [userId])
 
     useEffect(() => {
         const getLoggedInProfile = async () => {

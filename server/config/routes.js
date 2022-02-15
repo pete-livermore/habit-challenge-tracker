@@ -2,7 +2,7 @@ import express from 'express'
 import { secureRoute } from './secureRoute.js'
 import { registerUser, loginUser } from '../controllers/auth.js'
 import { getAllEvents, getEvent, updateEvent, deleteEvent, addEvent, joinEvent } from '../controllers/events.js'
-import { getSingleProfile, getProfile, getAllProfile } from '../controllers/users.js'
+import { updateProfile, getSingleProfile, getProfile, getAllProfile } from '../controllers/users.js'
 import { getUserSingleHabit, getUserHabits, updateHabitComplete, addHabitComplete, deleteSingleHabit } from '../controllers/habits.js'
 import { addComment, getAllComments } from '../controllers/comments.js'
 
@@ -38,6 +38,7 @@ router.route('/events/:eventId/habits/:habitId')
 
 router.route('/profile')
   .get(secureRoute, getProfile)
+  .put(secureRoute, updateProfile)
 
 router.route('/profile/:userId')
   .get(getSingleProfile)

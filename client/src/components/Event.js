@@ -98,7 +98,7 @@ return (
               </Box>
               <Box mt='6' name="event-owner" display='flex'>
                 <Link to={`/profile/${eventData.owner.id}`}>
-                  <Avatar size='md' src={profileDetails ? profileDetails.picture : ''} />
+                  <Avatar size='md' src={eventData ? eventData.owner.picture : ''} />
                 </Link>
                     <Box ml='3'>
                       <Text fontSize='sm'color='secondary' >
@@ -146,8 +146,10 @@ return (
                 <HabitsCompleted m='3' eventHabitCompletions={eventHabitCompletions} />  
                 <Text textAlign='center' mt='4'>{currentDateFormat(eventData)} - {endDateFormat(eventData)}</Text>
               {userJoinedEvent ?
-               
+               <>
                 <p mt='10'>You are part of this</p>
+                <Button onClick={toAddHabitPage} my='6' w='60%' backgroundColor='#ffbb0f' boxShadow='lg' p='6' rounded='md' bg='white' color='white'>Add Completed Habit</Button>
+                </>
                 :
                 <Button fontSize='16px' fontWeight='bold' my='6' w='60%' backgroundColor='#ffbb0f' boxShadow='lg' p='6' rounded='md' bg='white' color='white'>JOIN TODAY</Button>
 
