@@ -68,7 +68,7 @@ const SingleProfile = () => {
       } else {
         filteredHabits = profileData.habitCompletions.filter(habit => (new Date(habit.createdAt).toLocaleDateString() === filterHabits.date) && (eventData.filter(event => event._id === habit.event)[0].name === filterHabits.event))
       }
-      // console.log(filteredHabits)
+      console.log('filtered habits ->', filteredHabits)
       setHabitsFiltered(filteredHabits)
     }
 

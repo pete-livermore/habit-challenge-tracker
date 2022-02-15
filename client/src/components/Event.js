@@ -4,7 +4,7 @@ import { Link, useParams, useNavigate } from 'react-router-dom'
 import { Container, VStack, Box, Heading, Flex, Avatar, Text, Textarea, Button } from '@chakra-ui/react'
 import { currentDateFormat, endDateFormat, daysLeft} from './helper/eventData'
 import { getTokenFromLocalStorage } from './helper/auth'
-import { HabitsCompleted } from './helper/habitStats'
+import { HabitsCompleted, HabitsActivity } from './helper/habitStats'
 
 import Comments from './Comments'
 
@@ -15,6 +15,8 @@ const Event = () => {
   const [value, setValue] = React.useState('')
   const [profileData, setProfileData] = useState({})
   const [eventHabitCompletions, setEventHabitCompletions] = useState([])
+  const [habitsFiltered, setHabitsFiltered] = useState(null)
+
   const [widget, setWidget] = useState([])
   const [hasError, setHasError] = useState({ error: false, message: '' })
 
@@ -30,7 +32,6 @@ const Event = () => {
       try {
         const { data } = await axios.get(`/api/events/${params.eventId}`)
         setEventData(data)
-        console.log('This is setEventData -> ', data)
       } catch (err) {
         setIsError({ error: true, message: 'Server error' })
       }
@@ -45,9 +46,8 @@ const Event = () => {
         const res = await axios.get('/api/profile', {
           headers: {
             Authorization: `Bearer ${getTokenFromLocalStorage()}`,
-          },
+          }, 
         })
-        console.log('response', res.data)
         setProfileData(res.data)
         userJoinedEvent()
       } catch (err) {
@@ -65,21 +65,40 @@ const Event = () => {
   }, [profileData, eventData])
 
   useEffect(() => {
-    console.log(Object.keys(eventData))
-    console.log('eventdata  ->', eventData)
+
   }, [eventData])
 
   const toAddHabitPage = () => {
     navigate(`/events/${params.eventId}/AddHabitCompletion`)
-  }
+  } 
 
   const userJoinedEvent = () => {
    
     const userJoined = profileData.events.some(ev => ev._id === eventData._id)
     console.log('userJoined', userJoined)
-    return userJoined
-  }
+    return userJoined  
+  } 
 
+//   useEffect(() => {
+//     if (eventData) {
+//       const filteredHabits = (eventData.eventMembers)
+//       .map(member => member)
+//       .map(habit => habit.habitCompletions)
+//       .filter(event => event.event === eventData.event)
+//     console.log('members.filtered',filteredHabits);
+//     setHabitsFiltered(filteredHabits) 
+//     }
+//         // show me every eventMembers.habitCompletions where the event id equals the event
+      
+
+// },[eventData])
+
+    
+    // 
+    //   .filter(habit => Object.key(habitCompletions.event === eventData.id))
+    // console.log('membersFiltered ->', membersFiltered)
+
+  
 // const newFilteredHabits = habits.filter(habit => habit.eventId === eventId) 
 
 return (
@@ -143,7 +162,8 @@ return (
                 <Text>The Challenge is live!</Text>
                 :
                 <Text fontSize={{ base:'12px', md:'16px', lg:'24px' }} fontWeight='bold' textAlign='center'>The challenge<br></br> starts in {daysLeft(eventData)}</Text> }
-                <HabitsCompleted m='3' eventHabitCompletions={eventHabitCompletions} />  
+                <HabitsCompleted m='3' eventHabitCompletions={eventHabitCompletions} /> 
+                <HabitsActivity habitsFiltered={habitsFiltered} eventData={eventData} profileData={profileData} /> 
                 <Text textAlign='center' mt='4'>{currentDateFormat(eventData)} - {endDateFormat(eventData)}</Text>
               {userJoinedEvent ?
                
