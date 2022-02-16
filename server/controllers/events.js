@@ -16,7 +16,6 @@ export const getEvent = async (req, res) => {
 export const getAllEvents = async (_req, res) => {
   try {
     const events = await Event.find()
-    console.log(events)
     return res.status(200).json(events)
   } catch (err) {
     return res.status(404).json({ message: 'Not Found' })
@@ -46,7 +45,6 @@ export const deleteEvent = async (req, res) => {
 
 export const updateEvent = async (req, res) => {
   const { eventId } = req.params
-  console.log(eventId)
   try {
     const eventToUpdate = await Event.findById(eventId)
     if (!eventToUpdate.owner.equals(req.currentUser._id)) throw new Error('Unauthorised')
@@ -72,7 +70,6 @@ export const joinEvent = async (req, res) => {
       currentUserProfile.events.splice(currentUserProfile.events.indexOf(eventId), 1)
     } else {
       currentUserProfile.events.push(eventId) //Otherwise add the user to the event
-      console.log(currentUserProfile.events)
     }
     currentUserProfile.save()
     return res.status(200).json(currentUserProfile)
