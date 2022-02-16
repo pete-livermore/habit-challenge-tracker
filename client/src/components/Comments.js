@@ -83,7 +83,7 @@ const Comments = () => {
                 placeholder='Leave a comment'
                 size='sm'
               />
-              <Button colorScheme='blue' mt='2' type='submit'>Comment</Button>
+              <Button backgroundColor='blue.500' color='second' mt='2' type='submit'>Comment</Button>
             </form>
             {formSubmitted &&
               <Alert mt='4' status='success'>
@@ -93,22 +93,21 @@ const Comments = () => {
             }
           </Box>
           {comments !== null ?
-            <Box ml='4' mt='6' p='4' backgroundColor='#F7FAFC' w='100%' boxShadow='base' rounded='md'>
+            <Box  mt='6' p='4' backgroundColor='secondary' w='100%' borderWidth='1px' rounded='lg'>
               <Heading as='h3' size='sm' mb='4'>Comments</Heading>
               {comments.length ?
                 comments.map(comment => {
                   return (
-                    <Flex key={comment._id} backgroundColor='white' mb='4' ml='2' p='2'>
-                      <Avatar src='' />
+                    <Flex key={comment._id} borderWidth='1px' rounded='md' p='4' backgroundColor='white' mb='4' ml='2'>
+                      <Avatar size='sm' src='' mt='1' />
                       <Box ml='3'>
-                        <Flex>
+                        <Flex direction='column'>
                           <Text fontWeight='bold' mr='2'>
                             {`${comment.owner.firstName} ${comment.owner.lastName} `}
                           </Text>
-                          <Text fontSize='sm' color='gray.500' lineHeight='190%'>{`  ${generateDate(comment)} at ${String(comment.createdAt).substring(11, 16)}`}</Text>
+                          <Text fontSize='10px' color='gray.500' lineHeight='190%'>{`  ${generateDate(comment)} at ${String(comment.createdAt).substring(11, 16)}`}</Text>
                         </Flex>
-                        <Text fontSize='sm'>{comment.text}</Text>
-                        <Text fontSize='sm' color='gray.500' onClick={handleClick}>Reply</Text>
+                        <Text mt='2'fontSize='sm'>{comment.text}</Text>
                       </Box>
                     </Flex>
                   )

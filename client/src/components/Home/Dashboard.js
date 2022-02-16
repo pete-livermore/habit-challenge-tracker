@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { Container, Flex, Box, Heading, Select, Image, Wrap, WrapItem, Stat, StatLabel, StatNumber, StatGroup, Progress, Spinner, Text, Button } from '@chakra-ui/react'
+import { Container, Flex, Alert,Box, Heading, Select, Image, Wrap, WrapItem, Stat, StatLabel, StatNumber, StatGroup, Progress, Spinner, Text, Button } from '@chakra-ui/react'
 import { createBreakpoints } from '@chakra-ui/theme-tools'
 import { useNavigate, Link } from "react-router-dom"
 import { getTokenFromLocalStorage, userIsAuthenticated } from '../helper/auth'
-import { currentDateFormat, daysLeft } from '../helper/eventData'
 import { HabitsCompleted } from '../helper/habitStats'
+import { startDateFormat, endDateFormat, daysLeftUntilEvent, daysLeftInEvent, habitDateFormat, todayDateFormat, eventBeforeStartDate, eventAfterEndDate} from '../helper/eventData'
+
 
 const Dashboard = ({ eventList }) => {
   const [profileData, setProfileData] = useState({})
@@ -119,60 +120,76 @@ const Dashboard = ({ eventList }) => {
     }
   }, [selectedEvent, eventHabitCompletions])
 
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    try {
+      await axios.post(`/api/events/${selectedEvent}`, {
+        headers: {
+          Authorization: `Bearer ${getTokenFromLocalStorage()}`
+        }
+      })
+    } catch (err) {
+      console.log(err.response)
+    }
+  }
 
+  const toAddHabitPage = () => {
+    navigate(`/events/${selectedEvent}/AddHabitCompletion`)
+  }
 
   return (
     <>
       {userIsAuthenticated() ?
         userEvents.length ?
-          <Container maxW='container.lg' mb='6'>
-            <Heading as='h2' size='lg'>User dashboard</Heading>
+          <Container width='lg' mb='6'>
             {Object.keys(selectedEvent).length ?
               <>
-                <Box mt='4' w={[400, 500, 600]}>
-                  <Select onChange={handleOptionChange} value={selectedEvent.name}>
+               
+          <Flex name="actions" p='8' mt='0' bg='white' w='100%' flexDirection='column' alignItems='center' boxShadow='lg' borderBottomRadius='10'>
+          <Select onChange={handleOptionChange} value={selectedEvent.name}>
                     {userEvents.map(event => {
                       return <option key={event.name} value={event.name}>{event.name}</option>
                     })}
                   </Select>
+                  {selectedEvent.isLive &&                 
+                    <Text fontSize={{ base: '12px', md: '16px', lg: '24px' }} fontWeight='bold' textAlign='center'>The challenge<br></br> has {daysLeftInEvent(selectedEvent)} left</Text>}
+                  {!selectedEvent.isLive && eventBeforeStartDate(selectedEvent) && 
+                    <>
+                    <Text fontSize={{ base: '12px', md: '16px', lg: '24px' }} fontWeight='bold' textAlign='center'>The challenge<br></br> starts in {daysLeftUntilEvent(selectedEvent)}</Text>               
+                                    <Button onClick={handleSubmit} fontSize='16px' fontWeight='bold' my='6' w='60%' backgroundColor='#ffbb0f' boxShadow='lg' p='6' rounded='md' bg='white' color='white'>Join Event</Button>
+        
+                    </>
+                  }
+                  {!selectedEvent.isLive && eventAfterEndDate(selectedEvent) && <Text fontSize={{ base: '12px', md: '16px', lg: '24px' }} fontWeight='bold' textAlign='center'>The challenge is over</Text>}
+            <Box  mt='4' w={[400, 500, 600]}>
+                  
+                </Box><Link to={`/events/${selectedEvent._id}`}>
+                <Box name="widget-header" w='450px' height='400px' bgGradient='linear(to-r, first, third)' >
+                  <Heading fontSize="6em">{selectedEvent.emoji}</Heading>
+                  <Box  name="headline">
+                  <Text mt='10' size='lg' color='second'>{selectedEvent.subTitle}</Text>
+                  <Heading color='white' mt='4' as='h1' size='2xl' mb='4'>{selectedEvent.name}</Heading>
+                  {selectedEvent.isLive && userIsAuthenticated() && 
+                    <HabitsCompleted eventHabitCompletions={eventHabitCompletions} />   
+                  }
                 </Box>
-                <Flex direction='column' justify='center' mt='4' px='6' py='4' boxShadow='base' p='6' rounded='md' bg='brand.900'>
-                  <Box>
-                    <Heading as='h3' size='lg'>{selectedEvent.name}</Heading>
-                  </Box>
-                  <Flex mt='4'>
-                    <Box w='40%'>
-                      <Link to={`/events/${selectedEvent._id}`}>
-                        <Image
-                          objectFit='cover'
-                          /* Commented out code below is the actual code. The code below that is just so we can see an image for example purposes
-                    <img src={selectedEvent.picture} alt={selectedEvent.name}/> */
-                          src={selectedEvent.picture}
-                          alt={selectedEvent.name}
-                        />
-                      </Link>
-                    </Box>
-                    <Flex w='60%' flexDirection='column' ml='6' justifyContent='space-evenly'>
-                      <StatGroup w='100%' flexWrap='wrap'>
-                        <Stat flexBasis='50%'>
-                          <StatLabel>Start date</StatLabel>
-                          <StatNumber>{currentDateFormat(selectedEvent)}</StatNumber>
-                        </Stat>
-                        <Stat flexBasis='50%'>
-                          <StatLabel>Days of challenge left</StatLabel>
-                          <StatNumber>{daysLeft(selectedEvent)}</StatNumber>
-                        </Stat>
-                      </StatGroup>
-                      <Box mt='4'>
-                        <p>Your completion progress:<HabitsCompleted eventHabitCompletions={eventHabitCompletions} /></p>
-                      </Box>
-                      <Box mt='4'>
-                        <p>Your best completion streak is: {calcStreak()}</p>
-                        <Wrap mt='2'>{widget}</Wrap>
-                      </Box>
-                    </Flex>
-                  </Flex>
-                </Flex>
+                </Box>
+                </Link>
+                        
+             
+          {selectedEvent.isLive && userIsAuthenticated() &&
+            <>
+            
+            <Box mt='4'>
+            <p>Your best completion streak is: {calcStreak()}</p>
+            <Wrap mt='2'>{widget}</Wrap>
+          </Box>
+            <Button onClick={toAddHabitPage} fontSize='16px' fontWeight='bold' mt='6' w='60%' backgroundColor='fourth' boxShadow='lg' p='6' rounded='md' bg='white' color='white'>Add Habit</Button>
+            </>
+          }
+       
+
+          </Flex>
               </>
               :
               hasError.error ?
