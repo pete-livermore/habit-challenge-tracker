@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { Container, Flex, Alert,Box, Heading, Select, Image, Wrap, WrapItem, Stat, StatLabel, StatNumber, StatGroup, Progress, Spinner, Text, Button } from '@chakra-ui/react'
+import { Container, Flex, VStack, Center, Alert,Box, Heading, Select, Image, Wrap, WrapItem, Stat, StatLabel, StatNumber, StatGroup, Progress, Spinner, Text, Button } from '@chakra-ui/react'
 import { createBreakpoints } from '@chakra-ui/theme-tools'
 import { useNavigate, Link } from "react-router-dom"
 import { getTokenFromLocalStorage, userIsAuthenticated } from '../helper/auth'
-import { HabitsCompleted } from '../helper/habitStats'
+import { HabitsCompletedDashboard } from '../helper/habitStats'
+import EventDropdown from '../helper/eventDropdown'
 import { startDateFormat, endDateFormat, daysLeftUntilEvent, daysLeftInEvent, habitDateFormat, todayDateFormat, eventBeforeStartDate, eventAfterEndDate} from '../helper/eventData'
 
 
@@ -105,13 +106,13 @@ const Dashboard = ({ eventList }) => {
         days.push(new Date(i).toLocaleDateString())
       }
       days.forEach((day, i) => {
-        arr.push(<WrapItem border='1px' h='25px' w='25px' borderColor='gray.200' borderRadius='50%' justifyContent='center' key={day} id={day}></WrapItem>)
+        arr.push(<WrapItem h='20px' w='20px' backgroundColor='gray.200' borderRadius='50%' justifyContent='center' key={day} id={day}></WrapItem>)
       })
       if (eventHabitCompletions.length) {
         const completedDates = eventHabitCompletions.map(habit => new Date(habit.createdAt).toLocaleDateString())
         console.log('completed dates =>', completedDates)
         arr.filter(obj => completedDates.includes(obj.key)).forEach(obj => {
-          arr[arr.indexOf(obj)] = <WrapItem border='1px' h='25px' w='25px' backgroundColor='#48BB78' borderColor='gray.200' borderRadius='50%' justifyContent='center' key={obj.key} id={obj.key}></WrapItem>
+          arr[arr.indexOf(obj)] = <WrapItem h='20px' w='20px' backgroundColor='third' borderRadius='50%' justifyContent='center' key={obj.key} id={obj.key}></WrapItem>
         })
         setWidget(arr)
       } else {
@@ -123,7 +124,7 @@ const Dashboard = ({ eventList }) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      await axios.post(`/api/events/${selectedEvent}`, {
+      await axios.post(`/api/events/${selectedEvent}`,{ data: 'hello' },  {
         headers: {
           Authorization: `Bearer ${getTokenFromLocalStorage()}`
         }
@@ -134,78 +135,74 @@ const Dashboard = ({ eventList }) => {
   }
 
   const toAddHabitPage = () => {
-    navigate(`/events/${selectedEvent}/AddHabitCompletion`)
+    navigate(`/events/${selectedEvent.id}/AddHabitCompletion`)
   }
 
   return (
-    <>
-      {userIsAuthenticated() ?
-        userEvents.length ?
-          <Container width='lg' mb='6'>
-            {Object.keys(selectedEvent).length ?
-              <>
-               
-          <Flex name="actions" p='8' mt='0' bg='white' w='100%' flexDirection='column' alignItems='center' boxShadow='lg' borderBottomRadius='10'>
-          <Select onChange={handleOptionChange} value={selectedEvent.name}>
-                    {userEvents.map(event => {
-                      return <option key={event.name} value={event.name}>{event.name}</option>
-                    })}
-                  </Select>
-                  {selectedEvent.isLive &&                 
-                    <Text fontSize={{ base: '12px', md: '16px', lg: '24px' }} fontWeight='bold' textAlign='center'>The challenge<br></br> has {daysLeftInEvent(selectedEvent)} left</Text>}
-                  {!selectedEvent.isLive && eventBeforeStartDate(selectedEvent) && 
-                    <>
-                    <Text fontSize={{ base: '12px', md: '16px', lg: '24px' }} fontWeight='bold' textAlign='center'>The challenge<br></br> starts in {daysLeftUntilEvent(selectedEvent)}</Text>               
-                                    <Button onClick={handleSubmit} fontSize='16px' fontWeight='bold' my='6' w='60%' backgroundColor='#ffbb0f' boxShadow='lg' p='6' rounded='md' bg='white' color='white'>Join Event</Button>
-        
-                    </>
-                  }
-                  {!selectedEvent.isLive && eventAfterEndDate(selectedEvent) && <Text fontSize={{ base: '12px', md: '16px', lg: '24px' }} fontWeight='bold' textAlign='center'>The challenge is over</Text>}
-            <Box  mt='4' w={[400, 500, 600]}>
-                  
-                </Box><Link to={`/events/${selectedEvent._id}`}>
-                <Box name="widget-header" w='450px' height='400px' bgGradient='linear(to-r, first, third)' >
-                  <Heading fontSize="6em">{selectedEvent.emoji}</Heading>
-                  <Box  name="headline">
-                  <Text mt='10' size='lg' color='second'>{selectedEvent.subTitle}</Text>
-                  <Heading color='white' mt='4' as='h1' size='2xl' mb='4'>{selectedEvent.name}</Heading>
-                  {selectedEvent.isLive && userIsAuthenticated() && 
-                    <HabitsCompleted eventHabitCompletions={eventHabitCompletions} />   
-                  }
-                </Box>
-                </Box>
-                </Link>
-                        
-             
-          {selectedEvent.isLive && userIsAuthenticated() &&
-            <>
-            
-            <Box mt='4'>
-            <p>Your best completion streak is: {calcStreak()}</p>
-            <Wrap mt='2'>{widget}</Wrap>
-          </Box>
-            <Button onClick={toAddHabitPage} fontSize='16px' fontWeight='bold' mt='6' w='60%' backgroundColor='fourth' boxShadow='lg' p='6' rounded='md' bg='white' color='white'>Add Habit</Button>
-            </>
-          }
-       
-
-          </Flex>
-              </>
-              :
-              hasError.error ?
-                <p>{hasError.message}</p> : <Spinner />
-            }
-          </Container>
-          :
+    <> 
+      {userIsAuthenticated() && userEvents.length ?
+          
           <>
-            <Heading>Welcome {profileData.firstName}</Heading>
-            <Text>Start your challenge journey by signing up for a challenge below: </Text>
+          
+          {Object.keys(selectedEvent).length ?
+              <> 
+          <Flex name='welcome-header' width='xl' mb='5' display='flex' flexDirection='column' align='center'>
+              <Heading fontWeight='regular' size='md' mt='5' mb='3' color='second'>Welcome {profileData.firstName}!</Heading>
+
+            
+            
+              
+              {selectedEvent.isLive &&                 
+                <Heading size='lg' name='event-selector' mb='5' color='second' textAlign='center'>You have {daysLeftInEvent(selectedEvent)} left in your challenge!</Heading>}
+              {!selectedEvent.isLive && eventBeforeStartDate(selectedEvent) && 
+                <Heading size='lg' name='event-selector' mb='5' color='second' textAlign='center'>Your challenge starts in {daysLeftUntilEvent(selectedEvent)}!</Heading>               
+              }
+              {!selectedEvent.isLive && eventAfterEndDate(selectedEvent) && <Text fontSize={{ base: '12px', md: '16px', lg: '24px' }} fontWeight='bold' textAlign='center'>The challenge is over</Text>}
+
+              <EventDropdown mt='5' handleOptionChange={handleOptionChange} selectedEvent={selectedEvent} userEvents={userEvents} />
+          </Flex>
+          <Flex name="actions" mt='5' bg='white' width='300px' flexDirection='column' alignItems='center' boxShadow='lg' borderBottomRadius='10'>
+            <Link to={`/events/${selectedEvent._id}`}>
+              <Box name="widget-header" w='300px' height='310px' bgGradient='linear(to-r, first, third)' >
+                <Heading textAlign='center' pt='10' fontSize="6em">{selectedEvent.emoji}</Heading>
+                <Box name="headline" p='4' width=''>
+                  <Text name='subtitle' mt='3' fontSize='14px' color='second'>{selectedEvent.subTitle}</Text>
+                  <Heading name='eventName' color='white' mt='0' size='lg'>{selectedEvent.name}</Heading>
+                  {selectedEvent.isLive && userIsAuthenticated() && 
+                    <HabitsCompletedDashboard eventHabitCompletions={eventHabitCompletions} />   
+                  }
+                </Box>
+              </Box>
+            </Link>
+            {selectedEvent.isLive && userIsAuthenticated() ?
+            <>
+            <Box mt='1'>
+              <Wrap p='4'>{widget}</Wrap>
+            </Box>
+            <Button onClick={toAddHabitPage} fontSize='16px' fontWeight='bold' mt='2' mb='10' w='60%' backgroundColor='fourth' boxShadow='lg' p='6' rounded='md' bg='white' color='white'>Add Habit</Button>
+            </>
+            :
+              <>
+              <Text mb='2'>{`${selectedEvent.description.substring(0, 90)}...`}</Text>
+              <Link to={`/events/${selectedEvent._id}`} >
+              <Button fontSize='16px' fontWeight='bold' mt='6' w='60%' backgroundColor='fourth' boxShadow='lg' p='6' rounded='md' bg='white' color='white'>View Event</Button>
+              </Link>
+              </>
+
+            }
+          </Flex>
+
+            </>
+            :
+            hasError.error ?
+              <p>{hasError.message}</p> : <Spinner />
+            }
           </>
         :
-        <Container mb='4'>
+        <Box mb='4'>
           <Heading textAlign='center' as='h1' size='lg'>Welcome to TinyHabit</Heading>
           <Text textAlign='center'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae libero et sem pulvinar mattis eget nec sapien</Text>
-        </Container>
+        </Box>
       }
     </>
   )
