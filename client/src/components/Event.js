@@ -161,6 +161,7 @@ const Event = () => {
             <Flex name='widget' bg='white' w='100%' flexDirection='column' alignItems='center'rounded='md'>
             {habitsFiltered && habitsFiltered.map(userhabit => {
               return userhabit.map(habit => {
+                console.log(habit)
                 return (
                 <Box name="habit-box" key={habit._id}  mt='5' borderWidth='1px' width='100%' borderRadius='lg' overflow='hidden'>
                 <Box pl='6' mt='6' name="event-owner" display='flex'>

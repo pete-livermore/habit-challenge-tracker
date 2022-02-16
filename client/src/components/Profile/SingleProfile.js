@@ -97,36 +97,38 @@ const SingleProfile = () => {
         <>
             {profileData ?
                 <>
-                    <Flex zIndex='0' p='0' mt='5' name="wrapper" width='80%' direction={{ base: 'column', md: 'row' }}>
-                        <VStack display='flex' name="content" direction='column' width='70%' alignItems='flex-start'>
-                            <Box name="header" mb='70px' >
-                                <Box name="image" w='450px'>
+                <Flex zIndex='0' p='0' mt='5' name="wrapper" width='80%' direction={{ base: 'column', md: 'row' }}>
+                    <Flex zIndex='0' width='100%' p='0' mt='5' alignItems='center' name="wrapper" direction={{ base: 'column', md: 'row' }}>
+                        <VStack display='flex' name="content" direction='column' alignItems='flex-start'>
+                            <Box width='100%' name="header" mb='70px' >
+                                <Flex flexDirection='column' alignItems={{ base: 'center', md: 'flex-start' }}>
+                                <Box name="image">
                                     <Avatar
                                         borderRadius='full'
                                         boxSize='150px'
-                                        src={profileData.picture !== '' ? profileData.picture : ''}
+                                        src={profileData.profilePicture !== '' ? profileData.profilePicture : ''}
                                         alt='profile picture' />
                                 </Box>
                                 <Box name="headline">
-                                    <Text mt='3' size='lg' color='secondary'>Email: {profileData.email}</Text>
-                                    <Heading color='white' mt='3' as='h1' size='2xl' mb='4'>{profileData.firstName + ' ' + profileData.lastName}</Heading>
+                                    <Text textAlign={{ base: 'center', md: 'left' }} mt='3' size='lg' color='secondary'>Email: {profileData.email}</Text>
+                                    <Heading textAlign={{ base: 'center', md: 'left' }} color='white' mt='2' as='h1' fontSize={{ base: '25px', md: '30px', lg: '40px' }} mb='2'>{profileData.firstName + ' ' + profileData.lastName}</Heading>
                                 </Box>
                                 {loggedInProfile && userIsAuthenticated() && loggedInProfile.id === userId ?
                                     <Link to={`/profile/${profileData.id}/edit-profile`}>
-                                        <Button w='20%' mt='3' backgroundColor='#ffbb0f' boxShadow='lg' rounded='md' bg='white' color='white'>Edit</Button>
+                                        <Button w='100%' mt='2' backgroundColor='#ffbb0f' boxShadow='lg' rounded='md' bg='white' color='white'>Edit</Button>
                                     </Link>
-                                    : ''}
+                                    : <Box h='48px'></Box>}
+                                    </Flex>
                             </Box>
                             <Box>
-                                <Flex flexDirection='row' justifyContent='center'>
-                                    <Box>
+                                    <Box width='100%'>
                                         <Flex flexDirection='column' justifyContent='flex-start'>
                                             {habitsFiltered ?
                                                 <>
-                                                    <Box name="habits-completed-box" p='5' mt='0' color='black' borderTopRadius='10' boxShadow='lg' width='100%'>
-                                                        <Heading as='h5' mb='2' size='md'>Habits Completed</Heading>
-                                                        <Flex flexDirection='row' justifyContent='center'>
-                                                            <Select mr='1' width='60%' className='filterHabit' name="event" id="event" onChange={filterHabitsFunction}>
+                                                    <Box name="habits-completed-box" p='5' mt='0' color='black' borderTopRadius='10' width='100%'>
+                                                        <Heading as='h5' mb='3' textAlign={{ base: 'center', md: 'left' }} ml={{ base: 0, md: 2 }}  size='md'>Habits Completed</Heading>
+                                                        <Flex alignItems='center' justifyContent='center' flexDirection={{ base: 'column', md: 'row' }}>
+                                                            <Select mr={{ base: 0, md: 1 }} mb={{ base: '2', md: '0'}} width={{ base: '100%', md: '60%' }} className='filterHabit' name="event" id="event" onChange={filterHabitsFunction}>
                                                                 <option hidden>Event</option>
                                                                 <option>All</option>
                                                                 {profileData.events.map(joinedEvent => {
@@ -136,7 +138,7 @@ const SingleProfile = () => {
                                                                     )
                                                                 })}
                                                             </Select>
-                                                            <Select ml='1' width='30%' className='filterHabit' name="date" id="date" onChange={filterHabitsFunction}>
+                                                            <Select ml={{ base: 0, md: 1 }} width={{ base: '100%', md: '30%' }} className='filterHabit' name="date" id="date" onChange={filterHabitsFunction}>
                                                             <option hidden>Date</option>
                                                             <option>All</option>
                                                             {profileData.habitCompletions.sort(function (a, b) {
@@ -149,7 +151,7 @@ const SingleProfile = () => {
                                                             </Select>
                                                             </Flex>
                                                     </Box>
-                                                    <Flex bg='white' w='100%' flexDirection='column' alignItems='center' boxShadow='lg' borderBottomRadius='10' rounded='md'>
+                                                    <Flex bg='white' w='100%' flexDirection='column' alignItems='center' borderBottomRadius='10' rounded='md'>
                                                         {habitsFiltered.length ? habitsFiltered.map(habit => {
                                                             return (
                                                                 <Box key={habit._id} width='80%' mt='2' mb='2' borderWidth='1px' boxShadow='lg' borderRadius='lg' overflow='hidden'>
@@ -211,23 +213,27 @@ const SingleProfile = () => {
                                                 <Text mb='4'>Nothing to see</Text>}
                                         </Flex>
                                     </Box>
-
-                                </Flex>
                             </Box>
                         </VStack>
-                        <Container width={{ base: '100%', md: '40%' }} name="widget">
+                        
+                    </Flex>
+                    <Container width={{ base: '100%', md: '60%' }} name="widget">
                             <Box name="joined-events-box" p='5' mt='0' backgroundColor='#0075ff' color='white' borderTopRadius='10' w='100%'>
                                 <Heading as='h5' size='md'>Joined Events</Heading>
                             </Box>
                             <Flex name="joined-events" p='3' mt='0' bg='white' w='100%' flexDirection='column' alignItems='center' boxShadow='lg' borderBottomRadius='10'>
                                 {profileData.events.length ? profileData.events.map(joinedEvent => {
+                                    console.log(eventData.filter(event => event._id === joinedEvent._id)[0].isLive)
                                     return (
-                                        <Text key={joinedEvent._id} as='h4' mb='1.5' mt='1.5' size='md'>- {eventData.length ? eventData.filter(event => event._id === joinedEvent._id)[0].name : '...'}</Text>
+                                        <Text key={joinedEvent._id} as='h4' mb='1.5' mt='1.5' fontSize='sm'>
+                                            {eventData.length ? eventData.filter(event => event._id === joinedEvent._id)[0].name
+                                             + ': ' 
+                                             + (eventData.filter(event => event._id === joinedEvent._id)[0].isLive ? 'LIVE' : 'NOT LIVE') : '...'}</Text>
                                     )
                                 }) : <Text as='h4' size='md'>Events: no events</Text>}
                             </Flex>
                         </Container>
-                    </Flex>
+                        </Flex>
                 </>
                 :
                 <Flex flexDirection='row' justifyContent='center'>

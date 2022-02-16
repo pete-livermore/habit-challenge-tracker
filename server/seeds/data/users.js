@@ -113,7 +113,7 @@ export default [
     email: 'Reece.Wells@email.com',
     password: 'pass',
     passwordConfirmation: 'pass',
-    picture: 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934125/project_3_sei61/pexels-italo-melo-2379004_hpdrva.jpg',
+    profilePicture: 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934125/project_3_sei61/pexels-italo-melo-2379004_hpdrva.jpg',
     _id: '620970bfebd967d62df75001',
     events: [
       {
@@ -177,7 +177,7 @@ export default [
     email: 'Holly.Smith@email.com',
     password: 'pass',
     passwordConfirmation: 'pass',
-    picture: 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934237/project_3_sei61/pexels-mentatdgt-1024311_tunewq.jpg',
+    profilePicture: 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934237/project_3_sei61/pexels-mentatdgt-1024311_tunewq.jpg',
     _id: '620970bfebd967d62df75002',
     events: [
       {
@@ -238,7 +238,7 @@ export default [
     email: 'Maddy.Mensa@email.com',
     password: 'pass',
     passwordConfirmation: 'pass',
-    picture: 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934196/project_3_sei61/pexels-christina-morillo-1181690_nf6gl1.jpg',
+    profilePicture: 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934196/project_3_sei61/pexels-christina-morillo-1181690_nf6gl1.jpg',
     _id: '620970bfebd967d62df75003',
     events: [
       {
@@ -302,7 +302,7 @@ export default [
     email: 'Toby.Reller@email.com',
     password: 'pass',
     passwordConfirmation: 'pass',
-    picture: 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934146/project_3_sei61/pexels-christina-morillo-1181391_ckbk0m.jpg',
+    profilePicture: 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934146/project_3_sei61/pexels-christina-morillo-1181391_ckbk0m.jpg',
     _id: '620970bfebd967d62df75004',
     events: [
       {
@@ -366,7 +366,7 @@ export default [
     email: 'Denise.Kirby@email.com',
     password: 'pass',
     passwordConfirmation: 'pass',
-    picture: 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644936208/project_3_sei61/pexels-christina-morillo-1181686_d7mr92.jpg',
+    profilePicture: 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644936208/project_3_sei61/pexels-christina-morillo-1181686_d7mr92.jpg',
     _id: '620970bfebd967d62df75005',
     events: [
       {
@@ -430,7 +430,7 @@ export default [
     email: 'Bethany.Wright@email.com',
     password: 'pass',
     passwordConfirmation: 'pass',
-    picture: 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644936319/project_3_sei61/pexels-daniel-xavier-1239291_zf80wh.jpg',
+    profilePicture: 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644936319/project_3_sei61/pexels-daniel-xavier-1239291_zf80wh.jpg',
     _id: '620970bfebd967d62df75006',
     events: [
       {
@@ -444,7 +444,7 @@ export default [
     email: 'Ian.Turner@email.com',
     password: 'pass',
     passwordConfirmation: 'pass',
-    picture: 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644938229/project_3_sei61/pexels-omar-l%C3%B3pez-1182825_odabpm.jpg',
+    profilePicture: 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644938229/project_3_sei61/pexels-omar-l%C3%B3pez-1182825_odabpm.jpg',
     _id: '620970bfebd967d62df75007',
     events: [
       {
@@ -458,7 +458,7 @@ export default [
     email: 'Lucy.Wayne@email.com',
     password: 'pass',
     passwordConfirmation: 'pass',
-    picture: 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644938288/project_3_sei61/pexels-aizhana-aldanova-983564_gcyhmk.jpg',
+    profilePicture: 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644938288/project_3_sei61/pexels-aizhana-aldanova-983564_gcyhmk.jpg',
     _id: '620970bfebd967d62df75008',
     events: [
       {
@@ -472,7 +472,7 @@ export default [
     email: 'Kiran.Kaur@email.com',
     password: 'pass',
     passwordConfirmation: 'pass',
-    picture: 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644938386/project_3_sei61/pexels-mentatdgt-1096968_1_xsrrn0.jpg',
+    profilePicture: 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644938386/project_3_sei61/pexels-mentatdgt-1096968_1_xsrrn0.jpg',
     _id: '620970bfebd967d62df75009',
     events: [
       {
@@ -486,7 +486,7 @@ export default [
     email: 'Max.Payton@email.com',
     password: 'pass',
     passwordConfirmation: 'pass',
-    picture: 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644938432/project_3_sei61/pexels-daniel-xavier-1121796_bokbxk.jpg',
+    profilePicture: 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644938432/project_3_sei61/pexels-daniel-xavier-1121796_bokbxk.jpg',
     _id: '620970bfebd967d62df75010',
     events: [
       {
@@ -500,7 +500,7 @@ export default [
     email: 'Monica.Patel@email.com',
     password: 'pass',
     passwordConfirmation: 'pass',
-    picture: 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644938502/project_3_sei61/pexels-gabriela-pereira-1769665_vqkgzu.jpg',
+    profilePicture: 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644938502/project_3_sei61/pexels-gabriela-pereira-1769665_vqkgzu.jpg',
     _id: '620970bfebd967d62df75011',
     events: [
       {
@@ -514,7 +514,7 @@ export default [
     email: 'Jacob.Mead@email.com',
     password: 'pass',
     passwordConfirmation: 'pass',
-    picture: 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644941878/project_3_sei61/pexels-pixabay-220453_j5kigw.jpg',
+    profilePicture: 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644941878/project_3_sei61/pexels-pixabay-220453_j5kigw.jpg',
     _id: '620970bfebd967d62df75012',
     events: [
       {
@@ -528,7 +528,7 @@ export default [
     email: 'Akshay.Patel@email.com',
     password: 'pass',
     passwordConfirmation: 'pass',
-    picture: 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644941905/project_3_sei61/pexels-sumit-kapoor-718261_r7y9fs.jpg',
+    profilePicture: 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644941905/project_3_sei61/pexels-sumit-kapoor-718261_r7y9fs.jpg',
     _id: '620970bfebd967d62df75013',
     events: [
       {
@@ -542,7 +542,7 @@ export default [
     email: 'Ryan.Chien@email.com',
     password: 'pass',
     passwordConfirmation: 'pass',
-    picture: 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644941935/project_3_sei61/pexels-mentatdgt-937481_sgbpr9.jpg',
+    profilePicture: 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644941935/project_3_sei61/pexels-mentatdgt-937481_sgbpr9.jpg',
     _id: '620970bfebd967d62df75014',
     events: [
       {
@@ -556,7 +556,7 @@ export default [
     email: 'Mady.Brown@email.com',
     password: 'pass',
     passwordConfirmation: 'pass',
-    picture: 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644941969/project_3_sei61/pexels-sam-lion-6001555_piodlh.jpg',
+    profilePicture: 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644941969/project_3_sei61/pexels-sam-lion-6001555_piodlh.jpg',
     _id: '620970bfebd967d62df75015',
     events: [
       {
@@ -570,7 +570,7 @@ export default [
     email: 'Alessandro.Xavi@email.com',
     password: 'pass',
     passwordConfirmation: 'pass',
-    picture: 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644941980/project_3_sei61/pexels-chloe-1043474_udw374.jpg',
+    profilePicture: 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644941980/project_3_sei61/pexels-chloe-1043474_udw374.jpg',
     _id: '620970bfebd967d62df75016',
     events: [
       {
@@ -584,7 +584,7 @@ export default [
     email: 'Dmitri.Petrov@email.com',
     password: 'pass',
     passwordConfirmation: 'pass',
-    picture: 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644942015/project_3_sei61/pexels-ethan-jones-3222422_tre3xe.jpg',
+    profilePicture: 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644942015/project_3_sei61/pexels-ethan-jones-3222422_tre3xe.jpg',
     _id: '620970bfebd967d62df75017',
     events: [
       {
