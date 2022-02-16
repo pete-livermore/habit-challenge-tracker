@@ -99,7 +99,6 @@ const Event = () => {
       const filteredHabits = (eventData.eventMembers)
         .map(member => member)
         .map(habit => habit.habitCompletions)
-        .filter(event => event.map(value => value.event === eventId))
       console.log('members.filtered', filteredHabits);
       setHabitsFiltered(filteredHabits)
     }
@@ -164,11 +163,11 @@ const Event = () => {
                 <Text color='gray.500'>{eventData.description}</Text>
               </Box>
               <Flex name='widget' bg='white' w='100%' flexDirection='column' alignItems='center' rounded='md'>
-                {/* {console.log('habits filtered -> ', habitsFiltered)} */}
+                {console.log('habits filtered -> ', habitsFiltered)}
                 {habitsFiltered && habitsFiltered.map(userhabit => {
                   return userhabit.map(habit => {
-                    // console.log('habit', habit)
-                    return (
+                    console.log('habit', habit)
+                    return (habit.event === eventId ?
                       <Box name="habit-box" key={habit._id} mt='5' borderWidth='1px' width='100%' borderRadius='lg' overflow='hidden'>
                         <Box pl='6' mt='6' name="event-owner" display='flex'>
                           <Link to={`/profile/${eventData.owner.id}`}>
@@ -191,6 +190,8 @@ const Event = () => {
                         <Image src={habit.picture} alt='habit-pic' />
 
                       </Box>
+                      :
+                      ''
                     )
                   })
 
