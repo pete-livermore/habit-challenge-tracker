@@ -30,7 +30,6 @@ const Event = () => {
     const getEventData = async () => {
       try {
         const { data } = await axios.get(`/api/events/${eventId}`)
-        console.log(data)
         setEventData(data)
       } catch (err) {
         setIsError({ error: true, message: 'Server error' })
@@ -92,7 +91,7 @@ const Event = () => {
       const filteredHabits = (eventData.eventMembers)
       .map(member => member)
       .map(habit => habit.habitCompletions)
-      .filter(event => event.event === eventData.event)
+      .filter(event => event.map(value => value.event ===  eventId))
       console.log('members.filtered',filteredHabits);
       setHabitsFiltered(filteredHabits) 
     }
@@ -123,10 +122,7 @@ const Event = () => {
     addLike()
   }, [eventId, likeClick])
 
-
-  useEffect(() => {
-    console.log(likeClick)
-  }, [likeClick])
+console.log('eventdata ->',eventData)
 
   return (
     <>
@@ -159,9 +155,10 @@ const Event = () => {
                 <Text color='gray.500'>{eventData.description}</Text>                
             </Box>
             <Flex name='widget' bg='white' w='100%' flexDirection='column' alignItems='center'rounded='md'>
+            {console.log('habits filtered -> ', habitsFiltered)}
             {habitsFiltered && habitsFiltered.map(userhabit => {
-              return userhabit.map(habit => {
-                console.log(habit)
+                return userhabit.map(habit => {
+                console.log('habit',habit)
                 return (
                 <Box name="habit-box" key={habit._id}  mt='5' borderWidth='1px' width='100%' borderRadius='lg' overflow='hidden'>
                 <Box pl='6' mt='6' name="event-owner" display='flex'>
@@ -184,10 +181,12 @@ const Event = () => {
                 </Box>
                 <Image src={habit.picture} alt='habit-pic' />
               
-              </Box>
-            )
-              }) }) 
-            }
+                </Box>
+                )
+              })
+      
+             }
+            )}
             </Flex>
 
             </VStack>
@@ -212,7 +211,7 @@ const Event = () => {
               {!eventData.isLive && eventBeforeStartDate(eventData) && 
                 <>
                 <Text fontSize={{ base: '12px', md: '16px', lg: '24px' }} fontWeight='bold' textAlign='center'>The challenge<br></br> starts in {daysLeftUntilEvent(eventData)}</Text>               
-                <Button onClick={handleSubmit} fontSize='16px' fontWeight='bold' my='6' w='60%' backgroundColor='#ffbb0f' boxShadow='lg' p='6' rounded='md' bg='white' color='white'>Join Event</Button>
+                                <Button onClick={handleSubmit} fontSize='16px' fontWeight='bold' my='6' w='60%' backgroundColor='#ffbb0f' boxShadow='lg' p='6' rounded='md' bg='white' color='white'>Join Event</Button>
 
                 </>
               }

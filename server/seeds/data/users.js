@@ -59,53 +59,7 @@ export default [
         '_id': '620a1935c600f37f9715d83f',
       }
     ],
-    'habitCompletions': [
-      {
-        'owner': '620970bfebd967d62df7572a',
-        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934762/project_3_sei61/api-request_zgdvmk.jpg',
-        'comment': 'Worked on some api requests',
-        'event': '620970bfebd967d62df75734',
-        '_id': '620973ed83a4dc0e7c1d1fa1',
-        'createdAt': '2022-02-07T21:11:09.859Z',
-        'updatedAt': '2022-02-07T21:11:09.859Z',
-      },
-      {
-        'owner': '620970bfebd967d62df7572a',
-        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934762/project_3_sei61/functions_aqqkcl.jpg',
-        'comment': 'Played around with functions',
-        'event': '620970bfebd967d62df75734',
-        '_id': '620973ed83a4dc0e7c1d1fa2',
-        'createdAt': '2022-02-08T21:11:09.859Z',
-        'updatedAt': '2022-02-08T21:11:09.859Z',
-      },
-      {
-        'owner': '620970bfebd967d62df7572a',
-        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934998/project_3_sei61/seeding_yibvub.jpg',
-        'comment': 'Added seeding to server database',
-        'event': '620970bfebd967d62df75734',
-        '_id': '620973ed83a4dc0e7c1d1fa3',
-        'createdAt': '2022-02-09T21:11:09.859Z',
-        'updatedAt': '2022-02-09T21:11:09.859Z',
-      },
-      {
-        'owner': '620970bfebd967d62df7572a',
-        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934762/project_3_sei61/styling_m7c7e2.jpg',
-        'comment': 'Styled front end using bootstrap',
-        'event': '620970bfebd967d62df75734',
-        '_id': '620973ed83a4dc0e7c1d1fa4',
-        'createdAt': '2022-02-10T21:11:09.859Z',
-        'updatedAt': '2022-02-10T21:11:09.859Z',
-      },
-      {
-        'owner': '620970bfebd967d62df7572a',
-        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934998/project_3_sei61/profile_ys2isc.jpg',
-        'comment': 'Completed profile page of my website',
-        'event': '620970bfebd967d62df75734',
-        '_id': '620973ed83a4dc0e7c1d1fa5',
-        'createdAt': '2022-02-11T21:11:09.859Z',
-        'updatedAt': '2022-02-11T21:11:09.859Z',
-      }
-    ],
+ 
   },
   {
     firstName: 'Reece',
@@ -123,53 +77,7 @@ export default [
         '_id': '620a1935c600f37f9715d83f',
       }
     ],
-    'habitCompletions': [
-      {
-        'owner': '620970bfebd967d62df75001',
-        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934762/project_3_sei61/api-request_zgdvmk.jpg',
-        'comment': 'Worked on some api requests',
-        'event': '620970bfebd967d62df75734',
-        '_id': '620973ed83a4dc0e7c1d1fa1',
-        'createdAt': '2022-02-07T21:11:09.859Z',
-        'updatedAt': '2022-02-07T21:11:09.859Z',
-      },
-      {
-        'owner': '620970bfebd967d62df75001',
-        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934762/project_3_sei61/functions_aqqkcl.jpg',
-        'comment': 'Played around with functions',
-        'event': '620970bfebd967d62df75734',
-        '_id': '620973ed83a4dc0e7c1d1fa2',
-        'createdAt': '2022-02-08T21:11:09.859Z',
-        'updatedAt': '2022-02-08T21:11:09.859Z',
-      },
-      {
-        'owner': '620970bfebd967d62df75001',
-        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934998/project_3_sei61/seeding_yibvub.jpg',
-        'comment': 'Added seeding to server database',
-        'event': '620970bfebd967d62df75734',
-        '_id': '620973ed83a4dc0e7c1d1fa3',
-        'createdAt': '2022-02-09T21:11:09.859Z',
-        'updatedAt': '2022-02-09T21:11:09.859Z',
-      },
-      {
-        'owner': '620970bfebd967d62df75001',
-        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934762/project_3_sei61/styling_m7c7e2.jpg',
-        'comment': 'Styled front end using bootstrap',
-        'event': '620970bfebd967d62df75734',
-        '_id': '620973ed83a4dc0e7c1d1fa4',
-        'createdAt': '2022-02-10T21:11:09.859Z',
-        'updatedAt': '2022-02-10T21:11:09.859Z',
-      },
-      {
-        'owner': '620970bfebd967d62df75001',
-        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934998/project_3_sei61/profile_ys2isc.jpg',
-        'comment': 'Completed profile page of my website',
-        'event': '620970bfebd967d62df75734',
-        '_id': '620973ed83a4dc0e7c1d1fa5',
-        'createdAt': '2022-02-11T21:11:09.859Z',
-        'updatedAt': '2022-02-11T21:11:09.859Z',
-      }
-    ],
+    
   },
   {
     firstName: 'Holly',
@@ -184,53 +92,7 @@ export default [
         '_id': '620970bfebd967d62df75734',
       }
     ],
-    'habitCompletions': [
-      {
-        'owner': '620970bfebd967d62df75002',
-        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934762/project_3_sei61/api-request_zgdvmk.jpg',
-        'comment': 'Worked on some api requests',
-        'event': '620970bfebd967d62df75734',
-        '_id': '620973ed83a4dc0e7c1d1fa1',
-        'createdAt': '2022-02-07T21:11:09.859Z',
-        'updatedAt': '2022-02-07T21:11:09.859Z',
-      },
-      {
-        'owner': '620970bfebd967d62df75002',
-        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934762/project_3_sei61/functions_aqqkcl.jpg',
-        'comment': 'Played around with functions',
-        'event': '620970bfebd967d62df75734',
-        '_id': '620973ed83a4dc0e7c1d1fa2',
-        'createdAt': '2022-02-08T21:11:09.859Z',
-        'updatedAt': '2022-02-08T21:11:09.859Z',
-      },
-      {
-        'owner': '620970bfebd967d62df75002',
-        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934998/project_3_sei61/seeding_yibvub.jpg',
-        'comment': 'Added seeding to server database',
-        'event': '620970bfebd967d62df75734',
-        '_id': '620973ed83a4dc0e7c1d1fa3',
-        'createdAt': '2022-02-09T21:11:09.859Z',
-        'updatedAt': '2022-02-09T21:11:09.859Z',
-      },
-      {
-        'owner': '620970bfebd967d62df75002',
-        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934762/project_3_sei61/styling_m7c7e2.jpg',
-        'comment': 'Styled front end using bootstrap',
-        'event': '620970bfebd967d62df75734',
-        '_id': '620973ed83a4dc0e7c1d1fa4',
-        'createdAt': '2022-02-10T21:11:09.859Z',
-        'updatedAt': '2022-02-10T21:11:09.859Z',
-      },
-      {
-        'owner': '620970bfebd967d62df75002',
-        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934998/project_3_sei61/profile_ys2isc.jpg',
-        'comment': 'Completed profile page of my website',
-        'event': '620970bfebd967d62df75734',
-        '_id': '620973ed83a4dc0e7c1d1fa5',
-        'createdAt': '2022-02-11T21:11:09.859Z',
-        'updatedAt': '2022-02-11T21:11:09.859Z',
-      }
-    ],
+    
   },
   {
     firstName: 'Maddy',
@@ -248,53 +110,7 @@ export default [
         '_id': '620a1935c600f37f9715d83e',
       }
     ],
-    'habitCompletions': [
-      {
-        'owner': '620970bfebd967d62df75003',
-        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934762/project_3_sei61/api-request_zgdvmk.jpg',
-        'comment': 'Worked on some api requests',
-        'event': '620970bfebd967d62df75734',
-        '_id': '620973ed83a4dc0e7c1d1fa1',
-        'createdAt': '2022-02-07T21:11:09.859Z',
-        'updatedAt': '2022-02-07T21:11:09.859Z',
-      },
-      {
-        'owner': '620970bfebd967d62df75003',
-        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934762/project_3_sei61/functions_aqqkcl.jpg',
-        'comment': 'Played around with functions',
-        'event': '620970bfebd967d62df75734',
-        '_id': '620973ed83a4dc0e7c1d1fa2',
-        'createdAt': '2022-02-08T21:11:09.859Z',
-        'updatedAt': '2022-02-08T21:11:09.859Z',
-      },
-      {
-        'owner': '620970bfebd967d62df75003',
-        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934998/project_3_sei61/seeding_yibvub.jpg',
-        'comment': 'Added seeding to server database',
-        'event': '620970bfebd967d62df75734',
-        '_id': '620973ed83a4dc0e7c1d1fa3',
-        'createdAt': '2022-02-09T21:11:09.859Z',
-        'updatedAt': '2022-02-09T21:11:09.859Z',
-      },
-      {
-        'owner': '620970bfebd967d62df75003',
-        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934762/project_3_sei61/styling_m7c7e2.jpg',
-        'comment': 'Styled front end using bootstrap',
-        'event': '620970bfebd967d62df75734',
-        '_id': '620973ed83a4dc0e7c1d1fa4',
-        'createdAt': '2022-02-10T21:11:09.859Z',
-        'updatedAt': '2022-02-10T21:11:09.859Z',
-      },
-      {
-        'owner': '620970bfebd967d62df75003',
-        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934998/project_3_sei61/profile_ys2isc.jpg',
-        'comment': 'Completed profile page of my website',
-        'event': '620970bfebd967d62df75734',
-        '_id': '620973ed83a4dc0e7c1d1fa5',
-        'createdAt': '2022-02-11T21:11:09.859Z',
-        'updatedAt': '2022-02-11T21:11:09.859Z',
-      }
-    ],
+    
   },
   {
     firstName: 'Toby',
@@ -312,53 +128,7 @@ export default [
         '_id': '620a1935c600f37f9715d83f',
       }
     ],
-    'habitCompletions': [
-      {
-        'owner': '620970bfebd967d62df75004',
-        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934762/project_3_sei61/api-request_zgdvmk.jpg',
-        'comment': 'Worked on some api requests',
-        'event': '620970bfebd967d62df75734',
-        '_id': '620973ed83a4dc0e7c1d1fa1',
-        'createdAt': '2022-02-07T21:11:09.859Z',
-        'updatedAt': '2022-02-07T21:11:09.859Z',
-      },
-      {
-        'owner': '620970bfebd967d62df75004',
-        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934762/project_3_sei61/functions_aqqkcl.jpg',
-        'comment': 'Played around with functions',
-        'event': '620970bfebd967d62df75734',
-        '_id': '620973ed83a4dc0e7c1d1fa2',
-        'createdAt': '2022-02-08T21:11:09.859Z',
-        'updatedAt': '2022-02-08T21:11:09.859Z',
-      },
-      {
-        'owner': '620970bfebd967d62df75004',
-        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934998/project_3_sei61/seeding_yibvub.jpg',
-        'comment': 'Added seeding to server database',
-        'event': '620970bfebd967d62df75734',
-        '_id': '620973ed83a4dc0e7c1d1fa3',
-        'createdAt': '2022-02-09T21:11:09.859Z',
-        'updatedAt': '2022-02-09T21:11:09.859Z',
-      },
-      {
-        'owner': '620970bfebd967d62df75004',
-        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934762/project_3_sei61/styling_m7c7e2.jpg',
-        'comment': 'Styled front end using bootstrap',
-        'event': '620970bfebd967d62df75734',
-        '_id': '620973ed83a4dc0e7c1d1fa4',
-        'createdAt': '2022-02-10T21:11:09.859Z',
-        'updatedAt': '2022-02-10T21:11:09.859Z',
-      },
-      {
-        'owner': '620970bfebd967d62df75004',
-        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934998/project_3_sei61/profile_ys2isc.jpg',
-        'comment': 'Completed profile page of my website',
-        'event': '620970bfebd967d62df75734',
-        '_id': '620973ed83a4dc0e7c1d1fa5',
-        'createdAt': '2022-02-11T21:11:09.859Z',
-        'updatedAt': '2022-02-11T21:11:09.859Z',
-      }
-    ],
+    
   },
   {
     firstName: 'Denise',
@@ -376,67 +146,7 @@ export default [
         '_id': '620a1935c600f37f9715d83f',
       }
     ],
-    'habitCompletions': [
-      {
-        'owner': '620970bfebd967d62df75005',
-        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934762/project_3_sei61/api-request_zgdvmk.jpg',
-        'comment': 'Worked on some api requests',
-        'event': '620970bfebd967d62df75734',
-        '_id': '620973ed83a4dc0e7c1d1fa1',
-        'createdAt': '2022-02-07T21:11:09.859Z',
-        'updatedAt': '2022-02-07T21:11:09.859Z',
-      },
-      {
-        'owner': '620970bfebd967d62df75005',
-        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934762/project_3_sei61/functions_aqqkcl.jpg',
-        'comment': 'Played around with functions',
-        'event': '620970bfebd967d62df75734',
-        '_id': '620973ed83a4dc0e7c1d1fa2',
-        'createdAt': '2022-02-08T21:11:09.859Z',
-        'updatedAt': '2022-02-08T21:11:09.859Z',
-      },
-      {
-        'owner': '620970bfebd967d62df75005',
-        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934998/project_3_sei61/seeding_yibvub.jpg',
-        'comment': 'Added seeding to server database',
-        'event': '620970bfebd967d62df75734',
-        '_id': '620973ed83a4dc0e7c1d1fa3',
-        'createdAt': '2022-02-09T21:11:09.859Z',
-        'updatedAt': '2022-02-09T21:11:09.859Z',
-      },
-      {
-        'owner': '620970bfebd967d62df75005',
-        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934762/project_3_sei61/styling_m7c7e2.jpg',
-        'comment': 'Styled front end using bootstrap',
-        'event': '620970bfebd967d62df75734',
-        '_id': '620973ed83a4dc0e7c1d1fa4',
-        'createdAt': '2022-02-10T21:11:09.859Z',
-        'updatedAt': '2022-02-10T21:11:09.859Z',
-      },
-      {
-        'owner': '620970bfebd967d62df75005',
-        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934998/project_3_sei61/profile_ys2isc.jpg',
-        'comment': 'Completed profile page of my website',
-        'event': '620970bfebd967d62df75734',
-        '_id': '620973ed83a4dc0e7c1d1fa5',
-        'createdAt': '2022-02-11T21:11:09.859Z',
-        'updatedAt': '2022-02-11T21:11:09.859Z',
-      }
-    ],
-  },
-  {
-    firstName: 'Bethany',
-    lastName: 'Wright',
-    email: 'Bethany.Wright@email.com',
-    password: 'pass',
-    passwordConfirmation: 'pass',
-    profilePicture: 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644936319/project_3_sei61/pexels-daniel-xavier-1239291_zf80wh.jpg',
-    _id: '620970bfebd967d62df75006',
-    events: [
-      {
-        '_id': '620a1935c600f37f9715d83e',
-      }
-    ],
+    
   },
   {
     firstName: 'Ian',
