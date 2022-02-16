@@ -223,12 +223,12 @@ const SingleProfile = () => {
                             </Box>
                             <Flex name="joined-events" p='3' mt='0' bg='white' w='100%' flexDirection='column' alignItems='center' boxShadow='lg' borderBottomRadius='10'>
                                 {profileData.events.length ? profileData.events.map(joinedEvent => {
-                                    console.log(eventData.filter(event => event._id === joinedEvent._id)[0].isLive)
+                                    // console.log(eventData.filter(event => event._id === joinedEvent._id)[0].isLive)
                                     return (
                                         <Text key={joinedEvent._id} as='h4' mb='1.5' mt='1.5' fontSize='sm'>
                                             {eventData.length ? eventData.filter(event => event._id === joinedEvent._id)[0].name
                                              + ': ' 
-                                             + (eventData.filter(event => event._id === joinedEvent._id)[0].isLive ? 'LIVE' : 'NOT LIVE') : '...'}</Text>
+                                             + (eventData.length ? eventData.filter(event => event._id === joinedEvent._id)[0].isLive ? 'LIVE' : 'NOT LIVE' : '') : '...'}</Text>
                                     )
                                 }) : <Text as='h4' size='md'>Events: no events</Text>}
                             </Flex>

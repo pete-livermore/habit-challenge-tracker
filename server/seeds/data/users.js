@@ -62,8 +62,8 @@ export default [
     'habitCompletions': [
       {
         'owner': '620970bfebd967d62df7572a',
-        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934762/project_3_sei61/api-request_zgdvmk.jpg',
-        'comment': 'Worked on some api requests',
+        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1645022575/project_3_sei61/Capture5_w5nd4m.jpg',
+        'comment': 'Used index of to find the place of a string in an array',
         'event': '620970bfebd967d62df75734',
         '_id': '620973ed83a4dc0e7c1d1fa1',
         'createdAt': '2022-02-07T21:11:09.859Z',
@@ -71,8 +71,8 @@ export default [
       },
       {
         'owner': '620970bfebd967d62df7572a',
-        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934762/project_3_sei61/functions_aqqkcl.jpg',
-        'comment': 'Played around with functions',
+        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1645022574/project_3_sei61/Capture2_jsq2ua.jpg',
+        'comment': 'Found a way to finding some values in an array when specifying criteria. Used this in some of my projects today',
         'event': '620970bfebd967d62df75734',
         '_id': '620973ed83a4dc0e7c1d1fa2',
         'createdAt': '2022-02-08T21:11:09.859Z',
@@ -80,8 +80,8 @@ export default [
       },
       {
         'owner': '620970bfebd967d62df7572a',
-        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934998/project_3_sei61/seeding_yibvub.jpg',
-        'comment': 'Added seeding to server database',
+        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1645022575/project_3_sei61/Capture4_fbwtnb.jpg',
+        'comment': 'Useful way to find index of value in array',
         'event': '620970bfebd967d62df75734',
         '_id': '620973ed83a4dc0e7c1d1fa3',
         'createdAt': '2022-02-09T21:11:09.859Z',
@@ -89,8 +89,8 @@ export default [
       },
       {
         'owner': '620970bfebd967d62df7572a',
-        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934762/project_3_sei61/styling_m7c7e2.jpg',
-        'comment': 'Styled front end using bootstrap',
+        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1645022575/project_3_sei61/Capture_lefkbh.jpg',
+        'comment': 'Used this method in some work today to check if all array value have a specified criteria. Found this really helpful :)',
         'event': '620970bfebd967d62df75734',
         '_id': '620973ed83a4dc0e7c1d1fa4',
         'createdAt': '2022-02-10T21:11:09.859Z',
@@ -98,8 +98,8 @@ export default [
       },
       {
         'owner': '620970bfebd967d62df7572a',
-        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934998/project_3_sei61/profile_ys2isc.jpg',
-        'comment': 'Completed profile page of my website',
+        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1645022575/project_3_sei61/Capture3_rzdsmc.jpg',
+        'comment': 'Practiced this find method on some project work',
         'event': '620970bfebd967d62df75734',
         '_id': '620973ed83a4dc0e7c1d1fa5',
         'createdAt': '2022-02-11T21:11:09.859Z',
@@ -126,8 +126,8 @@ export default [
     'habitCompletions': [
       {
         'owner': '620970bfebd967d62df75001',
-        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934762/project_3_sei61/api-request_zgdvmk.jpg',
-        'comment': 'Worked on some api requests',
+        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1645020952/project_3_sei61/Capture_vpt8np.jpg',
+        'comment': 'Making array values upper case',
         'event': '620970bfebd967d62df75734',
         '_id': '620973ed83a4dc0e7c1d1fa1',
         'createdAt': '2022-02-07T21:11:09.859Z',
@@ -135,8 +135,8 @@ export default [
       },
       {
         'owner': '620970bfebd967d62df75001',
-        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934762/project_3_sei61/functions_aqqkcl.jpg',
-        'comment': 'Played around with functions',
+        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1645020952/project_3_sei61/Capture2_u04ncw.jpg',
+        'comment': 'Push large strings into a new array',
         'event': '620970bfebd967d62df75734',
         '_id': '620973ed83a4dc0e7c1d1fa2',
         'createdAt': '2022-02-08T21:11:09.859Z',
@@ -144,8 +144,8 @@ export default [
       },
       {
         'owner': '620970bfebd967d62df75001',
-        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934998/project_3_sei61/seeding_yibvub.jpg',
-        'comment': 'Added seeding to server database',
+        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1645020952/project_3_sei61/Capture3_vpf2mh.jpg',
+        'comment': 'Practicing using forEach array method',
         'event': '620970bfebd967d62df75734',
         '_id': '620973ed83a4dc0e7c1d1fa3',
         'createdAt': '2022-02-09T21:11:09.859Z',
@@ -153,21 +153,12 @@ export default [
       },
       {
         'owner': '620970bfebd967d62df75001',
-        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934762/project_3_sei61/styling_m7c7e2.jpg',
-        'comment': 'Styled front end using bootstrap',
+        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1645020952/project_3_sei61/array1_jiwjau.jpg',
+        'comment': 'Logging values in an array',
         'event': '620970bfebd967d62df75734',
         '_id': '620973ed83a4dc0e7c1d1fa4',
         'createdAt': '2022-02-10T21:11:09.859Z',
         'updatedAt': '2022-02-10T21:11:09.859Z',
-      },
-      {
-        'owner': '620970bfebd967d62df75001',
-        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934998/project_3_sei61/profile_ys2isc.jpg',
-        'comment': 'Completed profile page of my website',
-        'event': '620970bfebd967d62df75734',
-        '_id': '620973ed83a4dc0e7c1d1fa5',
-        'createdAt': '2022-02-11T21:11:09.859Z',
-        'updatedAt': '2022-02-11T21:11:09.859Z',
       }
     ],
   },
@@ -187,8 +178,8 @@ export default [
     'habitCompletions': [
       {
         'owner': '620970bfebd967d62df75002',
-        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934762/project_3_sei61/api-request_zgdvmk.jpg',
-        'comment': 'Worked on some api requests',
+        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1645021696/project_3_sei61/Capture_zszmqe.jpg',
+        'comment': 'Practicing pop method on array',
         'event': '620970bfebd967d62df75734',
         '_id': '620973ed83a4dc0e7c1d1fa1',
         'createdAt': '2022-02-07T21:11:09.859Z',
@@ -196,8 +187,8 @@ export default [
       },
       {
         'owner': '620970bfebd967d62df75002',
-        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934762/project_3_sei61/functions_aqqkcl.jpg',
-        'comment': 'Played around with functions',
+        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1645021696/project_3_sei61/Capture4_v8xlgh.jpg',
+        'comment': 'Using splice method on array. Array method are getting more easy as I use them more :)))',
         'event': '620970bfebd967d62df75734',
         '_id': '620973ed83a4dc0e7c1d1fa2',
         'createdAt': '2022-02-08T21:11:09.859Z',
@@ -205,8 +196,8 @@ export default [
       },
       {
         'owner': '620970bfebd967d62df75002',
-        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934998/project_3_sei61/seeding_yibvub.jpg',
-        'comment': 'Added seeding to server database',
+        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1645021696/project_3_sei61/Capture2_kwccd6.jpg',
+        'comment': 'Pushing into an array',
         'event': '620970bfebd967d62df75734',
         '_id': '620973ed83a4dc0e7c1d1fa3',
         'createdAt': '2022-02-09T21:11:09.859Z',
@@ -214,8 +205,8 @@ export default [
       },
       {
         'owner': '620970bfebd967d62df75002',
-        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934762/project_3_sei61/styling_m7c7e2.jpg',
-        'comment': 'Styled front end using bootstrap',
+        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1645021696/project_3_sei61/Capture3_fv053g.jpg',
+        'comment': 'Unshift and shit of array, similar to pop and push so not too hard to get my head around',
         'event': '620970bfebd967d62df75734',
         '_id': '620973ed83a4dc0e7c1d1fa4',
         'createdAt': '2022-02-10T21:11:09.859Z',
@@ -223,8 +214,8 @@ export default [
       },
       {
         'owner': '620970bfebd967d62df75002',
-        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934998/project_3_sei61/profile_ys2isc.jpg',
-        'comment': 'Completed profile page of my website',
+        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1645021696/project_3_sei61/Capture5_rbr5oy.jpg',
+        'comment': 'Keep getting mixed up with slice and splice but can see how they can be very useful methods',
         'event': '620970bfebd967d62df75734',
         '_id': '620973ed83a4dc0e7c1d1fa5',
         'createdAt': '2022-02-11T21:11:09.859Z',
@@ -251,8 +242,8 @@ export default [
     'habitCompletions': [
       {
         'owner': '620970bfebd967d62df75003',
-        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934762/project_3_sei61/api-request_zgdvmk.jpg',
-        'comment': 'Worked on some api requests',
+        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1645023578/project_3_sei61/Capture2_btut5c.jpg',
+        'comment': 'API get request for my project. Working adding this data to the state today.',
         'event': '620970bfebd967d62df75734',
         '_id': '620973ed83a4dc0e7c1d1fa1',
         'createdAt': '2022-02-07T21:11:09.859Z',
@@ -260,8 +251,8 @@ export default [
       },
       {
         'owner': '620970bfebd967d62df75003',
-        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934762/project_3_sei61/functions_aqqkcl.jpg',
-        'comment': 'Played around with functions',
+        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1645023578/project_3_sei61/Capture4_z7mxi3.jpg',
+        'comment': 'Worked on returning html from the get request of data today. Had to map through the data to do this.',
         'event': '620970bfebd967d62df75734',
         '_id': '620973ed83a4dc0e7c1d1fa2',
         'createdAt': '2022-02-08T21:11:09.859Z',
@@ -269,8 +260,8 @@ export default [
       },
       {
         'owner': '620970bfebd967d62df75003',
-        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934998/project_3_sei61/seeding_yibvub.jpg',
-        'comment': 'Added seeding to server database',
+        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1645023578/project_3_sei61/Capture_ygsaml.jpg',
+        'comment': 'Created logic to filter through the data depending on the text or dropdown selected',
         'event': '620970bfebd967d62df75734',
         '_id': '620973ed83a4dc0e7c1d1fa3',
         'createdAt': '2022-02-09T21:11:09.859Z',
@@ -278,21 +269,12 @@ export default [
       },
       {
         'owner': '620970bfebd967d62df75003',
-        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934762/project_3_sei61/styling_m7c7e2.jpg',
-        'comment': 'Styled front end using bootstrap',
+        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1645023578/project_3_sei61/Capture3_hy2irm.jpg',
+        'comment': 'Add filter boxes the front end today. This took me some time but managed to get it done eventually!',
         'event': '620970bfebd967d62df75734',
         '_id': '620973ed83a4dc0e7c1d1fa4',
         'createdAt': '2022-02-10T21:11:09.859Z',
         'updatedAt': '2022-02-10T21:11:09.859Z',
-      },
-      {
-        'owner': '620970bfebd967d62df75003',
-        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934998/project_3_sei61/profile_ys2isc.jpg',
-        'comment': 'Completed profile page of my website',
-        'event': '620970bfebd967d62df75734',
-        '_id': '620973ed83a4dc0e7c1d1fa5',
-        'createdAt': '2022-02-11T21:11:09.859Z',
-        'updatedAt': '2022-02-11T21:11:09.859Z',
       }
     ],
   },
@@ -315,8 +297,8 @@ export default [
     'habitCompletions': [
       {
         'owner': '620970bfebd967d62df75004',
-        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934762/project_3_sei61/api-request_zgdvmk.jpg',
-        'comment': 'Worked on some api requests',
+        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1645025027/project_3_sei61/Capture_otgket.jpg',
+        'comment': 'Added styling to animate progress bar',
         'event': '620970bfebd967d62df75734',
         '_id': '620973ed83a4dc0e7c1d1fa1',
         'createdAt': '2022-02-07T21:11:09.859Z',
@@ -324,8 +306,8 @@ export default [
       },
       {
         'owner': '620970bfebd967d62df75004',
-        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934762/project_3_sei61/functions_aqqkcl.jpg',
-        'comment': 'Played around with functions',
+        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1645025027/project_3_sei61/Capture3_ufwu9u.jpg',
+        'comment': 'Function to update progress bar when donations come in',
         'event': '620970bfebd967d62df75734',
         '_id': '620973ed83a4dc0e7c1d1fa2',
         'createdAt': '2022-02-08T21:11:09.859Z',
@@ -333,8 +315,8 @@ export default [
       },
       {
         'owner': '620970bfebd967d62df75004',
-        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934998/project_3_sei61/seeding_yibvub.jpg',
-        'comment': 'Added seeding to server database',
+        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1645025028/project_3_sei61/Capture4_apab4l.jpg',
+        'comment': 'Added a function to add donations today. Took some time to figure out the adding class bit but got there in the end :)',
         'event': '620970bfebd967d62df75734',
         '_id': '620973ed83a4dc0e7c1d1fa3',
         'createdAt': '2022-02-09T21:11:09.859Z',
@@ -342,8 +324,8 @@ export default [
       },
       {
         'owner': '620970bfebd967d62df75004',
-        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934762/project_3_sei61/styling_m7c7e2.jpg',
-        'comment': 'Styled front end using bootstrap',
+        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1645025027/project_3_sei61/Capture2_tjkpjl.jpg',
+        'comment': 'Made some css styling for shaking the amount box when donation come in',
         'event': '620970bfebd967d62df75734',
         '_id': '620973ed83a4dc0e7c1d1fa4',
         'createdAt': '2022-02-10T21:11:09.859Z',
@@ -351,8 +333,8 @@ export default [
       },
       {
         'owner': '620970bfebd967d62df75004',
-        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934998/project_3_sei61/profile_ys2isc.jpg',
-        'comment': 'Completed profile page of my website',
+        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1645025029/project_3_sei61/Capture5_zab3gl.jpg',
+        'comment': 'Made sure I had the right id associated to correct elements in the html body',
         'event': '620970bfebd967d62df75734',
         '_id': '620973ed83a4dc0e7c1d1fa5',
         'createdAt': '2022-02-11T21:11:09.859Z',
@@ -379,8 +361,8 @@ export default [
     'habitCompletions': [
       {
         'owner': '620970bfebd967d62df75005',
-        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934762/project_3_sei61/api-request_zgdvmk.jpg',
-        'comment': 'Worked on some api requests',
+        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1645025672/project_3_sei61/Capture_hpji3x.jpg',
+        'comment': 'Today I worked on getting api data and storing it in an array',
         'event': '620970bfebd967d62df75734',
         '_id': '620973ed83a4dc0e7c1d1fa1',
         'createdAt': '2022-02-07T21:11:09.859Z',
@@ -388,8 +370,8 @@ export default [
       },
       {
         'owner': '620970bfebd967d62df75005',
-        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934762/project_3_sei61/functions_aqqkcl.jpg',
-        'comment': 'Played around with functions',
+        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1645025672/project_3_sei61/Capture3_no6xbj.jpg',
+        'comment': 'I was thinking about how to update the api data as the tube lines status could change. I found a way by using seInterval.',
         'event': '620970bfebd967d62df75734',
         '_id': '620973ed83a4dc0e7c1d1fa2',
         'createdAt': '2022-02-08T21:11:09.859Z',
@@ -397,7 +379,7 @@ export default [
       },
       {
         'owner': '620970bfebd967d62df75005',
-        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644934998/project_3_sei61/seeding_yibvub.jpg',
+        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1645025672/project_3_sei61/Capture2_fsy4io.jpg',
         'comment': 'Added seeding to server database',
         'event': '620970bfebd967d62df75734',
         '_id': '620973ed83a4dc0e7c1d1fa3',
