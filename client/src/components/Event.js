@@ -211,8 +211,9 @@ const Event = () => {
                 <Text fontSize={{ base: '12px', md: '16px', lg: '24px' }} fontWeight='bold' textAlign='center'>The challenge<br></br> has {daysLeftInEvent(eventData)} left</Text>}
               {!eventData.isLive && eventBeforeStartDate(eventData) && 
                 <>
-                <Button onClick={handleSubmit} fontSize='16px' fontWeight='bold' my='6' w='60%' backgroundColor='#ffbb0f' boxShadow='lg' p='6' rounded='md' bg='white' color='white'>Join Event</Button>
                 <Text fontSize={{ base: '12px', md: '16px', lg: '24px' }} fontWeight='bold' textAlign='center'>The challenge<br></br> starts in {daysLeftUntilEvent(eventData)}</Text>               
+                <Button onClick={handleSubmit} fontSize='16px' fontWeight='bold' my='6' w='60%' backgroundColor='#ffbb0f' boxShadow='lg' p='6' rounded='md' bg='white' color='white'>Join Event</Button>
+
                 </>
               }
               {!eventData.isLive && eventAfterEndDate(eventData) && <Text fontSize={{ base: '12px', md: '16px', lg: '24px' }} fontWeight='bold' textAlign='center'>The challenge is over</Text>}
@@ -223,15 +224,12 @@ const Event = () => {
               {eventData.isLive && userIsAuthenticated() &&
                 <>
                 <HabitsCompleted eventHabitCompletions={eventHabitCompletions} />
-                <Button onClick={toAddHabitPage} fontSize='16px' fontWeight='bold' my='6' w='60%' backgroundColor='fourth' boxShadow='lg' p='6' rounded='md' bg='white' color='white'>Add Habit</Button>
+                <Button onClick={toAddHabitPage} fontSize='16px' fontWeight='bold' mt='6' w='60%' backgroundColor='fourth' boxShadow='lg' p='6' rounded='md' bg='white' color='white'>Add Habit</Button>
                 </>
               }
-                 
-               
-              
-             
+  
                 {/* This is the like click functionality */}
-                <Box name='likes' display='flex' borderWidth='1px' borderRadius='lg' pl='4' pr='4' pt='2'pb='2' onClick={handleClick} style={{ cursor: 'pointer' }} >
+                <Box mt='6' name='likes' display='flex' borderWidth='1px' borderRadius='lg' pl='4' pr='4' pt='2'pb='2' onClick={handleClick} style={{ cursor: 'pointer' }} >
                   <Image boxSize='20px' sized='sm' mr='2' src={!likeClick.liked ? likeIcon : likeIconClicked} ></Image>
                   <Text fontSize='sm' fontWeight='bold'>Likes({eventData.likes})</Text>                
                 </Box>
