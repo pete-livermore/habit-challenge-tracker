@@ -28,14 +28,22 @@ const DeleteHabit = () => {
   return (
     <>
       <Box>
-        <Text>Are you sure you want to delete this habit?</Text>
+        <Text fontSize='lg' mb='4' color='white'>Are you sure you want to delete this habit?</Text>
         <Box>
-          <Button onClick={deleteHabit} w='20%' backgroundColor='red' boxShadow='lg' p='6' rounded='md' bg='white' color='white'>Yes</Button>
+          <Flex flexDirection='row' justifyContent='center'>
+            <Box w='100px' mr='3'>
+        <Button onClick={deleteHabit} w='100%' mb='5' backgroundColor='#ffbb0f' boxShadow='lg' rounded='md' bg='white' color='white'>Yes</Button>
+        </Box>
+        <Box w='100px' mr='3'>
           <Link to={`/profile/${params.userId}`}>
-            <Button w='20%' backgroundColor='green' boxShadow='lg' p='6' rounded='md' bg='white' color='white'>No</Button>
+          <Button w='100%' mb='5' backgroundColor='#ffbb0f' boxShadow='lg' rounded='md' bg='white' color='white'>No</Button>
           </Link>
+          </Box>
+          </Flex>
         </Box>
       </Box>
+      <Box width='100%' zIndex='-1' position='absolute' top='0' left='0' bgGradient='linear(to-r, primary, thirdary)' height={{ base: '460px', md: '460x', lg: '460' }}>
+            </Box>
     </>
   )
 }
