@@ -161,9 +161,9 @@ const Dashboard = ({ eventList }) => {
 
               <EventDropdown mt='5' handleOptionChange={handleOptionChange} selectedEvent={selectedEvent} userEvents={userEvents} />
           </Flex>
-          <Flex name="actions" mt='5' bg='white' width='300px' flexDirection='column' alignItems='center' boxShadow='lg' borderBottomRadius='10'>
+          <Flex name="actions" mt='5' bg='white' width='300px' flexDirection='column' alignItems='center' boxShadow='lg' borderRadius='10'>
             <Link to={`/events/${selectedEvent._id}`}>
-              <Box name="widget-header" w='300px' height='310px' bgGradient='linear(to-r, first, third)' >
+              <Box name="widget-header" w='300px' height='310px' borderTopRadius='10' bgGradient='linear(to-r, first, third)' >
                 <Heading textAlign='center' pt='10' fontSize="6em">{selectedEvent.emoji}</Heading>
                 <Box name="headline" p='4' width=''>
                   <Text name='subtitle' mt='3' fontSize='14px' color='second'>{selectedEvent.subTitle}</Text>
@@ -183,10 +183,13 @@ const Dashboard = ({ eventList }) => {
             </>
             :
               <>
-              <Text mb='2'>{`${selectedEvent.description.substring(0, 90)}...`}</Text>
-              <Link to={`/events/${selectedEvent._id}`} >
-              <Button fontSize='16px' fontWeight='bold' mt='6' w='60%' backgroundColor='fourth' boxShadow='lg' p='6' rounded='md' bg='white' color='white'>View Event</Button>
-              </Link>
+              <Box display='flex' flexDirection='column' p='6' alignItems='center'>
+                <Text fontSize='16px'color='gray.600'>{`${selectedEvent.description.substring(0, 90)}...`}</Text>
+                <Link to={`/events/${selectedEvent._id}`} >
+                <Button fontSize='16px' fontWeight='bold' mt='6' backgroundColor='fourth' boxShadow='lg' p='6' rounded='md' bg='white' color='white'>View Event</Button>
+                </Link>
+              </Box>
+
               </>
 
             }
