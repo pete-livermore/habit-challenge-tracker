@@ -59,12 +59,17 @@ export const updateEvent = async (req, res) => {
 }
 
 export const joinEvent = async (req, res) => {
+  const { eventId } = req.params
+  console.log(eventId)
   try {
-    const { eventId } = req.params
+    
+    console.log(req.body)
+    
     const currentUserProfile = await User.findById(req.currentUser._id)
+    console.log(currentUserProfile)
     const event = await Event.findById(eventId)
     const currentDate = new Date().toLocaleDateString()
-    if (currentDate < event.startDate.toLocaleDateString()) throw new Error('Event already started')
+    if (currentDate > event.startDate.toLocaleDateString()) throw new Error('Event already started')
     // console.log('events for current user =>', currentUserProfile.events)
     // console.log('current event id =>', eventId)
     // console.log('if statement',currentUserProfile.events.some(event => event._id.equals(eventId)))
