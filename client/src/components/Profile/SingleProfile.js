@@ -94,51 +94,6 @@ const SingleProfile = () => {
   }, [filterHabits, profileData, eventData])
 
   return (
-<<<<<<< HEAD
-    <>
-    <Center>
-      
-      {profileData &&
-        <Box>
-          <Box p='4' mt='4' backgroundColor='#0075ff' color='white' boxShadow='lg' rounded='md' maxWidth='400px' minWidth='300px'>
-          {userIsAuthenticated() && <Button w='20%' backgroundColor='#ffbb0f' boxShadow='lg' p='6' rounded='md' bg='white' color='white'>Edit</Button>}
-            <Center><Avatar
-              borderRadius='full'
-              boxSize='150px'
-              src={profileData.profilePicture !== '' ? profileData.profilePicture : ''}
-              alt='profile picture' /></Center>
-          </Box>
-          <Flex bg='white' w='100%' flexDirection='column' alignItems='center' boxShadow='lg' rounded='md'>
-            <Heading as='h4' size='md'>First Name: {profileData.firstName}</Heading>
-            <Heading as='h4' size='md'>Last Name: {profileData.lastName}</Heading>
-            <Heading as='h4' size='md'>Email: {profileData.email}</Heading>
-          </Flex>
-        </Box>     
-        }
-      {profileData &&
-        <Box>
-          <Flex flexDirection='column' justifyContent='flex-start'>
-            <Box>
-              <Box p='4' mt='4' backgroundColor='#0075ff' color='white' boxShadow='lg' rounded='md' maxWidth='400px' minWidth='300px'>
-                <Heading as='h5' size='sm'>Joined Events</Heading>
-              </Box>
-              <Flex bg='white' w='100%' flexDirection='column' alignItems='center' boxShadow='lg' rounded='md'>
-                {profileData.events.length ? profileData.events.map(joinedEvent => {
-                  return (
-                    <Text key={joinedEvent._id} as='h4' size='md'>{eventData.length ? eventData.filter(event => event._id === joinedEvent._id)[0].name : '...'}</Text>
-                  )
-                }) : <Text as='h4' size='md'>Events: no events</Text>}
-              </Flex>
-            </Box>
-          </Flex>
-        </Box>
-      }
-        
-    </Center>
-        
-      {habitsFiltered ?
-=======
->>>>>>> development
         <>
             {profileData ?
                 <>
