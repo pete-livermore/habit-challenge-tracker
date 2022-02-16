@@ -84,11 +84,11 @@ const Event = () => {
     e.preventDefault()
     try {
       await axios.post(`/api/events/${eventId}`, profileData,
-      {
-        headers: {
+        {
+          headers: {
             Authorization: `Bearer ${getTokenFromLocalStorage()}`,
-        }, 
-    })
+          },
+        })
     } catch (err) {
       console.log('form error ->', joinError)
       setJoinError(err.response.data.message)
@@ -148,7 +148,7 @@ const Event = () => {
       }
       getEventData()
     }, 150)
-  }, [likeClick, eventId])
+  }, [likeClick, eventId, likeOperator])
 
   console.log('eventdata ->', eventData)
 
