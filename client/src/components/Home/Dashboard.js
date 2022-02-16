@@ -4,7 +4,7 @@ import { Container, Flex, Box, Heading, Select, Image, Wrap, WrapItem, Stat, Sta
 import { createBreakpoints } from '@chakra-ui/theme-tools'
 import { useNavigate, Link } from "react-router-dom"
 import { getTokenFromLocalStorage, userIsAuthenticated } from '../helper/auth'
-import { currentDateFormat, daysLeft } from '../helper/eventData'
+import { startDateFormat, daysLeftUntilEvent } from '../helper/eventData'
 import { HabitsCompleted } from '../helper/habitStats'
 
 const Dashboard = ({ eventList }) => {
@@ -156,11 +156,11 @@ const Dashboard = ({ eventList }) => {
                       <StatGroup w='100%' flexWrap='wrap'>
                         <Stat flexBasis='50%'>
                           <StatLabel>Start date</StatLabel>
-                          <StatNumber>{currentDateFormat(selectedEvent)}</StatNumber>
+                          <StatNumber>{startDateFormat(selectedEvent)}</StatNumber>
                         </Stat>
                         <Stat flexBasis='50%'>
                           <StatLabel>Days of challenge left</StatLabel>
-                          <StatNumber>{daysLeft(selectedEvent)}</StatNumber>
+                          <StatNumber>{daysLeftUntilEvent(selectedEvent)}</StatNumber>
                         </Stat>
                       </StatGroup>
                       <Box mt='4'>

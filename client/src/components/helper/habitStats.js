@@ -1,16 +1,15 @@
 import React from 'react'
-import { Box, Progress, Badge, Image,Flex, Button } from '@chakra-ui/react'
+import { Box, Progress, Badge, Center, Text, Image,Flex, Button } from '@chakra-ui/react'
 import { userIsAuthenticated} from '../helper/auth'
 import { Link } from 'react-router-dom'
 
 export const HabitsCompleted = ({ eventHabitCompletions }) => {
  return (
 
-    <Box mt='4'>
-    <p>Your completion progress: {((eventHabitCompletions.length / 30) * 100).toFixed(1)}%</p>
-    <Progress borderRadius="1rem" colorScheme='green' size='lg' value={((eventHabitCompletions.length / 30) * 100).toFixed(1)} />
+    <Box mt='4' display='flex' flexDirection='column'>
+        <Progress name='progressbar' mt='4' height='25' width='200px' borderRadius="1rem" color='forth' size='lg' value={((eventHabitCompletions.length / 30) * 100).toFixed(1)} />
+        <Text mt='4' textAlign='center' fontSize='xs'>Your progress: {parseInt((eventHabitCompletions.length / 30) * 100)}%</Text>
     </Box>
-
   )
 }
 

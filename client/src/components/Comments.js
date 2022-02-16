@@ -93,7 +93,7 @@ const Comments = () => {
             }
           </Box>
           {comments !== null ?
-            <Box ml='4' mt='6' p='4' backgroundColor='#F7FAFC' w='100%' boxShadow='base' rounded='md'>
+            <Box  mt='6' p='4' backgroundColor='secondary' w='100%' borderWidth='1px' rounded='md'>
               <Heading as='h3' size='sm' mb='4'>Comments</Heading>
               {comments.length ?
                 comments.map(comment => {
