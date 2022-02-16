@@ -83,16 +83,18 @@ const Event = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      await axios.post(`/api/events/${eventId}`, { data: 'hello' }, {
+      await axios.post(`/api/events/${eventId}`, profileData,
+      {
         headers: {
-          Authorization: `Bearer ${getTokenFromLocalStorage()}`
-        },
-      })
+            Authorization: `Bearer ${getTokenFromLocalStorage()}`,
+        }, 
+    })
     } catch (err) {
       console.log('form error ->', joinError)
       setJoinError(err.response.data.message)
     }
   }
+
 
 
   useEffect(() => {
@@ -232,7 +234,6 @@ const Event = () => {
                 </Flex>
               </Box>
               <Flex name="actions" p='8' mt='0' bg='white' w='100%' flexDirection='column' alignItems='center' boxShadow='lg' borderBottomRadius='10'>
-
 
                 {eventData.isLive &&
                   <Text fontSize={{ base: '12px', md: '16px', lg: '24px' }} fontWeight='bold' textAlign='center'>The challenge<br></br> has {daysLeftInEvent(eventData)} left</Text>}
