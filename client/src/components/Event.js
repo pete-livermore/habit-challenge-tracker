@@ -22,7 +22,7 @@ const Event = () => {
   const [joinError, setJoinError] = useState('')
   const [likeClick, setLikeClick] = useState(JSON.parse(window.localStorage.getItem('likeClick')) || { liked: false })
   const [likeOperator, setLikeOperator] = useState({ operator: 0 })
-  const [userHasJoined, setUserHasJoined] = useState(false)
+  const [userHasJoined, setUserHasJoined] = useState()
 
 
   const navigate = useNavigate()
@@ -56,14 +56,7 @@ const Event = () => {
     getProfileData()
   }, [eventId])
 
-  useEffect(() => {
-    if (Object.keys(profileData).length) {
-      if (profileData.events.some(event => event._id === eventId)) {
-        setUserHasJoined(true)
-      } else setUserHasJoined(false)
-    }
-  }, [profileData, eventId])
-
+  
 
   useEffect(() => {
     if (profileData.habitCompletions && eventData && Object.keys(eventData).length) {
@@ -73,8 +66,16 @@ const Event = () => {
   }, [profileData, eventData])
 
   useEffect(() => {
+    console.log('profile data events ->',profileData.events)
+    if(profileData.events && eventData) {
+     if (profileData.events.some(event => event._id === eventData._id)) {
+      setUserHasJoined(true)
+     } else setUserHasJoined(false)
+    }
+  }, [profileData, eventData])
 
-  }, [eventData])
+ 
+
 
   const toAddHabitPage = () => {
     navigate(`/events/${eventId}/AddHabitCompletion`)
@@ -95,6 +96,10 @@ const Event = () => {
     }
   }
 
+  
+  const handleJoinedSubmit = () => {
+    setUserHasJoined(true)
+  }
 
 
   useEffect(() => {
@@ -156,6 +161,7 @@ const Event = () => {
     <>
       {Object.keys(eventData).length ?
         <>
+        {console.log('joined events ->',userHasJoined)}
           <Flex zIndex='0' p='0' mt='5' name="wrapper" width='80%' direction={{ base: 'column', md: 'row' }}>
             <VStack display='flex' name="content" mr='10' direction='column' width='70%' alignItems='flex-start' mb='6'>
               <Box name="header" mb='45px' >
@@ -240,7 +246,7 @@ const Event = () => {
                 {!eventData.isLive && eventBeforeStartDate(eventData) &&
                   <>
                     <Text fontSize={{ base: '12px', md: '16px', lg: '24px' }} fontWeight='bold' textAlign='center'>The challenge<br></br> starts in {daysLeftUntilEvent(eventData)}</Text>
-                    <Button onClick={handleSubmit} fontSize='16px' fontWeight='bold' my='6' w='60%' backgroundColor='#ffbb0f' boxShadow='lg' p='6' rounded='md' bg='white' color='white'>Join Event</Button>
+                    {!userHasJoined && <Button onClick={handleJoinedSubmit} fontSize='16px' fontWeight='bold' my='6' w='60%' backgroundColor='#ffbb0f' boxShadow='lg' p='6' rounded='md' bg='white' color='white'>Join Event</Button>}
 
                   </>
                 }
