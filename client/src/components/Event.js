@@ -36,7 +36,7 @@ const Event = () => {
       }
     }
     getEventData()
-  }, [eventId, likeClick])
+  }, [eventId, likeClick, eventData])
 
   useEffect(() => {
     const getAllProfiles = async () => {
@@ -87,7 +87,6 @@ const Event = () => {
   }, [profileData, eventData])
 
   useEffect(() => {
-    console.log('profile data events ->', profileData.events)
     if (profileData.events && eventData) {
       if (profileData.events.some(event => event._id === eventData._id)) {
         setUserHasJoined(true)
@@ -137,14 +136,10 @@ const Event = () => {
         .map(member => member)
         .map(habit => habit.habitCompletions)
         .forEach(array => array.forEach(object => filteredHabits.push(object)))
-      console.log('members.filtered', filteredHabits);
       setHabitsFiltered(filteredHabits)
     }
   }, [eventData])
 
-  console.log('eventdata ->', eventData)
-  console.log('profileData All ->', allProfileData)
-  console.log('ise user part of event already', Object.keys(profileData).length && profileData.events.some(event => event._id === eventId))
   return (
     <>
       {Object.keys(eventData).length ?
@@ -176,12 +171,10 @@ const Event = () => {
                 <Text color='gray.500'>{eventData.description}</Text>
               </Box>
               <Flex name='widget' bg='white' w='100%' flexDirection='column' alignItems='center' rounded='md'>
-                {console.log('habits filtered -> ', habitsFiltered)}
                 {habitsFiltered && habitsFiltered.sort(function (a, b) {
                     return new Date(b.createdAt) - new Date(a.createdAt)
                 }).map(habit => {
-                    console.log('habit', habit)
-                    console.log('allprofiledata filters', Object.keys(allProfileData).length && allProfileData.filter(user => user._id === habit.owner))
+            
                     return (habit.event === eventId ?
                       <Box>
                         <Box name="habit-box" key={habit._id} mt='5' borderWidth='1px' width='100%' borderRadius='lg' overflow='hidden'>

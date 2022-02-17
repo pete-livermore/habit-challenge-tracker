@@ -1,7 +1,7 @@
 export default [
   {
     emoji: '🏃‍♀️',
-    name: 'Exercise every day',
+    name: 'Exercise',
     subTitle: '30-day challenge',
     description: 'Looking to improve your physical health? Regular exercise helps lower blood pressure and cholesterol levels, and can improve happiness and reduce stress. It doesn\'t take doing a triathlon (though we\'re not against that!) to see improvements - just at least 20 minutes of increased heartrate per day can yield benefits.',
     frequency: 'Daily',
@@ -14,7 +14,7 @@ export default [
   },
   {
     emoji: '🧘',
-    name: 'Meditate every day',
+    name: 'Meditate',
     subTitle: '30-day challenge',
     description: 'In today\'s hectic, attention-sapping world, it can be hard to keep a calm, peaceful mind, and this can be harmful for our overall mental health. Meditation has been shown to sharpen your attention, improve memory, and reduce stress. Just one short meditation session per day can improve your mood and wellbeing, ensuring you stay calm,happy and de-stressed. Join this challenge and see how your mental benefits at the end of 30 days.',
     frequency: 'Daily',
@@ -27,7 +27,7 @@ export default [
   },
   {
     emoji: '🍷',
-    name: 'Don\'t drink any alcohol',
+    name: 'Drink any alcohol',
     subTitle: '30-day challenge',
     description: 'Alcohol is a proven depressant and only covers up the effects of anxiety… a crutch that’s gone in the morning. The result, as your body dedicates its resources to processing the toxins you’ve poured into it is – you guessed it – even more anxiety. Break the cycle and thrive with real confidence.',
     frequency: 'Daily',
@@ -40,9 +40,9 @@ export default [
   },
   {
     emoji: '👩‍💻',
-    name: 'Learn the basics of coding',
+    name: 'Learn coding',
     subTitle: '30-day challenge',
-    description: 'Whether you\'re an aspiring software engineer, you\'re developing your own website, or you just enjoying learning how digital tools work - learn to code! With just a bit of practice every day, you will be amazed at what you can achieve in 30 days.',
+    description: 'Whether you\'re an aspiring software engineer, you\'re developing your own website, or you just enjoying learning how digital tools work - learn to code! With just a bit of practice, you will be amazed at what you can achieve in 30 days.',
     frequency: 'Daily',
     startDate: '2022-02-10',
     endDate: '2022-03-10',
@@ -53,7 +53,7 @@ export default [
   },
   {
     emoji: '🏞',
-    name: 'Spend time outside every day',
+    name: 'Spend time outside',
     subTitle: '30-day challenge',
     description: 'Often our jobs and lifestyles keep us confined indoors, which means we\'re missing out on the physical and mental benefits of the outdoors. A short walk near your house or in a local park can lower your blood pressure, reduces stress, and help you reconnect with the natural world.',
     frequency: 'Daily',
@@ -78,8 +78,8 @@ export default [
     category: 'Emotional'
   },
   {
-    emoji: '🇪🇸 🇻🇳 🇫🇷',
-    name: 'Learn the basics of a new language',
+    emoji: '🇪🇸  🇫🇷',
+    name: 'Learn a new language',
     subTitle: '30-day challenge',
     description: 'Ever travelled abroad and felt like shouting English at people is not going to ingratiate yourself to the locals? Whilst you may not achieve fluency, in 30 days you can learn enough of the basics to survive in a foreing city, and who knows - it may just start your journey to becoming a polyglot.',
     frequency: 'Daily',
@@ -92,7 +92,7 @@ export default [
   },
   {
     emoji: '☕️',
-    name: 'Go caffeine free',
+    name: 'Make art',
     subTitle: '30-day challenge',
     description: 'Unlike your 30-day romance challenge, caffeine doesn\'t get your heart racing in a good way. In fact, it\'s the opposite of romantic - you sweat and you need to shit. How about trying another means to wake up in the morning? Cold shower? Morning stroll? Give your bowels and nerves a rest by droppping the coffee/coke/red bull habit for 30 days.',
     frequency: 'Daily',
@@ -100,6 +100,20 @@ export default [
     endDate: '2022-12-16',
     picture: 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644522820/project_3_sei61/alcohol_rbzw0o.jpg',
     _id: 'd61c199bc318a372b9731667',
+    likes: 0,
+    category: 'Mental'
+  }
+  ,
+  {
+    emoji: '☕️',
+    name: 'Cook something',
+    subTitle: '30-day challenge',
+    description: 'Unlike your 30-day romance challenge, caffeine doesn\'t get your heart racing in a good way. In fact, it\'s the opposite of romantic - you sweat and you need to shit. How about trying another means to wake up in the morning? Cold shower? Morning stroll? Give your bowels and nerves a rest by droppping the coffee/coke/red bull habit for 30 days.',
+    frequency: 'Daily',
+    startDate: '2022-11-16',
+    endDate: '2022-12-16',
+    picture: 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644522820/project_3_sei61/alcohol_rbzw0o.jpg',
+    _id: 'e5d85ae2090096348ebdcd31',
     likes: 0,
     category: 'Mental'
   }
