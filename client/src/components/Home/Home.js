@@ -40,7 +40,7 @@ const Home = () => {
                 {events.map(event => {
                   const { name, subTitle, _id, description, picture, emoji,} = event
                   return (
-                    <Flex key={event._id} name="actions" p='4' mt='5' bgGradient='linear(to-r, white, gray.100)' width='300px' minHeight='300px' flexDirection='column' borderWidth='1px' alignItems='center' justifyContent='space-between' boxShadow='2xl' borderRadius='10'>
+                    <Flex key={_id} name="actions" p='4' mt='5' bgGradient='linear(to-r, white, gray.100)' width='300px' minHeight='300px' flexDirection='column' borderWidth='1px' alignItems='center' justifyContent='space-between' boxShadow='2xl' borderRadius='10'>
                        <Link to={`/events/${_id}`}>
                           <Heading textAlign='center' pt='10' fontSize="6em">{emoji}</Heading>
                           <Box name="headline" pl='4' pr='4' mb='4' width=''>

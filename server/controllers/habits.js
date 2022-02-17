@@ -39,20 +39,20 @@ export const addHabitComplete = async (req, res) => {
     console.log('is event live? =>', event.isLive)
     if (!event.isLive) throw new Error('Event not live')
     // any of the created dates of habitcompletion === today?
-    console.log('eventid',eventId)
+    console.log('eventid', eventId)
     if (!currentUserProfile.events.some(event => event._id.equals(eventId))) { //If the user has not joined the event yet, it will add the user to the event
       currentUserProfile.events.push(eventId)
       console.log('curent user profile ->', currentUserProfile)
     } else console.log('Found')
     currentUserProfile.save()
-    const userToFetch = await User.findById(req.currentUser._id).populate('habitCompletions') 
+    const userToFetch = await User.findById(req.currentUser._id).populate('habitCompletions')
     const filtered = userToFetch.habitCompletions.filter(habitCompletion => habitCompletion.event.equals(eventId))
     // console.log('filtered =>',filtered)
     const checkHabitToday = filtered.some(date => date.createdAt.toLocaleDateString() === currentDate)
-    console.log('was habit doen already? =>',checkHabitToday)
+    console.log('was habit doen already? =>', checkHabitToday)
     if (checkHabitToday) throw new Error('You already submitted a habit for today')
-    
-    const habitCompleteToadd = { ...req.body, owner: req.currentUser._id, firstName: currentUserProfile.firstName, lastName: currentUserProfile.lastName, profilePicture: currentUserProfile.profilePicture, event: eventId } 
+
+    const habitCompleteToadd = { ...req.body, owner: req.currentUser._id, firstName: currentUserProfile.firstName, lastName: currentUserProfile.lastName, profilePicture: currentUserProfile.profilePicture, event: eventId }
     userToFetch.habitCompletions.push(habitCompleteToadd)
     await userToFetch.save()
     return res.status(201).json(userToFetch)
@@ -71,7 +71,7 @@ export const updateHabitComplete = async (req, res) => {
     if (!habitCompletedToUpdate) throw new Error()
     Object.assign(habitCompletedToUpdate, req.body)
     await userToFetch.save()
-    res.status(200).json(userToFetch)
+    return res.status(200).json(userToFetch)
   } catch (err) {
     return res.status(404).json({ message: err.message })
   }

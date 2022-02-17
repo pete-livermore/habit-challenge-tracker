@@ -71,25 +71,25 @@ const Register = () => {
 
 console.log(formData)
   return (
-    <Flex width="full" align="center" justifyContent="center">
-      <Box p={8} maxWidth="500px" borderWidth={1} borderRadius={8} boxShadow="lg">
-          <>
-            <Box textAlign="center">
-              <Heading>Register</Heading>
-            </Box>
-            <Box my={4} textAlign="left">
-              <form onSubmit={handleSubmit}>
+    <><Flex width="full" align="center" justifyContent="center">
+      <Box background='white' p={8} maxWidth="500px" borderWidth={1} borderRadius={8} boxShadow="lg">
+        <>
+          <Box textAlign="center">
+            <Heading>Register</Heading>
+          </Box>
+          <Box my={4} textAlign="left">
+            <form onSubmit={handleSubmit}>
               {/* FirstName */}
               <FormControl isRequired>
-              <FormLabel htmlFor='firstName'>Firstname</FormLabel>
-              <Input onChange={handleChange} type="firstName" name="firstName" placeholder='Firstname' defaultValue={formData.firstName} />
-              {formError.firstName && <Alert status='error' mt={4}>{formError.firstName}</Alert>}
+                <FormLabel htmlFor='firstName'>Firstname</FormLabel>
+                <Input onChange={handleChange} type="firstName" name="firstName" placeholder='Firstname' defaultValue={formData.firstName} />
+                {formError.firstName && <Alert status='error' mt={4}>{formError.firstName}</Alert>}
               </FormControl>
               {/* LastName */}
               <FormControl isRequired>
-              <FormLabel htmlFor='lastName'>Lastname</FormLabel>
-              <Input onChange={handleChange} type="lastName" name="lastName" placeholder='Lastname' defaultValue={formData.lastName} />
-              {formError.lastName && <Alert status='error' mt={4}>{formError.lastName}</Alert>}
+                <FormLabel htmlFor='lastName'>Lastname</FormLabel>
+                <Input onChange={handleChange} type="lastName" name="lastName" placeholder='Lastname' defaultValue={formData.lastName} />
+                {formError.lastName && <Alert status='error' mt={4}>{formError.lastName}</Alert>}
               </FormControl>
               {/* Email */}
               <FormControl isRequired>
@@ -110,20 +110,20 @@ console.log(formData)
                 {formError.passwordConfirmation && <Alert status='error' mt={4}>{formError.passwordConfirmation}</Alert>}
               </FormControl>
               <FormControl mt={6}>
-              <FormLabel htmlFor='picture'>Add Profile Picture</FormLabel>
-              <ImageUpload
-                value={formData.profilePicture}
-                name='picture'
-                handleImageUrl={handleImageUrl}
-              />
+                <FormLabel htmlFor='picture'>Add Profile Picture</FormLabel>
+                <ImageUpload
+                  value={formData.profilePicture}
+                  name='picture'
+                  handleImageUrl={handleImageUrl} />
               </FormControl>
               {/* Error + Button */}
-              <Button type="submit" width="full" mt={4}>Register</Button>      
-              </form>
-            </Box>
-          </>
+              <Button type="submit" width="full" mt={4}>Register</Button>
+            </form>
+          </Box>
+        </>
       </Box>
-    </Flex>
+    </Flex><Box width='100%' zIndex='-1' position='absolute' top='0' left='0' bgGradient='linear(to-r, first, third)' height={{ base: '460px', md: '460x', lg: '460' }}>
+      </Box></>
   )
 }
 

@@ -5,7 +5,7 @@ import { getAllEvents, getEvent, updateEvent, deleteEvent, addEvent, joinEvent }
 import { updateProfile, getSingleProfile, getProfile, getAllProfile } from '../controllers/users.js'
 import { getUserSingleHabit, getUserHabits, updateHabitComplete, addHabitComplete, deleteSingleHabit } from '../controllers/habits.js'
 import { addComment, getAllComments } from '../controllers/comments.js'
-import { addLike, getLikes } from '../controllers/likes.js'
+import { toggleLike, getLikes } from '../controllers/likes.js'
 
 const router = express.Router()
 
@@ -39,8 +39,8 @@ router.route('/events/:eventId/habits/:habitId')
 
 // ADD a like for a specific event
 router.route('/events/:eventId/likes')
-  .put(secureRoute, addLike)
   .get(getLikes)
+  .post(secureRoute, toggleLike)
 
 router.route('/profile/all')
   .get(getAllProfile)
