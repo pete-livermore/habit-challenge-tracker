@@ -150,9 +150,9 @@ const Event = () => {
       {Object.keys(eventData).length ?
         <>
           <Flex zIndex='0' p='0' mt='5' name="wrapper" width='80%' direction={{ base: 'column', md: 'row' }}>
-            <VStack display='flex' name="content" mr='10' direction='column' width='70%' alignItems='flex-start' mb='6'>
+            <VStack display='flex' name="content" mr='10' direction='column' width={{ base: '100%', md: '55%' }} alignItems='flex-start' mb='6'>
               <Box name="header" mb='45px' >
-                <Box name="image" w='450px'>
+                <Box name="image" w={{base:'250px', mb:'450px'}}>
                   <Heading fontSize="6em">{eventData.emoji}</Heading>
                 </Box>
                 <Box name="headline">
@@ -215,7 +215,7 @@ const Event = () => {
               </Flex>
 
             </VStack>
-            <Container width={{ base: '100%', md: '55%' }} name="widget">
+            <Flex display='flex' flexDirection='column' width={{ base: '100%', md: '33%' }} name="widget">
               <Box name="challengers" p='8' mt='0' backgroundColor='#0075ff' color='white' borderTopRadius='10' w='100%'>
                 <Heading size='sm'>Challengers ({eventData.eventMembers.length})</Heading>
                 <Flex flexWrap='wrap' mt='4' w='100%'>
@@ -252,8 +252,8 @@ const Event = () => {
                 <Likes eventId={eventId} eventData={eventData} setEventData={setEventData} likeClick={likeClick} setLikeClick={setLikeClick} />
                 <Comments />
               </Flex>
-            </Container>
-            <Box width='100%' zIndex='-1' position='absolute' top='0' left='0' bgGradient='linear(to-r, first, third)' height={{ base: '460px', md: '460x', lg: '460' }}>
+            </Flex>
+            <Box width='100%' zIndex='-1' position='absolute' top='0' left='0' bgGradient='linear(to-r, first, third)' height={{ base: '510px', md: '520px' }}>
               <Text opacity='30%' color='first' fontSize='400px'>30</Text>
             </Box>
           </Flex>
