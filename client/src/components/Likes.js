@@ -4,22 +4,17 @@ import { Box, Image, Text, Alert, AlertIcon } from '@chakra-ui/react'
 import { getTokenFromLocalStorage } from './helper/auth'
 import likeIcon from '../assets/images/like_icon_unclicked.png'
 import likeIconClicked from '../assets/images/like_icon_clicked.png'
+import { userIsAuthenticated } from './helper/auth'
 
 const Likes = ({ eventId, profileData }) => {
   const [hasError, setHasError] = useState('')
   const [eventLikesData, setEventsLikesData] = useState([])
-  const persistedState = JSON.parse(localStorage.getItem('likeClickState'))
   const [likeClick, setLikeClick] = useState({})
 
   useEffect(() => {
-    let likeBoolean
     if (eventLikesData.some(like => like.event === eventId)) {
-      likeBoolean = true
-    } else {
-      likeBoolean = false
-    }
-    setLikeClick({ liked: likeBoolean })
-    // console.log(eventLikesData)
+      setLikeClick({ liked: true })
+    } else setLikeClick({ liked: false })
   }, [eventLikesData, eventId])
 
   useEffect(() => {
@@ -64,9 +59,9 @@ const Likes = ({ eventId, profileData }) => {
         <Text fontSize='sm' fontWeight='bold'>Likes({eventLikesData.length})</Text>
       </Box>
       {hasError.error &&
-        <Alert status='error'>
+        <Alert mt='4' status='warning'>
           <AlertIcon />
-          {hasError.message}
+          {userIsAuthenticated() ? '404 server error' : 'You need to be logged in to like this event'}
         </Alert>
       }
     </>

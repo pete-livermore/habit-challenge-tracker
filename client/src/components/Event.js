@@ -175,8 +175,8 @@ const Event = () => {
                 {habitsFiltered && habitsFiltered.sort(function (a, b) {
                   return new Date(b.createdAt) - new Date(a.createdAt)
                 }).map(habit => {
-                  console.log('habit', habit)
-                  console.log('allprofiledata filters', Object.keys(allProfileData).length && allProfileData.filter(user => user._id === habit.owner))
+                  // console.log('habit', habit)
+                  // console.log('allprofiledata filters', Object.keys(allProfileData).length && allProfileData.filter(user => user._id === habit.owner))
                   return (habit.event === eventId ?
                     <Box>
                       <Box name="habit-box" key={habit._id} mt='5' borderWidth='1px' width='100%' borderRadius='lg' overflow='hidden'>
@@ -210,10 +210,10 @@ const Event = () => {
               </Flex>
 
             </VStack>
-            <Flex display='flex' flexDirection='column' width={{ base: '100%', md: '33%' }} name="widget">
+            <Flex display='flex' flexDirection='column' width={{ base: '100%', md: '40%' }} name="widget">
               <Box name="challengers" p='8' mt='0' backgroundColor='#0075ff' color='white' borderTopRadius='10' w='100%'>
                 <Heading size='sm'>Challengers ({eventData.eventMembers.length})</Heading>
-                <Flex flexWrap='wrap' mt='4' w='100%'>
+                <Flex flexWrap='wrap' mt='4' w='100%' >
                   {eventData.eventMembers.map(members => {
                     return (
                       <Link key={members._id} to={`/profile/${members._id}`}>
