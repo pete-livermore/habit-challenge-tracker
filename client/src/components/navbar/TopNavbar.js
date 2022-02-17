@@ -88,6 +88,7 @@ const MenuLinks = ({ isOpen }) => {
         justify={["center", "space-between", "flex-end", "flex-end"]}
         direction={["row", "row", "row", "row"]}
         pt={[4, 4, 0, 0]}
+        alignItems='center'
       >
         {userIsAuthenticated() ?
           <Box name='subnav' w="100" display='flex' justifyContent='space-between'>

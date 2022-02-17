@@ -49,7 +49,12 @@ const Dashboard = ({ eventList }) => {
     if (eventList.length && Object.keys(profileData).length) {
       const filtered = eventList.filter(event => profileData.events.some(ev => ev._id === event._id))
       setUserEvents(filtered)
-      setSelectedEvent(filtered[0])
+      const sortFiltered = filtered.sort(function (a, b) {
+        return new Date(a.startDate) - new Date(b.startDate)
+    })
+    // console.log('sort Filtered', sortFiltered)
+    // console.log('sort Filtered first value', sortFiltered[0])
+      setSelectedEvent(sortFiltered[0])
     }
   }, [profileData, eventList])
 

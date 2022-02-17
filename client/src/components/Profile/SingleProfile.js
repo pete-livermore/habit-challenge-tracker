@@ -110,7 +110,7 @@ const SingleProfile = () => {
                                                 alt='profile picture' />
                                         </Box>
                                         <Box name="headline">
-                                            <Text textAlign={{ base: 'center', md: 'left' }} mt='3' size='lg' color='second'>Email: {profileData.email}</Text>
+                                            <Text textAlign={{ base: 'center', md: 'left' }} mt='3' size='lg' color='second'>{userIsAuthenticated() && `Email: ${profileData.email}`}</Text>
                                             <Heading textAlign={{ base: 'center', md: 'left' }} color='white' mt='2' as='h1' fontSize={{ base: '25px', md: '30px', lg: '40px' }} mb='2'>{profileData.firstName + ' ' + profileData.lastName}</Heading>
                                         </Box>
                                         {loggedInProfile && userIsAuthenticated() && loggedInProfile.id === userId ?

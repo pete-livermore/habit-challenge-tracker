@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useParams, useNavigate } from 'react-router-dom'
 import HabitFormTemplate from './HabitFormTemplate'
+import { Box } from '@chakra-ui/react'
 
 const AddHabitForm = () => {
 
@@ -36,40 +37,43 @@ const AddHabitForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault() // prevent reload
-    try {
-      const token = localStorage.getItem('tinyhabits-token')
-      console.log(token)
-
-      await axios.post(`/api/events/${eventId}/habits`, habitFormData, {
-        'headers': {
-          'Authorization': 'Bearer ' + token
+    if (habitFormData.picture){
+      try {
+        const token = localStorage.getItem('tinyhabits-token')
+        console.log(token)
+  
+        await axios.post(`/api/events/${eventId}/habits`, habitFormData, {
+          'headers': {
+            'Authorization': 'Bearer ' + token
+          }
+        })
+  
+        const getProfileId = async () => {
+          try {
+            const token = localStorage.getItem('tinyhabits-token')
+            console.log(token)
+            const { data } = await axios.get('/api/profile', {
+              'headers': {
+                'Authorization': 'Bearer ' + token
+              }
+            })
+            console.log('data', data.id)
+            navigate(`/profile/${data.id}`)
+            //  setUserProfileId(data.id)
+          } catch (err) {
+            console.log(err)
+          }
         }
-      })
-
-      const getProfileId = async () => {
-        try {
-          const token = localStorage.getItem('tinyhabits-token')
-          console.log(token)
-          const { data } = await axios.get('/api/profile', {
-            'headers': {
-              'Authorization': 'Bearer ' + token
-            }
-          })
-          console.log('data', data.id)
-          navigate(`/profile/${data.id}`)
-          //  setUserProfileId(data.id)
-        } catch (err) {
-          console.log(err)
-        }
+        getProfileId()
+  
+        // Redirect using the navigate variable, passing in the route we want to redirect to
+      } catch (err) {
+        console.log(err.response.data.message)
+        setBackEndError(err.response.data.message)
+        setFormErrors(err.response.data.errors)
       }
-      getProfileId()
-
-      // Redirect using the navigate variable, passing in the route we want to redirect to
-    } catch (err) {
-      console.log(err.response.data.message)
-      setBackEndError(err.response.data.message)
-      setFormErrors(err.response.data.errors)
     }
+    
   }
 
   const handleImageUrl = url => {
@@ -94,14 +98,17 @@ const AddHabitForm = () => {
   console.log(getEvent)
   console.log(backEndError)
   return (
-    <HabitFormTemplate
+    <><HabitFormTemplate
       handleSubmit={handleSubmit}
       handleChange={handleChange}
       formData={habitFormData}
       formErrors={formErrors}
       habitError={backEndError}
-      handleImageUrl={handleImageUrl}
-    />
+      handleImageUrl={handleImageUrl} />
+      <Box width='100%' zIndex='-1' position='absolute' top='0' left='0' bgGradient='linear(to-r, first, third)' height={{ base: '460px', md: '460x', lg: '460' }}>
+      </Box>
+      </>
+    
   )
 }
 

@@ -51,32 +51,35 @@ const Login = () => {
   }
 
   return (
-    <Flex width="full" align="center" justifyContent="center">
-      <Box p={8} maxW="500px" minW='300px' borderWidth={1} borderRadius={8} boxShadow="lg">
-        <>
-          <Box textAlign="center">
-            <Heading>Login</Heading>
-          </Box>
-          <Box my={4} textAlign="left">
-            {/* Email */}
-            <form onSubmit={handleSubmit}>
-              <FormControl isRequired>
-                <FormLabel htmlFor='email'>Email</FormLabel>
-                <Input onChange={handleChange} type="email" name="email" placeholder='Email' defaultValue={formData.email} />
-              </FormControl>
-              {/* Password */}
-              <FormControl isRequired mt={6}>
-                <FormLabel htmlFor='password'>Password</FormLabel>
-                <Input onChange={handleChange} type="password" name="password" placeholder='Password' defaultValue={formData.password} />
-              </FormControl>
-              {/* Error + Button */}
-              {formError && <Alert status='error' mt={4}>{formError}</Alert>}
-              <Button type="submit" width="full" size='lg' backgroundColor='fourth' color='white' mt={8}>Login</Button>
-            </form>
-          </Box>
-        </>
+    <>
+      <Flex width="full" align="center" justifyContent="center">
+        <Box p={8} maxW="500px" minW='300px' borderWidth={1} borderRadius={8} boxShadow="lg" backgroundColor='white'>
+          <>
+            <Box textAlign="center">
+              <Heading>Login</Heading>
+            </Box>
+            <Box my={4} textAlign="left">
+              {/* Email */}
+              <form onSubmit={handleSubmit}>
+                <FormControl isRequired>
+                  <FormLabel htmlFor='email'>Email</FormLabel>
+                  <Input onChange={handleChange} type="email" name="email" placeholder='Email' defaultValue={formData.email} />
+                </FormControl>
+                {/* Password */}
+                <FormControl isRequired mt={6}>
+                  <FormLabel htmlFor='password'>Password</FormLabel>
+                  <Input onChange={handleChange} type="password" name="password" placeholder='Password' defaultValue={formData.password} />
+                </FormControl>
+                {/* Error + Button */}
+                {formError && <Alert status='error' mt={4}>{formError}</Alert>}
+                <Button type="submit" width="full" size='lg' backgroundColor='fourth' color='white' mt={8}>Login</Button>
+              </form>
+            </Box>
+          </>
+        </Box>
+      </Flex><Box width='100%' zIndex='-1' position='absolute' top='0' left='0' bgGradient='linear(to-r, first, third)' height={{ base: '460px', md: '460x', lg: '460' }}>
       </Box>
-    </Flex>
+    </>
   )
 }
 
