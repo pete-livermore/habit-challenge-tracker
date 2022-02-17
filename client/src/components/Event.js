@@ -16,12 +16,13 @@ const Event = () => {
   const [profileData, setProfileData] = useState({})
   const [eventHabitCompletions, setEventHabitCompletions] = useState([])
   const [habitsFiltered, setHabitsFiltered] = useState(null)
+  const [allProfileData, setAllProfileData] = useState({})
   // const [widget, setWidget] = useState([])
   const [hasError, setHasError] = useState('')
   const [joinError, setJoinError] = useState('')
-  const [userHasJoined, setUserHasJoined] = useState(false)
   const [likeClick, setLikeClick] = useState(JSON.parse(window.localStorage.getItem('likeClick')) || { liked: false })
-
+  const [userHasJoined, setUserHasJoined] = useState()
+  const [buttonText, setButtonText] = useState('')
 
   const navigate = useNavigate()
 
@@ -37,6 +38,21 @@ const Event = () => {
     getEventData()
   }, [eventId, likeClick])
 
+  useEffect(() => {
+    const getAllProfiles = async () => {
+      try {
+        const { data } = await axios.get(`/api/profile/all`)
+        console.log('all profiles', data)
+        setAllProfileData(data)
+      } catch (err) {
+        setIsError({ error: true, message: 'Server error' })
+      }
+    }
+    getAllProfiles()
+
+  }, [])
+
+  const changeText = (text) => setButtonText(text)
 
   useEffect(() => {
     const getProfileData = async () => {
@@ -47,20 +63,20 @@ const Event = () => {
           },
         })
         setProfileData(res.data)
+        let startButtonText
+        if (res.data.events.some(event => event._id === eventId)) {
+          startButtonText = 'Leave Event'
+        } else startButtonText = 'Join Event'
+        setButtonText(startButtonText)
+
       } catch (err) {
         setHasError({ error: true, message: err.message })
       }
     }
     getProfileData()
+
   }, [eventId])
 
-  useEffect(() => {
-    if (Object.keys(profileData).length) {
-      if (profileData.events.some(event => event._id === eventId)) {
-        setUserHasJoined(true)
-      } else setUserHasJoined(false)
-    }
-  }, [profileData, eventId])
 
 
   useEffect(() => {
@@ -71,8 +87,16 @@ const Event = () => {
   }, [profileData, eventData])
 
   useEffect(() => {
+    console.log('profile data events ->', profileData.events)
+    if (profileData.events && eventData) {
+      if (profileData.events.some(event => event._id === eventData._id)) {
+        setUserHasJoined(true)
+      } else setUserHasJoined(false)
+    }
+  }, [profileData, eventData])
 
-  }, [eventData])
+
+
 
   const toAddHabitPage = () => {
     navigate(`/events/${eventId}/AddHabitCompletion`)
@@ -91,26 +115,41 @@ const Event = () => {
       console.log('form error ->', joinError)
       setJoinError(err.response.data.message)
     }
+    let changeButtonText
+    if (buttonText === 'Join Event') {
+      changeButtonText = "Leave Event"
+    } else if (buttonText === 'Leave Event') {
+      changeButtonText = "Join Event"
+    }
+    changeText(changeButtonText)
   }
 
 
+  const handleJoinedSubmit = () => {
+    setUserHasJoined(true)
+  }
+
 
   useEffect(() => {
+    let filteredHabits = []
     if (Object.keys(eventData).length) {
-      const filteredHabits = (eventData.eventMembers)
+      (eventData.eventMembers)
         .map(member => member)
         .map(habit => habit.habitCompletions)
+        .forEach(array => array.forEach(object => filteredHabits.push(object)))
       console.log('members.filtered', filteredHabits);
       setHabitsFiltered(filteredHabits)
     }
   }, [eventData])
 
   console.log('eventdata ->', eventData)
-
+  console.log('profileData All ->', allProfileData)
+  console.log('ise user part of event already', Object.keys(profileData).length && profileData.events.some(event => event._id === eventId))
   return (
     <>
       {Object.keys(eventData).length ?
         <>
+          {console.log('joined events ->', userHasJoined)}
           <Flex zIndex='0' p='0' mt='5' name="wrapper" width='80%' direction={{ base: 'column', md: 'row' }}>
             <VStack display='flex' name="content" mr='10' direction='column' width='70%' alignItems='flex-start' mb='6'>
               <Box name="header" mb='45px' >
@@ -138,37 +177,38 @@ const Event = () => {
                 <Text color='gray.500'>{eventData.description}</Text>
               </Box>
               <Flex name='widget' bg='white' w='100%' flexDirection='column' alignItems='center' rounded='md'>
-                {/* {console.log('habits filtered -> ', habitsFiltered)} */}
-                {habitsFiltered && habitsFiltered.map(userhabit => {
-                  return userhabit.map(habit => {
-                    // console.log('habit', habit)
-                    return (habit.event === eventId ?
-                      <Box name="habit-box" key={habit._id} mt='5' borderWidth='1px' width='100%' borderRadius='lg' overflow='hidden'>
-                        <Box pl='6' mt='6' name="event-owner" display='flex'>
-                          <Link to={`/profile/${eventData.owner.id}`}>
-                            <Avatar size='md' src={habit.profilePicture} />
-                          </Link>
-                          <Box name='habitOwner' ml='2' display='flex' flexDirection='column'>
-                            <Box>
-                              <Link to={`/profile/${eventData.owner.id}`}>
-                                <Text fontWeight='bold' color='third'>{habit.firstName} {habit.lastName}</Text>
-                              </Link>
-                            </Box>
-                            <Box>
-                              <Text fontSize='sm' color='gray.500'>{habitDateFormat(habit)}</Text>
-                            </Box>
+                {console.log('habits filtered -> ', habitsFiltered)}
+                {habitsFiltered && habitsFiltered.sort(function (a, b) {
+                  return new Date(b.createdAt) - new Date(a.createdAt)
+                }).map(habit => {
+                  console.log('habit', habit)
+                  console.log('allprofiledata filters', Object.keys(allProfileData).length && allProfileData.filter(user => user._id === habit.owner))
+                  return (habit.event === eventId ?
+                    <Box name="habit-box" key={habit._id} mt='5' borderWidth='1px' width='100%' borderRadius='lg' overflow='hidden'>
+                      <Box pl='6' mt='6' name="event-owner" display='flex'>
+                        <Link to={`/profile/${eventData.owner.id}`}>
+                          <Avatar size='md' src={Object.keys(allProfileData).length ? allProfileData.filter(user => user._id === habit.owner)[0].profilePicture : ''} />
+                        </Link>
+                        <Box name='habitOwner' ml='2' display='flex' flexDirection='column'>
+                          <Box>
+                            <Link to={`/profile/${eventData.owner.id}`}>
+                              <Text fontWeight='bold' color='third'>{Object.keys(allProfileData).length ? allProfileData.filter(user => user._id === habit.owner)[0].firstName : ''} {Object.keys(allProfileData).length ? allProfileData.filter(user => user._id === habit.owner)[0].lastName : ''}</Text>
+                            </Link>
+                          </Box>
+                          <Box>
+                            <Text fontSize='sm' color='gray.500'>{habitDateFormat(habit)}</Text>
                           </Box>
                         </Box>
-                        <Box pl='6' mt='5' name='comment'>
-                          <Text color='gray.500' pb='6'>{habit.comment}</Text>
-                        </Box>
-                        <Image src={habit.picture} alt='habit-pic' />
-
                       </Box>
-                      :
-                      ''
-                    )
-                  })
+                      <Box pl='6' mt='5' name='comment'>
+                        <Text color='gray.500' pb='6'>{habit.comment}</Text>
+                      </Box>
+                      <Image src={habit.picture} alt='habit-pic' />
+
+                    </Box>
+                    :
+                    ''
+                  )
 
                 }
                 )}
@@ -195,7 +235,7 @@ const Event = () => {
                 {!eventData.isLive && eventBeforeStartDate(eventData) &&
                   <>
                     <Text fontSize={{ base: '12px', md: '16px', lg: '24px' }} fontWeight='bold' textAlign='center'>The challenge<br></br> starts in {daysLeftUntilEvent(eventData)}</Text>
-                    <Button onClick={handleSubmit} fontSize='16px' fontWeight='bold' my='6' w='60%' backgroundColor='#ffbb0f' boxShadow='lg' p='6' rounded='md' bg='white' color='white'>Join Event</Button>
+                    <Button onClick={handleSubmit} fontSize='16px' fontWeight='bold' my='6' w='60%' backgroundColor='#ffbb0f' boxShadow='lg' p='6' rounded='md' bg='white' color='white'>{buttonText}</Button>
 
                   </>
                 }

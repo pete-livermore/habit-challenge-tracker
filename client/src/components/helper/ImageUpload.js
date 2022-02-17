@@ -22,13 +22,13 @@ export const ImageUpload = ({ handleImageUrl, value }) => {
         <><div>
           <img id='add-habit-photo' src={value} alt='pp' />
         </div>
-        <label>Change File: </label>
+        <label width='100%'>Change File: </label>
         <input
-          className='input'
+          className='input-pic'
           type='file'
           onChange={handleUpload} /></> :
         <><input
-          className='input'
+          className='input-pic'
           type='file'
           onChange={handleUpload} /></>
       }

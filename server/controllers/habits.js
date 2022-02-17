@@ -5,7 +5,7 @@ import Event from '../models/event.js'
 
 export const getUserHabits = async (req, res) => {
   try {
-    const currentUserProfile = await User.findById(req.currentUser._id).populate('habitCompletions.event')
+    const currentUserProfile = await User.findById(req.currentUser._id).populate('habitCompletions.event').populate('habitCompletions.owner')
     const habitsForUser = currentUserProfile.habitCompletions
     console.log('user-habits', habitsForUser)
     return res.status(200).json(habitsForUser)

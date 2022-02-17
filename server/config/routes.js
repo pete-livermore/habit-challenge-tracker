@@ -42,6 +42,9 @@ router.route('/events/:eventId/likes')
   .put(secureRoute, addLike)
   .get(getLikes)
 
+router.route('/profile/all')
+  .get(getAllProfile)
+
 router.route('/profile')
   .get(secureRoute, getProfile)
   .put(secureRoute, updateProfile)
@@ -49,8 +52,7 @@ router.route('/profile')
 router.route('/profile/:userId')
   .get(getSingleProfile)
 
-router.route('/profile/all')
-  .get(getAllProfile)
+
 
 // Account
 router.route('/register')
