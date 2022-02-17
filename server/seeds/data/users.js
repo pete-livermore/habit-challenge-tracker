@@ -1010,7 +1010,7 @@ export default [
   {
     firstName: 'Roy',
     lastName: 'Romero',
-    email: 'Nathaniel.Holmes@email.com',
+    email: 'Roy.Romero@email.com',
     password: 'pass',
     passwordConfirmation: 'pass',
     profilePicture: 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1645098823/project_3_sei61/7_d9ux9k.jpg',

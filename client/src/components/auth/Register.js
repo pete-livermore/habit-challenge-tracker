@@ -25,7 +25,7 @@ const Register = () => {
     email: '',
     password: '',
     passwordConfirmation: '',
-    picture: '',
+    profilePicture: '',
   })
 
   const [ formError, setFormError ] = useState({
@@ -34,7 +34,7 @@ const Register = () => {
     email: '',
     password: '',
     passwordConfirmation: '',
-    picture: '',
+    profilePicture: '',
   })
   const handleChange = (e) => {
     const newObj = { ...formData, [e.target.name]: e.target.value } //Spreading formData makes sure we maintain the data structure of formData
@@ -64,7 +64,7 @@ const Register = () => {
   }
 
   const handleImageUrl = url => {
-    setFormData({ ...formData, picture: url })
+    setFormData({ ...formData, profilePicture: url })
   }
 
 console.log(formData)
@@ -110,7 +110,7 @@ console.log(formData)
               <FormControl mt={6}>
               <FormLabel htmlFor='picture'>Add Profile Picture</FormLabel>
               <ImageUpload
-                value={formData.picture}
+                value={formData.profilePicture}
                 name='picture'
                 handleImageUrl={handleImageUrl}
               />
