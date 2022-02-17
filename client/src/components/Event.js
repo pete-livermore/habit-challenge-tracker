@@ -186,12 +186,12 @@ const Event = () => {
                   return (habit.event === eventId ?
                     <Box name="habit-box" key={habit._id} mt='5' borderWidth='1px' width='100%' borderRadius='lg' overflow='hidden'>
                       <Box pl='6' mt='6' name="event-owner" display='flex'>
-                        <Link to={`/profile/${eventData.owner.id}`}>
+                        <Link to={`/profile/${Object.keys(allProfileData).length && allProfileData.filter(user => user._id === habit.owner)[0]._id}`}>
                           <Avatar size='md' src={Object.keys(allProfileData).length ? allProfileData.filter(user => user._id === habit.owner)[0].profilePicture : ''} />
                         </Link>
                         <Box name='habitOwner' ml='2' display='flex' flexDirection='column'>
                           <Box>
-                            <Link to={`/profile/${eventData.owner.id}`}>
+                            <Link to={`/profile/${Object.keys(allProfileData).length && allProfileData.filter(user => user._id === habit.owner)[0]._id}`}>
                               <Text fontWeight='bold' color='third'>{Object.keys(allProfileData).length ? allProfileData.filter(user => user._id === habit.owner)[0].firstName : ''} {Object.keys(allProfileData).length ? allProfileData.filter(user => user._id === habit.owner)[0].lastName : ''}</Text>
                             </Link>
                           </Box>
