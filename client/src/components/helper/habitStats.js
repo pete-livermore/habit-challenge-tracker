@@ -7,7 +7,7 @@ export const HabitsCompleted = ({ eventHabitCompletions }) => {
  return (
 
     <Box display='flex' flexDirection='column'>
-        <Progress name='progressbar' mt='4' height='25' width='260px' borderRadius="1rem" color='forth' size='lg' value={((eventHabitCompletions.length / 30) * 100).toFixed(1)} />
+        <Progress name='progressbar' borderWidth='1' mt='4' height='25' width='260px' borderRadius="1rem" color='grey.100' size='lg' value={((eventHabitCompletions.length / 30) * 100).toFixed(1)} />
         <Text mt='4' textAlign='center' fontSize='xs'>Your progress: {parseInt((eventHabitCompletions.length / 30) * 100)}%</Text>
     </Box>
   )
@@ -18,7 +18,7 @@ export const HabitsCompletedDashboard = ({ eventHabitCompletions }) => {
   return (
  
      <Box display='flex' flexDirection='column'>
-         <Progress name='progressbar' mt='4' height='25' width='260px' borderRadius="1rem" color='forth' size='lg' value={((eventHabitCompletions.length / 30) * 100).toFixed(1)} />
+         <Progress name='progressbar' height='25' width='240px' borderRadius="1rem" color='forth' size='lg' value={((eventHabitCompletions.length / 30) * 100).toFixed(1)} />
      </Box>
    )
  }
