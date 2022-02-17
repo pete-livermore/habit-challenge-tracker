@@ -49,7 +49,12 @@ const Dashboard = ({ eventList }) => {
     if (eventList.length && Object.keys(profileData).length) {
       const filtered = eventList.filter(event => profileData.events.some(ev => ev._id === event._id))
       setUserEvents(filtered)
-      setSelectedEvent(filtered[0])
+      const sortFiltered = filtered.sort(function (a, b) {
+        return new Date(a.startDate) - new Date(b.startDate)
+    })
+    // console.log('sort Filtered', sortFiltered)
+    // console.log('sort Filtered first value', sortFiltered[0])
+      setSelectedEvent(sortFiltered[0])
     }
   }, [profileData, eventList])
 
@@ -159,7 +164,7 @@ const Dashboard = ({ eventList }) => {
             <Heading size='xl' name='event-selector' mb='5' color='second' textAlign='left'>Your challenge starts in {daysLeftUntilEvent(selectedEvent)}!</Heading>               
           }
           {!selectedEvent.isLive && eventAfterEndDate(selectedEvent) && <Text fontSize={{ base: '12px', md: '16px', xl: '24px' }} fontWeight='bold' textAlign='center'>The challenge is over</Text>}
-
+{console.log('userEvents', userEvents)}
           <EventDropdown mt='5' handleOptionChange={handleOptionChange} selectedEvent={selectedEvent} userEvents={userEvents} />
           </Flex>
             <Flex name="actions" mt='5' bg='white' width='300px' flexDirection='column' alignItems='center' justifyContent='space-evenly' boxShadow='2xl' borderRadius='10'>

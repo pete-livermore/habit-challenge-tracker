@@ -55,6 +55,10 @@ const Event = () => {
   const changeText = (text) => setButtonText(text)
 
   useEffect(() => {
+
+    if (!userIsAuthenticated()){
+      setButtonText('Join Event')
+    }
     const getProfileData = async () => {
       try {
         const res = await axios.get('/api/profile', {
@@ -116,10 +120,13 @@ const Event = () => {
       setJoinError(err.response.data.message)
     }
     let changeButtonText
-    if (buttonText === 'Join Event') {
+    if (buttonText === 'Join Event' && userIsAuthenticated()) {
       changeButtonText = "Leave Event"
     } else if (buttonText === 'Leave Event') {
       changeButtonText = "Join Event"
+    } else if (buttonText === 'Join Event'){
+      changeButtonText = "Join Event"
+      navigate('/register')
     }
     changeText(changeButtonText)
   }
@@ -183,7 +190,6 @@ const Event = () => {
                     console.log('habit', habit)
                     console.log('allprofiledata filters', Object.keys(allProfileData).length && allProfileData.filter(user => user._id === habit.owner))
                     return (habit.event === eventId ?
-                      <Box>
                         <Box name="habit-box" key={habit._id} mt='5' borderWidth='1px' width='100%' borderRadius='lg' overflow='hidden'>
                           <Box pl='6' mt='6' name="event-owner" display='flex'>
                           <Link to={`/profile/${Object.keys(allProfileData).length && allProfileData.filter(user => user._id === habit.owner)[0]._id}`}>
@@ -200,7 +206,7 @@ const Event = () => {
                               </Box>
                             </Box>
                           </Box>
-                        </Box>
+                        
                         <Box pl='6' mt='5' name='comment'>
                           <Text color='gray.500' pb='6'>{habit.comment}</Text>
                         </Box>
@@ -208,6 +214,7 @@ const Event = () => {
                       </Box>
                     :
                     ''
+                    
                   )
 
                 }
@@ -236,7 +243,6 @@ const Event = () => {
                   <>
                     <Text fontSize={{ base: '12px', md: '16px', lg: '24px' }} fontWeight='bold' textAlign='center'>The challenge<br></br> starts in {daysLeftUntilEvent(eventData)}</Text>
                     <Button onClick={handleSubmit} fontSize='16px' fontWeight='bold' my='6' w='60%' backgroundColor='#ffbb0f' boxShadow='2xl' p='6' rounded='md' bg='white' color='white'>{buttonText}</Button>
-
                   </>
                 }
                 {!eventData.isLive && eventAfterEndDate(eventData) && <Text fontSize={{ base: '12px', md: '16px', lg: '24px' }} fontWeight='bold' textAlign='center'>The challenge is over</Text>}

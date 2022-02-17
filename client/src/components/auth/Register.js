@@ -51,15 +51,17 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    try {
-      const { data } = await axios.post('/api/register', formData) //Posting the data from the form
-      console.log('token', data.token)
-      setTokenToLocalStorage(data.token) // pass on the token to the localStorage
-      navigate('/login')
-    } catch (err) {
-      console.log('form error ->',formError)
-      console.log(err.response)
-      setFormError(err.response.data.message)
+    if (formData.profilePicture){
+      try {
+        const { data } = await axios.post('/api/register', formData) //Posting the data from the form
+        console.log('token', data.token)
+        setTokenToLocalStorage(data.token) // pass on the token to the localStorage
+        navigate('/login')
+      } catch (err) {
+        console.log('form error ->',formError)
+        console.log(err.response)
+        setFormError(err.response.data.message)
+      }
     }
   }
 
