@@ -11,11 +11,11 @@ export const getProfile = async (req, res) => {
   }
 }
 
-export const getAllProfile = async (req, res) => {
+export const getAllProfile = async (_req, res) => {
   try {
-    const userToFetch = await User.find()
-    if (!userToFetch) throw new Error('User not found')
-    return res.status(200).json(userToFetch)
+    const allUsers = await User.find()
+    console.log(allUsers)
+    return res.status(200).json(allUsers)
   } catch (err) {
     return res.status(404).json({ message: err.message })
   }

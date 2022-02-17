@@ -17,11 +17,13 @@ const Event = () => {
   const [profileData, setProfileData] = useState({})
   const [eventHabitCompletions, setEventHabitCompletions] = useState([])
   const [habitsFiltered, setHabitsFiltered] = useState(null)
+  const [allProfileData, setAllProfileData] = useState({})
   // const [widget, setWidget] = useState([])
   const [hasError, setHasError] = useState('')
   const [joinError, setJoinError] = useState('')
   const [likeClick, setLikeClick] = useState({ liked: false })
   const [userHasJoined, setUserHasJoined] = useState(false)
+  const [buttonText, setButtonText] = useState('')
 
   const navigate = useNavigate()
 
@@ -37,6 +39,21 @@ const Event = () => {
     getEventData()
   }, [eventId, likeClick])
 
+useEffect(() => {
+  const getAllProfiles = async () => {
+    try {
+      const { data } = await axios.get(`/api/profile/all`)
+      console.log('all profiles', data)
+      setAllProfileData(data)
+    } catch (err) {
+      setIsError({ error: true, message: 'Server error' })
+    }
+  }
+  getAllProfiles()
+
+}, [])
+
+const changeText = (text) => setButtonText(text)
 
   useEffect(() => {
     const getProfileData = async () => {
@@ -47,11 +64,18 @@ const Event = () => {
           },
         })
         setProfileData(res.data)
+        let startButtonText
+        if (res.data.events.some(event => event._id === eventId)){
+          startButtonText = 'Leave Event'
+        } else startButtonText = 'Join Event'
+        setButtonText(startButtonText)
+      
       } catch (err) {
         setHasError({ error: true, message: err.message })
       }
     }
     getProfileData()
+
   }, [eventId])
 
   useEffect(() => {
@@ -92,15 +116,24 @@ const Event = () => {
       console.log(err.response)
       setJoinError(err.response.data.message)
     }
+    let changeButtonText
+    if (buttonText === 'Join Event'){
+      changeButtonText = "Leave Event"
+    } else if (buttonText === 'Leave Event'){
+      changeButtonText = "Join Event"
+    }
+    changeText(changeButtonText)
   }
 
 
 
   useEffect(() => {
+    let filteredHabits = []
     if (Object.keys(eventData).length) {
-      const filteredHabits = (eventData.eventMembers)
+      (eventData.eventMembers)
         .map(member => member)
         .map(habit => habit.habitCompletions)
+        .forEach(array => array.forEach(object => filteredHabits.push(object)))
       console.log('members.filtered', filteredHabits);
       setHabitsFiltered(filteredHabits)
     }
@@ -133,7 +166,8 @@ const Event = () => {
 
 
   console.log('eventdata ->', eventData)
-
+  console.log('profileData All ->', allProfileData)
+  console.log('ise user part of event already', Object.keys(profileData).length && profileData.events.some(event => event._id === eventId))
   return (
     <>
       {Object.keys(eventData).length ?
@@ -166,19 +200,21 @@ const Event = () => {
               </Box>
               <Flex name='widget' bg='white' w='100%' flexDirection='column' alignItems='center' rounded='md'>
                 {console.log('habits filtered -> ', habitsFiltered)}
-                {habitsFiltered && habitsFiltered.map(userhabit => {
-                  return userhabit.map(habit => {
+                {habitsFiltered && habitsFiltered.sort(function (a, b) {
+                                                                    return new Date(b.createdAt) - new Date(a.createdAt)
+                                                                }).map(habit => {
                     console.log('habit', habit)
+                    console.log('allprofiledata filters', Object.keys(allProfileData).length && allProfileData.filter(user => user._id === habit.owner))
                     return (habit.event === eventId ?
                       <Box name="habit-box" key={habit._id} mt='5' borderWidth='1px' width='100%' borderRadius='lg' overflow='hidden'>
                         <Box pl='6' mt='6' name="event-owner" display='flex'>
                           <Link to={`/profile/${eventData.owner.id}`}>
-                            <Avatar size='md' src={habit.profilePicture} />
+                            <Avatar size='md' src={Object.keys(allProfileData).length ? allProfileData.filter(user => user._id === habit.owner)[0].profilePicture : ''} />
                           </Link>
                           <Box name='habitOwner' ml='2' display='flex' flexDirection='column'>
                             <Box>
                               <Link to={`/profile/${eventData.owner.id}`}>
-                                <Text fontWeight='bold' color='third'>{habit.firstName} {habit.lastName}</Text>
+                                <Text fontWeight='bold' color='third'>{Object.keys(allProfileData).length ? allProfileData.filter(user => user._id === habit.owner)[0].firstName : ''} {Object.keys(allProfileData).length ? allProfileData.filter(user => user._id === habit.owner)[0].lastName : ''}</Text>
                               </Link>
                             </Box>
                             <Box>
@@ -195,7 +231,6 @@ const Event = () => {
                       :
                       ''
                     )
-                  })
 
                 }
                 )}
@@ -222,7 +257,7 @@ const Event = () => {
                 {!eventData.isLive && eventBeforeStartDate(eventData) &&
                   <>
                     <Text fontSize={{ base: '12px', md: '16px', lg: '24px' }} fontWeight='bold' textAlign='center'>The challenge<br></br> starts in {daysLeftUntilEvent(eventData)}</Text>
-                    <Button onClick={handleSubmit} fontSize='16px' fontWeight='bold' my='6' w='60%' backgroundColor='#ffbb0f' boxShadow='lg' p='6' rounded='md' bg='white' color='white'>Join Event</Button>
+                    <Button onClick={handleSubmit} fontSize='16px' fontWeight='bold' my='6' w='60%' backgroundColor='#ffbb0f' boxShadow='lg' p='6' rounded='md' bg='white' color='white'>{buttonText}</Button>
 
                   </>
                 }

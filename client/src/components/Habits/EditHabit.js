@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { params, useParams, useNavigate } from 'react-router-dom'
 import HabitFormTemplate from './HabitFormTemplate'
+import { Box } from '@chakra-ui/react'
 
 const EditHabit = () => {
 
@@ -72,14 +73,15 @@ const [ formErrors, setFormErrors ] = useState({
 
     console.log(singleHabitData)
     return (
-      <HabitFormTemplate 
-      handleSubmit={handleSubmit} 
-      handleChange={handleChange} 
-      formData={singleHabitData}
-      formErrors={formErrors}
-      habitError={habitError}
-      handleImageUrl={handleImageUrl}
-    />
+      <><HabitFormTemplate
+        handleSubmit={handleSubmit}
+        handleChange={handleChange}
+        formData={singleHabitData}
+        formErrors={formErrors}
+        habitError={habitError}
+        handleImageUrl={handleImageUrl} />
+        <Box width='100%' zIndex='-1' position='absolute' top='0' left='0' bgGradient='linear(to-r, first, third)' height={{ base: '460px', md: '460x', lg: '460' }}>
+        </Box></>
     )
 }
 

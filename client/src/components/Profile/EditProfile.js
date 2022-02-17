@@ -88,8 +88,8 @@ const EditProfile = () => {
 
     console.log(formData)
     return (
-        <Flex width="full" align="center" justifyContent="center">
-            <Box p={8} maxWidth="500px" borderWidth={1} borderRadius={8} boxShadow="lg">
+        <><Flex width="full" align="center" justifyContent="center">
+            <Box width='100%' backgroundColor='white' p={8} maxWidth="500px" borderWidth={1} borderRadius={8} boxShadow="lg">
                 <>
                     <Box textAlign="center">
                         <Heading>Update Profile</Heading>
@@ -119,8 +119,7 @@ const EditProfile = () => {
                                 <ImageUpload
                                     value={formData.profilePicture}
                                     name='profilePicture'
-                                    handleImageUrl={handleImageUrl}
-                                />
+                                    handleImageUrl={handleImageUrl} />
                             </FormControl>
                             {/* Error + Button */}
                             <Button type="submit" width="full" mt={4}>Save</Button>
@@ -128,7 +127,10 @@ const EditProfile = () => {
                     </Box>
                 </>
             </Box>
-        </Flex>
+        </Flex><Box width='100%' zIndex='-1' position='absolute' top='0' left='0' bgGradient='linear(to-r, first, third)' height={{ base: '460px', md: '460x', lg: '460' }}>
+            </Box>
+            </>
+
     )
 }
 
