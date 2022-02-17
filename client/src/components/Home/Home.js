@@ -27,7 +27,7 @@ const Home = () => {
         <>
           <Dashboard eventList={events} />
           <Container maxW='container.lg' mt='4'>
-            <Heading as='h2' size='lg'>Discover challenges</Heading>
+            <Heading as='h2' mt='10' size='lg'>Discover challenges</Heading>
             <Flex w='100%' justify='space-between' flexDirection={{ base: 'column', md: 'row', lg: 'row' }} flexWrap='wrap' mt='4' mb='6'>
               <>
                 {events.map(event => {

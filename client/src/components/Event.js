@@ -21,8 +21,9 @@ const Event = () => {
   // const [widget, setWidget] = useState([])
   const [hasError, setHasError] = useState('')
   const [joinError, setJoinError] = useState('')
-  const [likeClick, setLikeClick] = useState({ liked: false })
-  const [userHasJoined, setUserHasJoined] = useState(false)
+  const [likeClick, setLikeClick] = useState(JSON.parse(window.localStorage.getItem('likeClick')) || { liked: false })
+  const [likeOperator, setLikeOperator] = useState({ operator: 0 })
+  const [userHasJoined, setUserHasJoined] = useState()
   const [buttonText, setButtonText] = useState('')
 
   const navigate = useNavigate()
@@ -78,14 +79,7 @@ const changeText = (text) => setButtonText(text)
 
   }, [eventId])
 
-  useEffect(() => {
-    if (Object.keys(profileData).length) {
-      if (profileData.events.some(event => event._id === eventId)) {
-        setUserHasJoined(true)
-      } else setUserHasJoined(false)
-    }
-  }, [profileData, eventId])
-
+  
 
   useEffect(() => {
     if (profileData.habitCompletions && eventData && Object.keys(eventData).length) {
@@ -95,8 +89,16 @@ const changeText = (text) => setButtonText(text)
   }, [profileData, eventData])
 
   useEffect(() => {
+    console.log('profile data events ->',profileData.events)
+    if(profileData.events && eventData) {
+     if (profileData.events.some(event => event._id === eventData._id)) {
+      setUserHasJoined(true)
+     } else setUserHasJoined(false)
+    }
+  }, [profileData, eventData])
 
-  }, [eventData])
+ 
+
 
   const toAddHabitPage = () => {
     navigate(`/events/${eventId}/AddHabitCompletion`)
@@ -106,14 +108,13 @@ const changeText = (text) => setButtonText(text)
     e.preventDefault()
     try {
       await axios.post(`/api/events/${eventId}`, profileData,
-      {
-        headers: {
+        {
+          headers: {
             Authorization: `Bearer ${getTokenFromLocalStorage()}`,
-        }, 
-    })
+          },
+        })
     } catch (err) {
       console.log('form error ->', joinError)
-      console.log(err.response)
       setJoinError(err.response.data.message)
     }
     let changeButtonText
@@ -125,6 +126,10 @@ const changeText = (text) => setButtonText(text)
     changeText(changeButtonText)
   }
 
+  
+  const handleJoinedSubmit = () => {
+    setUserHasJoined(true)
+  }
 
 
   useEffect(() => {
@@ -141,18 +146,24 @@ const changeText = (text) => setButtonText(text)
 
   // handles click of the like icon
   const handleClick = () => {
-    let operator = { value: 0 }
     if (!likeClick.liked) {
       setLikeClick({ liked: true })
-      operator.value = 1
+      setLikeOperator({ operator: 1 })
     } else {
       setLikeClick({ liked: false })
-      operator.value = -1
+      setLikeOperator({ operator: -1 })
     }
+  }
+  // Storing the state of the like to persist on refresh - issue is that it persists on every page fml
+  useEffect(() => {
+    window.localStorage.setItem('likeClick', JSON.stringify(likeClick))
+  }, [likeClick])
+
+  // Adds the like to the database
+  useEffect(() => {
     const addLike = async () => {
       try {
-        console.log('hello')
-        await axios.put(`/api/events/${eventId}/likes`, operator, {
+        await axios.put(`/api/events/${eventId}/likes`, likeOperator, {
           'headers': {
             'Authorization': `Bearer ${getTokenFromLocalStorage()}`,
           },
@@ -162,8 +173,19 @@ const changeText = (text) => setButtonText(text)
       }
     }
     addLike()
-  }
-
+    // Refetches the event data, with a delay to allow put request to work first (will work on more robust method)
+    setTimeout(() => {
+      const getEventData = async () => {
+        try {
+          const { data } = await axios.get(`/api/events/${eventId}`)
+          setEventData(data)
+        } catch (err) {
+          setIsError({ error: true, message: 'Server error' })
+        }
+      }
+      getEventData()
+    }, 150)
+  }, [likeClick, eventId, likeOperator])
 
   console.log('eventdata ->', eventData)
   console.log('profileData All ->', allProfileData)
@@ -172,6 +194,7 @@ const changeText = (text) => setButtonText(text)
     <>
       {Object.keys(eventData).length ?
         <>
+        {console.log('joined events ->',userHasJoined)}
           <Flex zIndex='0' p='0' mt='5' name="wrapper" width='80%' direction={{ base: 'column', md: 'row' }}>
             <VStack display='flex' name="content" mr='10' direction='column' width='70%' alignItems='flex-start' mb='6'>
               <Box name="header" mb='45px' >
@@ -237,7 +260,7 @@ const changeText = (text) => setButtonText(text)
               </Flex>
 
             </VStack>
-            <Container width={{ base: '100%', md: '40%' }} name="widget">
+            <Container width={{ base: '100%', md: '55%' }} name="widget">
               <Box name="challengers" p='8' mt='0' backgroundColor='#0075ff' color='white' borderTopRadius='10' w='100%'>
                 <Heading size='sm'>Challengers ({eventData.eventMembers.length})</Heading>
                 <Flex flexWrap='wrap' mt='4' w='100%'>
