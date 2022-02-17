@@ -6,8 +6,7 @@ import { startDateFormat, endDateFormat, daysLeftUntilEvent, daysLeftInEvent, ha
 import { HabitsCompleted } from './helper/habitStats'
 import { getTokenFromLocalStorage, userIsAuthenticated } from './helper/auth'
 import Comments from './Comments'
-import likeIcon from '../assets/images/like_icon_unclicked.png'
-import likeIconClicked from '../assets/images/like_icon_clicked.png'
+import Likes from './Likes'
 
 
 const Event = () => {
@@ -22,7 +21,6 @@ const Event = () => {
   const [hasError, setHasError] = useState('')
   const [joinError, setJoinError] = useState('')
   const [likeClick, setLikeClick] = useState(JSON.parse(window.localStorage.getItem('likeClick')) || { liked: false })
-  const [likeOperator, setLikeOperator] = useState({ operator: 0 })
   const [userHasJoined, setUserHasJoined] = useState()
   const [buttonText, setButtonText] = useState('')
 
@@ -40,21 +38,21 @@ const Event = () => {
     getEventData()
   }, [eventId, likeClick])
 
-useEffect(() => {
-  const getAllProfiles = async () => {
-    try {
-      const { data } = await axios.get(`/api/profile/all`)
-      console.log('all profiles', data)
-      setAllProfileData(data)
-    } catch (err) {
-      setIsError({ error: true, message: 'Server error' })
+  useEffect(() => {
+    const getAllProfiles = async () => {
+      try {
+        const { data } = await axios.get(`/api/profile/all`)
+        console.log('all profiles', data)
+        setAllProfileData(data)
+      } catch (err) {
+        setIsError({ error: true, message: 'Server error' })
+      }
     }
-  }
-  getAllProfiles()
+    getAllProfiles()
 
-}, [])
+  }, [])
 
-const changeText = (text) => setButtonText(text)
+  const changeText = (text) => setButtonText(text)
 
   useEffect(() => {
     const getProfileData = async () => {
@@ -66,11 +64,11 @@ const changeText = (text) => setButtonText(text)
         })
         setProfileData(res.data)
         let startButtonText
-        if (res.data.events.some(event => event._id === eventId)){
+        if (res.data.events.some(event => event._id === eventId)) {
           startButtonText = 'Leave Event'
         } else startButtonText = 'Join Event'
         setButtonText(startButtonText)
-      
+
       } catch (err) {
         setHasError({ error: true, message: err.message })
       }
@@ -79,7 +77,7 @@ const changeText = (text) => setButtonText(text)
 
   }, [eventId])
 
-  
+
 
   useEffect(() => {
     if (profileData.habitCompletions && eventData && Object.keys(eventData).length) {
@@ -89,15 +87,15 @@ const changeText = (text) => setButtonText(text)
   }, [profileData, eventData])
 
   useEffect(() => {
-    console.log('profile data events ->',profileData.events)
-    if(profileData.events && eventData) {
-     if (profileData.events.some(event => event._id === eventData._id)) {
-      setUserHasJoined(true)
-     } else setUserHasJoined(false)
+    console.log('profile data events ->', profileData.events)
+    if (profileData.events && eventData) {
+      if (profileData.events.some(event => event._id === eventData._id)) {
+        setUserHasJoined(true)
+      } else setUserHasJoined(false)
     }
   }, [profileData, eventData])
 
- 
+
 
 
   const toAddHabitPage = () => {
@@ -118,15 +116,15 @@ const changeText = (text) => setButtonText(text)
       setJoinError(err.response.data.message)
     }
     let changeButtonText
-    if (buttonText === 'Join Event'){
+    if (buttonText === 'Join Event') {
       changeButtonText = "Leave Event"
-    } else if (buttonText === 'Leave Event'){
+    } else if (buttonText === 'Leave Event') {
       changeButtonText = "Join Event"
     }
     changeText(changeButtonText)
   }
 
-  
+
   const handleJoinedSubmit = () => {
     setUserHasJoined(true)
   }
@@ -144,49 +142,6 @@ const changeText = (text) => setButtonText(text)
     }
   }, [eventData])
 
-  // handles click of the like icon
-  const handleClick = () => {
-    if (!likeClick.liked) {
-      setLikeClick({ liked: true })
-      setLikeOperator({ operator: 1 })
-    } else {
-      setLikeClick({ liked: false })
-      setLikeOperator({ operator: -1 })
-    }
-  }
-  // Storing the state of the like to persist on refresh - issue is that it persists on every page fml
-  useEffect(() => {
-    window.localStorage.setItem('likeClick', JSON.stringify(likeClick))
-  }, [likeClick])
-
-  // Adds the like to the database
-  useEffect(() => {
-    const addLike = async () => {
-      try {
-        await axios.put(`/api/events/${eventId}/likes`, likeOperator, {
-          'headers': {
-            'Authorization': `Bearer ${getTokenFromLocalStorage()}`,
-          },
-        })
-      } catch (err) {
-        setHasError({ error: true, message: err.message })
-      }
-    }
-    addLike()
-    // Refetches the event data, with a delay to allow put request to work first (will work on more robust method)
-    setTimeout(() => {
-      const getEventData = async () => {
-        try {
-          const { data } = await axios.get(`/api/events/${eventId}`)
-          setEventData(data)
-        } catch (err) {
-          setIsError({ error: true, message: 'Server error' })
-        }
-      }
-      getEventData()
-    }, 150)
-  }, [likeClick, eventId, likeOperator])
-
   console.log('eventdata ->', eventData)
   console.log('profileData All ->', allProfileData)
   console.log('ise user part of event already', Object.keys(profileData).length && profileData.events.some(event => event._id === eventId))
@@ -194,7 +149,6 @@ const changeText = (text) => setButtonText(text)
     <>
       {Object.keys(eventData).length ?
         <>
-        {console.log('joined events ->',userHasJoined)}
           <Flex zIndex='0' p='0' mt='5' name="wrapper" width='80%' direction={{ base: 'column', md: 'row' }}>
             <VStack display='flex' name="content" mr='10' direction='column' width='70%' alignItems='flex-start' mb='6'>
               <Box name="header" mb='45px' >
@@ -229,19 +183,21 @@ const changeText = (text) => setButtonText(text)
                     console.log('habit', habit)
                     console.log('allprofiledata filters', Object.keys(allProfileData).length && allProfileData.filter(user => user._id === habit.owner))
                     return (habit.event === eventId ?
-                      <Box name="habit-box" key={habit._id} mt='5' borderWidth='1px' width='100%' borderRadius='lg' overflow='hidden'>
-                        <Box pl='6' mt='6' name="event-owner" display='flex'>
-                          <Link to={`/profile/${eventData.owner.id}`}>
-                            <Avatar size='md' src={Object.keys(allProfileData).length ? allProfileData.filter(user => user._id === habit.owner)[0].profilePicture : ''} />
-                          </Link>
-                          <Box name='habitOwner' ml='2' display='flex' flexDirection='column'>
-                            <Box>
-                              <Link to={`/profile/${eventData.owner.id}`}>
-                                <Text fontWeight='bold' color='third'>{Object.keys(allProfileData).length ? allProfileData.filter(user => user._id === habit.owner)[0].firstName : ''} {Object.keys(allProfileData).length ? allProfileData.filter(user => user._id === habit.owner)[0].lastName : ''}</Text>
-                              </Link>
-                            </Box>
-                            <Box>
-                              <Text fontSize='sm' color='gray.500'>{habitDateFormat(habit)}</Text>
+                      <Box>
+                        <Box name="habit-box" key={habit._id} mt='5' borderWidth='1px' width='100%' borderRadius='lg' overflow='hidden'>
+                          <Box pl='6' mt='6' name="event-owner" display='flex'>
+                          <Link to={`/profile/${Object.keys(allProfileData).length && allProfileData.filter(user => user._id === habit.owner)[0]._id}`}>
+                              <Avatar size='md' src={Object.keys(allProfileData).length ? allProfileData.filter(user => user._id === habit.owner)[0].profilePicture : ''} />
+                            </Link>
+                            <Box name='habitOwner' ml='2' display='flex' flexDirection='column'>
+                              <Box>
+                              <Link to={`/profile/${Object.keys(allProfileData).length && allProfileData.filter(user => user._id === habit.owner)[0]._id}`}>
+                                  <Text fontWeight='bold' color='third'>{Object.keys(allProfileData).length ? allProfileData.filter(user => user._id === habit.owner)[0].firstName : ''} {Object.keys(allProfileData).length ? allProfileData.filter(user => user._id === habit.owner)[0].lastName : ''}</Text>
+                                </Link>
+                              </Box>
+                              <Box>
+                                <Text fontSize='sm' color='gray.500'>{habitDateFormat(habit)}</Text>
+                              </Box>
                             </Box>
                           </Box>
                         </Box>
@@ -249,11 +205,10 @@ const changeText = (text) => setButtonText(text)
                           <Text color='gray.500' pb='6'>{habit.comment}</Text>
                         </Box>
                         <Image src={habit.picture} alt='habit-pic' />
-
                       </Box>
-                      :
-                      ''
-                    )
+                    :
+                    ''
+                  )
 
                 }
                 )}
@@ -294,11 +249,7 @@ const changeText = (text) => setButtonText(text)
                     <Button onClick={toAddHabitPage} fontSize='16px' fontWeight='bold' mt='6' w='60%' backgroundColor='fourth' boxShadow='2xl' p='6' rounded='md' bg='white' color='white'>Add Habit</Button>
                   </>
                 }
-                {/* This is the like click functionality */}
-                <Box mt='6' name='likes' display='flex' borderWidth='1px' borderRadius='lg' pl='4' pr='4' pt='2' pb='2' onClick={handleClick} style={{ cursor: 'pointer' }} >
-                  <Image boxSize='20px' sized='sm' mr='2' src={!likeClick.liked ? likeIcon : likeIconClicked} ></Image>
-                  <Text fontSize='sm' fontWeight='bold'>Likes({eventData.likes})</Text>
-                </Box>
+                <Likes eventId={eventId} eventData={eventData} setEventData={setEventData} likeClick={likeClick} setLikeClick={setLikeClick} />
                 <Comments />
               </Flex>
             </Container>
