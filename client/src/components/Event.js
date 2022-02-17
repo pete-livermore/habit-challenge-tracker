@@ -6,8 +6,7 @@ import { startDateFormat, endDateFormat, daysLeftUntilEvent, daysLeftInEvent, ha
 import { userIsAuthenticated, getTokenFromLocalStorage } from './helper/auth'
 import { HabitsCompleted } from './helper/habitStats'
 import Comments from './Comments'
-import likeIcon from '../assets/images/like_icon_unclicked.png'
-import likeIconClicked from '../assets/images/like_icon_clicked.png'
+import Likes from './Likes'
 
 
 const Event = () => {
@@ -20,9 +19,8 @@ const Event = () => {
   // const [widget, setWidget] = useState([])
   const [hasError, setHasError] = useState('')
   const [joinError, setJoinError] = useState('')
-  const [likeClick, setLikeClick] = useState(JSON.parse(window.localStorage.getItem('likeClick')) || { liked: false })
-  const [likeOperator, setLikeOperator] = useState({ operator: 0 })
   const [userHasJoined, setUserHasJoined] = useState(false)
+  const [likeClick, setLikeClick] = useState(JSON.parse(window.localStorage.getItem('likeClick')) || { liked: false })
 
 
   const navigate = useNavigate()
@@ -106,49 +104,6 @@ const Event = () => {
       setHabitsFiltered(filteredHabits)
     }
   }, [eventData])
-
-  // handles click of the like icon
-  const handleClick = () => {
-    if (!likeClick.liked) {
-      setLikeClick({ liked: true })
-      setLikeOperator({ operator: 1 })
-    } else {
-      setLikeClick({ liked: false })
-      setLikeOperator({ operator: -1 })
-    }
-  }
-  // Storing the state of the like to persist on refresh - issue is that it persists on every page fml
-  useEffect(() => {
-    window.localStorage.setItem('likeClick', JSON.stringify(likeClick))
-  }, [likeClick])
-
-  // Adds the like to the database
-  useEffect(() => {
-    const addLike = async () => {
-      try {
-        await axios.put(`/api/events/${eventId}/likes`, likeOperator, {
-          'headers': {
-            'Authorization': `Bearer ${getTokenFromLocalStorage()}`,
-          },
-        })
-      } catch (err) {
-        setHasError({ error: true, message: err.message })
-      }
-    }
-    addLike()
-    // Refetches the event data, with a delay to allow put request to work first (will work on more robust method)
-    setTimeout(() => {
-      const getEventData = async () => {
-        try {
-          const { data } = await axios.get(`/api/events/${eventId}`)
-          setEventData(data)
-        } catch (err) {
-          setIsError({ error: true, message: 'Server error' })
-        }
-      }
-      getEventData()
-    }, 150)
-  }, [likeClick, eventId, likeOperator])
 
   console.log('eventdata ->', eventData)
 
@@ -254,11 +209,7 @@ const Event = () => {
                     <Button onClick={toAddHabitPage} fontSize='16px' fontWeight='bold' mt='6' w='60%' backgroundColor='fourth' boxShadow='lg' p='6' rounded='md' bg='white' color='white'>Add Habit</Button>
                   </>
                 }
-                {/* This is the like click functionality */}
-                <Box mt='6' name='likes' display='flex' borderWidth='1px' borderRadius='lg' pl='4' pr='4' pt='2' pb='2' onClick={handleClick} style={{ cursor: 'pointer' }} >
-                  <Image boxSize='20px' sized='sm' mr='2' src={!likeClick.liked ? likeIcon : likeIconClicked} ></Image>
-                  <Text fontSize='sm' fontWeight='bold'>Likes({eventData.likes})</Text>
-                </Box>
+                <Likes eventId={eventId} eventData={eventData} setEventData={setEventData} likeClick={likeClick} setLikeClick={setLikeClick} />
                 <Comments />
               </Flex>
             </Container>
