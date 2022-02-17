@@ -151,17 +151,14 @@ const Dashboard = ({ eventList }) => {
 
           {Object.keys(selectedEvent).length ?
 
-            <Flex name='header' display='flex' width='xxl' flexWrap='wrap' mx='20'>
+            <Container name='header' justifyContent={{ sm: 'center', md: 'center', lg:'space-between'}} alignItems={{ base: 'center', md: 'center',lg: 'flex-start'}} display='flex' flexDirection={{base: 'column', md:'row'}} maxW='container.lg' flexWrap='wrap'>
 
-
-              <Flex name='welcome-header' justifyContent='flex-start' pb='50' mt='35' pt='50' mr='0' pr={{ base: 0, md: 20 }} display='flex' flexDirection='column' align='left'>
-                <Heading fontWeight='regular' size='md' mt='5' mb='3' color='second'>Welcome {profileData.firstName}!</Heading>
-
-
+              <Flex name='welcome-header' alignItems={{ base: 'center', md: 'center',lg: 'flex-start'}} justifyContent={{sm: 'center', md: 'center',lg: 'flex-start'}} width='65%' pb='50' pt={{base:0, md:0}} mr='0' display='flex' flexDirection='column' textAlign={{md:'left'}}>
+                <Heading fontWeight='regular' size='md' mt={{base: '5', md:'20'}} mb='3' textAlign={{xs:'center', sm:'left', md:'center',lg: 'left'}} color='second'>Welcome {profileData.firstName}!</Heading>
                 {selectedEvent.isLive &&
-                  <Heading size='xl' name='event-selector' mb='5' color='second' textAlign='left'>You have {daysLeftInEvent(selectedEvent)} left in your challenge!</Heading>}
+                  <Text fontSize='2.3em' fontWeight='bold' name='event-selector' mb='5' color='second' textAlign={{base:'center', sm:'center', md:'center',lg: 'left'}}>You have {daysLeftInEvent(selectedEvent)} left in your challenge!</Text>}
                 {!selectedEvent.isLive && eventBeforeStartDate(selectedEvent) &&
-                  <Heading size='xl' name='event-selector' mb='5' color='second' textAlign='left'>Your challenge starts in {daysLeftUntilEvent(selectedEvent)}!</Heading>
+                  <Text fontSize='2.3em' fontWeight='bold' name='event-selector' mb='5' color='second' textAlign={{base:'center', sm:'center', md:'center',lg: 'left'}}>Your challenge starts in {daysLeftUntilEvent(selectedEvent)}!</Text>
                 }
                 {!selectedEvent.isLive && eventAfterEndDate(selectedEvent) && <Text fontSize={{ base: '12px', md: '16px', xl: '24px' }} fontWeight='bold' textAlign='center'>The challenge is over</Text>}
 
@@ -172,8 +169,9 @@ const Dashboard = ({ eventList }) => {
                   <Box name="widget-header" display='flex' flexDirection='column' w='300px' minHeight='300px' p='4' justifyContent='space-evenly' borderTopRadius='10' bgGradient='linear(to-r, first, third)' >
                     <Heading textAlign='center' mt='5' fontSize="6em">{selectedEvent.emoji}</Heading>
                     <Box name="headline" pl='4' pr='4' mb='2' width=''>
-                      <Text name='subtitle' mt='3' fontSize='14px' color='second'>{selectedEvent.subTitle}</Text>
-                      <Heading name='eventName' color='white' mt='0' size='lg'>{selectedEvent.name}</Heading>
+                      <Heading textAlign='center' name='eventName' color='white' mt='0' size='lg'>{selectedEvent.name}</Heading>
+                      <Text textAlign='center'  name='subtitle' mt='3' fontSize='14px' color='second'>{selectedEvent.subTitle}</Text>
+
                     </Box>
 
                     {selectedEvent.isLive && userIsAuthenticated() &&
@@ -204,17 +202,21 @@ const Dashboard = ({ eventList }) => {
                 }
               </Flex>
 
-            </Flex>
-
-
+            </Container>
             :
             hasError.error ?
               <p>{hasError.message}</p> : <Spinner />
           }
         </>
         :
+        userIsAuthenticated()?
         <Box m='6'>
-          <Heading color='white' textAlign='center' as='h1' mb='4' mt='6' size='2xl'>Welcome to TinyHabit</Heading>
+          <Heading color='white' textAlign='center' as='h1' mb='4' mt='14' size='2xl'>Welcome {profileData.firstName}</Heading>
+          <Text textAlign='center' fontSize='xl' color='white'>Create together a new habit in 30 days</Text>
+        </Box>
+        :
+        <Box m='6'>
+          <Heading color='white' textAlign='center' as='h1' mb='4' mt='14' size='2xl'>Welcome to TinyHabit</Heading>
           <Text textAlign='center' fontSize='xl' color='white'>Create together a new habit in 30 days</Text>
         </Box>
       }

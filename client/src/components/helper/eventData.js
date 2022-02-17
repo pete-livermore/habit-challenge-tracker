@@ -1,4 +1,4 @@
-let options = { month: 'short', day: 'numeric', year: 'numeric' };
+const options = { month: 'short', day: 'numeric', year: 'numeric' };
 
 
 export const startDateFormat = (event) => {
@@ -10,7 +10,7 @@ export const endDateFormat = (event) => {
 }
 
 export const habitDateFormat = (habit) => {
-  return new Date(habit.createdAt).toLocaleDateString('en-US', options)
+  return new Date(habit.createdAt).toLocaleDateString('en-US', {  month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' })
 }
 
 export const todayDateFormat = () => {

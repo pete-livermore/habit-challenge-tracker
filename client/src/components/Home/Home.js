@@ -4,11 +4,13 @@ import { Link } from 'react-router-dom'
 import { Heading, Flex, Box, Container, Text, Image, Spinner } from '@chakra-ui/react'
 import Dashboard from './Dashboard.js'
 import { getTokenFromLocalStorage, userIsAuthenticated } from '../helper/auth'
-
+import { startDateFormat, endDateFormat} from '../helper/eventData'
+import moment from 'moment'
 
 const Home = () => {
   const [events, setEvents] = useState([])
   const [hasError, setHasError] = useState({ error: false, message: '' })
+  
 
   useEffect(() => {
     const getEvents = async () => {
@@ -28,24 +30,26 @@ const Home = () => {
       {events.length ?
         <>
           <Dashboard eventList={events} />
-          <Container display='flex' flexDirection='column' name='discover' maxW='container.lg' mt='4'>
-          { userIsAuthenticated() 
+          <Container display='flex' flexDirection='column' mb='16' name='discover' maxW='container.lg' mt=''>
+          {userIsAuthenticated()
             ?
-            <Heading textAlign='center' as='h2' mt='10' size='lg'>Discover challenges</Heading>
+            <Heading textAlign={{base:'center', md:'left'}}mt='10' mb='5' size='lg'>Discover challenges</Heading>
             :
-            <Heading color='white' textAlign='center' as='h2' mt='10' size='lg'>Discover challenges</Heading>
-          }
+            <Heading color='white' textAlign='center' mt='5' mb='8'size='lg'>Discover challenges</Heading>
+            }
+
             <Flex name='discover-container' alignItems='center' w='100%' justify='space-between' flexDirection={{ base: 'column', md: 'row', lg: 'row' }} flexWrap='wrap' mt='4' mb='6'>
               <>
                 {events.map(event => {
-                  const { name, subTitle, _id, description, picture, emoji,} = event
+                  const { name, subTitle, startDate,endDate, _id, picture, emoji,} = event
                   return (
-                    <Flex key={_id} name="actions" p='4' mt='5' bgGradient='linear(to-r, white, gray.100)' width='300px' minHeight='300px' flexDirection='column' borderWidth='1px' alignItems='center' justifyContent='space-between' boxShadow='2xl' borderRadius='10'>
+                    <Flex key={_id} name="actions" p='4' mb='5' bgGradient='linear(to-r, white, gray.100)' width='300px' height='320px' flexDirection='column' borderWidth='1px' alignItems='center' justifyContent='flex-start' boxShadow='2xl' borderRadius='10'>
                        <Link to={`/events/${_id}`}>
                           <Heading textAlign='center' pt='10' fontSize="6em">{emoji}</Heading>
                           <Box name="headline" pl='4' pr='4' mb='4' width=''>
-                            <Text name='subtitle' mt='3' fontSize='14px' color='primary'>{subTitle}</Text>
-                            <Heading name='eventName' color='primary' mt='0' size='lg'>{name}</Heading>
+                            <Heading textAlign='center' name='eventName' color='primary' mt='0' size='lg'>{name}</Heading>
+                            <Text textAlign='center' mt='4' color='gray.500'> {moment.utc(startDate).format('MMM Do')} - {moment.utc(endDate).format('MMM Do')}</Text>
+
                           </Box>
                        
                       </Link>

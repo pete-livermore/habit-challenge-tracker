@@ -4,6 +4,8 @@ import { Select, Spinner, VStack, HStack, Center, Container, Box, Heading, Flex,
 import { Link, useParams } from 'react-router-dom'
 import { getTokenFromLocalStorage, userIsAuthenticated } from '../helper/auth'
 import { HabitsActivity } from '../helper/habitStats'
+import { startDateFormat, endDateFormat, daysLeftUntilEvent, daysLeftInEvent, habitDateFormat, todayDateFormat, eventBeforeStartDate, eventAfterEndDate } from '../helper/eventData'
+
 
 const SingleProfile = () => {
 
@@ -97,145 +99,143 @@ const SingleProfile = () => {
         <>
             {profileData ?
                 <>
-                    <Flex zIndex='0' p='0' mt='5' name="wrapper" width='80%' direction={{ base: 'column', md: 'row' }}>
-                        <Flex zIndex='0' width='100%' p='0' mt='5' alignItems='center' name="wrapper" direction={{ base: 'column', md: 'row' }}>
-                            <VStack display='flex' name="content" direction='column' alignItems='flex-start'>
-                                <Box width='100%' name="header" mb='70px' >
-                                    <Flex flexDirection='column' alignItems={{ base: 'center', md: 'flex-start' }}>
-                                        <Box name="image">
-                                            <Avatar
-                                                borderRadius='full'
-                                                boxSize='150px'
-                                                src={profileData.profilePicture !== '' ? profileData.profilePicture : ''}
-                                                alt='profile picture' />
+                <Flex zIndex='0' p='0' mt='5' name="wrapper" width='80%' flexDirection='column'>
+                    <Flex zIndex='0' width='100%' p='0' mt='5' alignItems='center' name="wrapper" direction={{ base: 'column', md: 'row' }}>
+                      <VStack display='flex' name="content" direction='column' alignItems='flex-start'>
+                          <Box width='100%' name="header" mb='70px' >
+                              <Flex flexDirection={{ base: 'column', md: 'row'}} alignItems={{ base: 'center', md: 'center' }}>
+                                  <Box name="image">
+                                      <Avatar
+                                          borderRadius='full'
+                                          boxSize='80px'
+                                          src={profileData.profilePicture !== '' ? profileData.profilePicture : ''}
+                                          alt='profile picture' />
+                                  </Box>
+                                  <Box name="headline">
+                                      <Heading ml={{ base: '0', md: '6'}} justify='center' textAlign={{ base: 'center', md: 'left' }} color='white' mt='2' as='h1' fontSize={{ base: '20px', md: '24px', lg: '30px' }} mb='2'>{profileData.firstName + ' ' + profileData.lastName}</Heading>
+                                  </Box>
+                                  {loggedInProfile && userIsAuthenticated() && loggedInProfile.id === userId ?
+                                      <Link to={`/profile/${profileData.id}/edit-profile`}>
+                                          <Button w='100%' mt='2' backgroundColor='#ffbb0f' boxShadow='lg' rounded='md' bg='white' color='white'>Edit</Button>
+                                      </Link>
+                                      : <Box h='48px'></Box>}
+                              </Flex>
+                          </Box>
+                          <Heading mb='3' textAlign={{ base: 'center', md: 'left' }} size='md'>Joined events</Heading>
+                          <Flex name='joinedEvents' width='100%'>                          
+                          <Flex name='discover-container' alignItems='center' w='100%' justifyContent='center' flexDirection={{ base: 'column', md: 'row', lg: 'row' }} flexWrap='wrap' mt='4' mb='6'>
+                            <>
+                              {profileData.events.map(joinedEvent => {
+                                return (
+                                  <Flex key={eventData.filter(event => event._id === joinedEvent._id)[0]._id} name="actions" mr={{ base: '0', md:'6'}} p='4' mb='5' bgGradient='linear(to-r, white, gray.100)' width='150px' height='160px' flexDirection='column' borderWidth='1px' alignItems='center' justifyContent='flex-start' boxShadow='2xl' borderRadius='10'>
+                                    <Link to={`/events/${eventData.filter(event => event._id === joinedEvent._id)[0].id}`}>
+                                        <Box name="headline" pl='4' pr='4' mb='4' width=''>
+                                        <Heading textAlign='center' pt='4' fontSize="3em">{eventData.filter(event => event._id === joinedEvent._id)[0].emoji}</Heading>
+                                          <Heading textAlign='center' name='eventName' color='primary' mt='0' size='sm'>{eventData.filter(event => event._id === joinedEvent._id)[0].name}</Heading>
                                         </Box>
-                                        <Box name="headline">
-                                            <Text textAlign={{ base: 'center', md: 'left' }} mt='3' size='lg' color='second'>{userIsAuthenticated() && `Email: ${profileData.email}`}</Text>
-                                            <Heading textAlign={{ base: 'center', md: 'left' }} color='white' mt='2' as='h1' fontSize={{ base: '25px', md: '30px', lg: '40px' }} mb='2'>{profileData.firstName + ' ' + profileData.lastName}</Heading>
-                                        </Box>
-                                        {loggedInProfile && userIsAuthenticated() && loggedInProfile.id === userId ?
-                                            <Link to={`/profile/${profileData.id}/edit-profile`}>
-                                                <Button w='100%' mt='2' backgroundColor='#ffbb0f' boxShadow='lg' rounded='md' bg='white' color='white'>Edit</Button>
-                                            </Link>
-                                            : <Box h='48px'></Box>}
-                                    </Flex>
-                                </Box>
-                                <Box>
-                                    <Box width='100%'>
-                                        <Flex flexDirection='column' justifyContent='flex-start'>
-                                            {habitsFiltered ?
-                                                <>
-                                                    <Box name="habits-completed-box" p='5' mt='0' color='black' borderTopRadius='10' width='100%'>
-                                                        <Heading as='h5' mb='3' textAlign={{ base: 'center', md: 'left' }} ml={{ base: 0, md: 2 }} size='md'>Habits Completed</Heading>
-                                                        <Flex alignItems='center' justifyContent='center' flexDirection={{ base: 'column', md: 'row' }}>
-                                                            <Select mr={{ base: 0, md: 1 }} mb={{ base: '2', md: '0' }} width={{ base: '100%', md: '60%' }} className='filterHabit' name="event" id="event" onChange={filterHabitsFunction}>
-                                                                <option hidden>Event</option>
-                                                                <option>All</option>
-                                                                {profileData.events.map(joinedEvent => {
-                                                                    // console.log('CHECKKK', eventData.filter(event => event._id === joinedEvent._id)[0].name)
-                                                                    return (
-                                                                        <option key={joinedEvent._id}>{eventData.length ? eventData.filter(event => event._id === joinedEvent._id)[0].name : '...'}</option>
-                                                                    )
-                                                                })}
-                                                            </Select>
-                                                            <Select ml={{ base: 0, md: 1 }} width={{ base: '100%', md: '30%' }} className='filterHabit' name="date" id="date" onChange={filterHabitsFunction}>
-                                                                <option hidden>Date</option>
-                                                                <option>All</option>
-                                                                {profileData.habitCompletions.sort(function (a, b) {
-                                                                    return new Date(b.createdAt) - new Date(a.createdAt)
-                                                                }).map(habit => {
-                                                                    return (
-                                                                        <option key={habit._id}>{new Date(habit.createdAt).toLocaleDateString()}</option>
-                                                                    )
-                                                                })}
-                                                            </Select>
-                                                        </Flex>
-                                                    </Box>
-                                                    <Flex bg='white' w='100%' flexDirection='column' alignItems='center' borderBottomRadius='10' rounded='md'>
-                                                        {habitsFiltered.length ? habitsFiltered.map(habit => {
-                                                            return (
-                                                                <Box key={habit._id} width='80%' mt='2' mb='2' borderWidth='1px' boxShadow='lg' borderRadius='lg' overflow='hidden'>
-                                                                    <Flex flexDirection='column' alignItems='center'>
-                                                                        <Link to={`/events/${habit.event}`}><Image src={habit.picture} alt='habit-pic' /></Link>
-                                                                    </Flex>
-                                                                    <Box p='6'>
-                                                                        <Box display='flex' alignItems='baseline'>
-                                                                            <Badge borderRadius='full' px='2' colorScheme='teal'>
-                                                                                Completed
-                                                                            </Badge>
-                                                                            <Box
-                                                                                color='gray.500'
-                                                                                fontWeight='semibold'
-                                                                                letterSpacing='wide'
-                                                                                fontSize='xs'
-                                                                                textTransform='uppercase'
-                                                                                ml='2'
-                                                                            >
-                                                                                {new Date(habit.createdAt).toLocaleDateString()}
-                                                                            </Box>
-                                                                        </Box>
-                                                                        <Box
-                                                                            mt='1'
-                                                                            fontWeight='semibold'
-                                                                            as='h4'
-                                                                            lineHeight='tight'
-                                                                            isTruncated
-                                                                        >
-                                                                            {eventData.length ? eventData.filter(event => event._id === habit.event)[0].name : '...'}
-                                                                        </Box>
-
-                                                                        <Box>
-                                                                            {habit.comment}
-                                                                        </Box>
-                                                                    </Box>
-                                                                    {loggedInProfile && userIsAuthenticated() && loggedInProfile.id === userId ?
-                                                                        <Box>
-                                                                            <Flex flexDirection='row' justifyContent='center'>
-                                                                                <Box mr='2'>
-                                                                                    <Link to={`/profile/${profileData.id}/${habit.event}/${habit._id}/edit`}>
-                                                                                        <Button w='100%' mb='5' backgroundColor='#ffbb0f' boxShadow='lg' rounded='md' bg='white' color='white'>Edit</Button>
-                                                                                    </Link>
-                                                                                </Box>
-                                                                                <Box mr='2'>
-                                                                                    <Link to={`/profile/${profileData.id}/${habit.event}/${habit._id}/delete-habit`}>
-                                                                                        <Button w='100%' mb='5' backgroundColor='#ffbb0f' boxShadow='lg' rounded='md' bg='white' color='white'>Delete</Button>
-                                                                                    </Link>
-                                                                                </Box>
-                                                                            </Flex>
-                                                                        </Box>
-                                                                        : ''}
-                                                                </Box>
-                                                            )
-                                                        }) : <Text mb='4' fontSize='md'>no habits completed</Text>}
-                                                    </Flex>
-                                                </>
-                                                :
-                                                <Text mb='4'>Nothing to see</Text>}
-                                        </Flex>
-                                    </Box>
-                                </Box>
-                            </VStack>
-
+                                    
+                                    </Link>
+                                  </Flex>
+                                  )
+                              })}
+                            </>
+                            <Box width='100%' zIndex='-1' position='absolute' top='0' left='0' bgGradient='linear(to-r, first, third)' height={{ base: '460px', md: '460x', lg: '460' }}>
+                            <Text opacity='30%' color='first' fontSize='400px'>30</Text>
+                          </Box>
                         </Flex>
-                        <Container width={{ base: '100%', md: '60%' }} name="widget">
-                            <Box name="joined-events-box" p='5' mt='0' backgroundColor='#0075ff' color='white' borderTopRadius='10' w='100%'>
-                                <Heading as='h5' size='md'>Joined Events</Heading>
-                            </Box>
-                            <Flex name="joined-events" p='3' mt='0' bg='white' w='100%' flexDirection='column' alignItems='center' boxShadow='lg' borderBottomRadius='10'>
-                                {profileData.events.length ? profileData.events.map(joinedEvent => {
-                                    // console.log(eventData.filter(event => event._id === joinedEvent._id)[0].isLive)
-                                    return (
-                                        <Text key={joinedEvent._id} as='h4' mb='1.5' mt='1.5' fontSize='sm'>
-                                            {eventData.length ? eventData.filter(event => event._id === joinedEvent._id)[0].name
-                                                + ': '
-                                                + (eventData.length ? eventData.filter(event => event._id === joinedEvent._id)[0].isLive ? 'LIVE' : 'NOT LIVE' : '') : '...'}</Text>
-                                    )
-                                }) : <Text as='h4' size='md'>Events: no events</Text>}
-                            </Flex>
-                        </Container>
-                        <Box width='100%' zIndex='-1' position='absolute' top='0' left='0' bgGradient='linear(to-r, first, third)' height={{ base: '460px', md: '460x', lg: '460' }}>
-            </Box>
+                      </Flex>
+                          <Box>
+                              <Box width='100%'>
+                                  <Flex name='habits' flexDirection='column' justifyContent='flex-start'>
+                                      {habitsFiltered ?
+                                          <>
+                                          <Box name="habits-completed-box" mt='0' color='black' borderTopRadius='10'>
+                                              <Heading mb='3' textAlign={{ base: 'center', md: 'left' }} size='md'>Habits Completed</Heading>
+                                              <Flex flexDirection={{ base: 'column', md: 'row' }}>
+                                                  <Select mr={{ base: 0, md: 1 }} mb={{ base: '2', md: '0' }} className='filterHabit' name="event" id="event" onChange={filterHabitsFunction}>
+                                                      <option hidden>Event</option>
+                                                      <option>All</option>
+                                                      {profileData.events.map(joinedEvent => {
+                                                          return (
+                                                              <option key={joinedEvent._id}>{eventData.length ? eventData.filter(event => event._id === joinedEvent._id)[0].name : '...'}</option>
+                                                          )
+                                                      })}
+                                                  </Select>
+                                                  <Select ml={{ base: 0, md: 1 }} width={{ base: '100%', md: '30%' }} className='filterHabit' name="date" id="date" onChange={filterHabitsFunction}>
+                                                      <option hidden>Date</option>
+                                                      <option>All</option>
+                                                      {profileData.habitCompletions.sort(function (a, b) {
+                                                          return new Date(b.createdAt) - new Date(a.createdAt)
+                                                      }).map(habit => {
+                                                          return (
+                                                              <option key={habit._id}>{new Date(habit.createdAt).toLocaleDateString()}</option>
+                                                          )
+                                                      })}
+                                                  </Select>
+                                              </Flex>
+                                          </Box>
+
+                                          <Flex name='widget' bg='white' w='100%' mb='14'flexDirection='column' alignItems='center' rounded='md'>
+                                          {habitsFiltered && habitsFiltered.sort(function (a, b) {
+                                            return new Date(b.createdAt) - new Date(a.createdAt)
+                                            }).map(habit => {
+                                              return (habitsFiltered ? 
+                                              <>
+                                              <Box name="habit-box" key={habit._id} mt='5' borderWidth='1px' width='100%' borderRadius='lg' overflow='hidden'>
+                                              <Box name="habit-header" pl='6' pt='6' pb='1'>
+                                                <Box name='event-widget' display='flex'>
+                                                    <Box name="event-emoji">
+                                                      <Heading size='md'>{eventData.length ? eventData.filter(event => event._id === habit.event)[0].emoji : '...'}</Heading>
+                                                    </Box>
+                                                      <Box name="event-name" ml='4'>
+                                                        <Heading size='md'>{eventData.length ? eventData.filter(event => event._id === habit.event)[0].name : '...'}</Heading>  
+                                                    </Box>
+                                                </Box>
+                                                <Box ml='9' mt='2' name="date" justifyContent="flex-end">
+                                                      <Text fontSize='xs' color='gray.500'>{habitDateFormat(habit)}</Text>
+                                                    </Box>
+                                                <Box mt='4' ml='9' name='comment'>
+                                                    <Text color='gray.500' pb='6'>{habit.comment}</Text>
+                                                </Box>
+                                                {loggedInProfile && userIsAuthenticated() && loggedInProfile.id === userId &&
+                                                  <Box>
+                                                      <Flex flexDirection='row' ml='8' justifyContent='left'>
+                                                          <Box mr='2'>
+                                                              <Link to={`/profile/${profileData.id}/${habit.event}/${habit._id}/edit`}>
+                                                                  <Button w='100%' mb='5' backgroundColor='#ffbb0f' boxShadow='lg' rounded='md' bg='white' color='white'>Edit</Button>
+                                                              </Link>
+                                                          </Box>
+                                                          <Box mr='2'>
+                                                              <Link to={`/profile/${profileData.id}/${habit.event}/${habit._id}/delete-habit`}>
+                                                                  <Button w='100%' mb='5' backgroundColor='#ffbb0f' boxShadow='lg' rounded='md' bg='white' color='white'>Delete</Button>
+                                                              </Link>
+                                                          </Box>
+                                                      </Flex>
+                                                  </Box>
+                                                }
+                                              </Box>
+                                                <Image src={habit.picture} alt='habit-pic' />
+
+                                              </Box>
+                                              </>
+                                              :
+                                              <Text mb='4' color='black' fontSize='md'>No habits completed</Text>
+                                              )
+                                          }
+                                          )}
+                                          </Flex>                                    
+                                          </>
+                                          :
+                                          <Text mb='4'>Nothing to see</Text>}
+                                  </Flex>
+                              </Box>
+                          </Box>
+                      </VStack>
                     </Flex>
+                    
+                </Flex>
+                <Box name='background' width='100%' zIndex='-1' position='absolute' top='0' left='0' bgGradient='linear(to-r, first, third)' height={{ base: '460px', md: '460x', lg: '460' }}>
+                </Box>
                 </>
                 :
                 <Flex flexDirection='row' justifyContent='center'>

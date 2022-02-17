@@ -56,7 +56,7 @@ const Register = () => {
         const { data } = await axios.post('/api/register', formData) //Posting the data from the form
         console.log('token', data.token)
         setTokenToLocalStorage(data.token) // pass on the token to the localStorage
-        navigate('/login')
+        navigate('/')
       } catch (err) {
         console.log('form error ->',formError)
         console.log(err.response)
@@ -72,7 +72,7 @@ const Register = () => {
 console.log(formData)
   return (
     <><Flex width="full" align="center" justifyContent="center">
-      <Box background='white' p={8} maxWidth="500px" borderWidth={1} borderRadius={8} boxShadow="lg">
+      <Box background='white' p={8} maxWidth="500px" borderWidth={1} borderRadius={8} boxShadow="2xl">
         <>
           <Box textAlign="center">
             <Heading>Register</Heading>
@@ -117,13 +117,13 @@ console.log(formData)
                   handleImageUrl={handleImageUrl} />
               </FormControl>
               {/* Error + Button */}
-              <Button type="submit" width="full" mt={4}>Register</Button>
+              <Button type="submit" colorScheme='blue' width="full" mt={4}>Register</Button>
             </form>
           </Box>
         </>
       </Box>
-    </Flex><Box width='100%' zIndex='-1' position='absolute' top='0' left='0' bgGradient='linear(to-r, first, third)' height={{ base: '460px', md: '460x', lg: '460' }}>
-      </Box></>
+    </Flex><Box width='100%' height='100vh' zIndex='-1' position='absolute' top='0' left='0' bgGradient='linear(to-r, first, third)' >
+    </Box></>
   )
 }
 

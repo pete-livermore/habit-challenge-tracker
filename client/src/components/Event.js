@@ -153,8 +153,9 @@ const Event = () => {
                   <Heading fontSize="6em">{eventData.emoji}</Heading>
                 </Box>
                 <Box name="headline">
-                  <Text mt='10' size='lg' color='second'>{eventData.subTitle}</Text>
-                  <Heading color='white' mt='4' as='h1' size='2xl' mb='4'>{eventData.name}</Heading>
+
+                  <Heading color='white' mt='4' as='h1' size='2xl' >{eventData.name}</Heading>
+                  <Text mt='5' size='lg' color='second'>{eventData.subTitle}</Text>
                 </Box>
                 <Box mt='6' name="event-owner" display='flex'>
                   <Link to={`/profile/${eventData.owner.id}`}>
@@ -209,7 +210,7 @@ const Event = () => {
               </Flex>
 
             </VStack>
-            <Flex display='flex' flexDirection='column' width={{ base: '100%', md: '33%' }} name="widget">
+            <Flex display='flex' flexDirection='column' width={{ base: '100%', md: '32%' }} name="widget">
               <Box name="challengers" p='8' mt='0' backgroundColor='#0075ff' color='white' borderTopRadius='10' w='100%'>
                 <Heading size='sm'>Challengers ({eventData.eventMembers.length})</Heading>
                 <Flex flexWrap='wrap' mt='4' w='100%'>
