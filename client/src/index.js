@@ -30,7 +30,7 @@ export const theme = extendTheme({
 ReactDOM.render(
   <ChakraProvider theme={theme}>
   <Center>
-    <Container m='0' maxWidth='container.2xl' maxheight='container.2xl' padding={0} centerContent>
+    <Container m='0' maxWidth='container.xl'padding={0} centerContent>
       <App />
     </Container>
     </Center>
