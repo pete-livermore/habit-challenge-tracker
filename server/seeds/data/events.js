@@ -9,7 +9,7 @@ export default [
     endDate: '2022-03-09',
     picture: 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644571393/project_3_sei61/chehvev8sgnrnuwwuswv.jpg',
     _id: '9ece492b040e8b1e1cc2c302',
-    likes: 0,
+    likesCount: 0,
     category: 'Physical',
   },
   {
@@ -22,7 +22,7 @@ export default [
     endDate: '2022-05-11',
     picture: 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644522820/project_3_sei61/alcohol_rbzw0o.jpg',
     _id: '620a1935c600f37f9715d83f',
-    likes: 0,
+    likesCount: 0,
     category: 'Spiritual'
   },
   {
@@ -35,7 +35,7 @@ export default [
     endDate: '2022-06-12',
     picture: 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644522818/project_3_sei61/quitAlcohol_wnwteq.jpg',
     _id: '620a1935c600f37f9715d83e',
-    likes: 0,
+    likesCount: 0,
     category: 'Physical'
   },
   {
@@ -48,7 +48,7 @@ export default [
     endDate: '2022-03-10',
     picture: 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644522820/project_3_sei61/alcohol_rbzw0o.jpg',
     _id: '620970bfebd967d62df75734',
-    likes: 0,
+    likesCount: 0,
     category: 'Mental'
   },
   {
@@ -61,7 +61,7 @@ export default [
     endDate: '2022-08-14',
     picture: 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644522820/project_3_sei61/alcohol_rbzw0o.jpg',
     _id: 'e5d85ae2090096388ebdcd31',
-    likes: 0,
+    likesCount: 0,
     category: 'Physical'
   },
   {
@@ -74,7 +74,7 @@ export default [
     endDate: '2022-09-15',
     picture: 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644522820/project_3_sei61/alcohol_rbzw0o.jpg',
     _id: '87f13bebc0b1e6e61a48b260',
-    likes: 0,
+    likesCount: 0,
     category: 'Emotional'
   },
   {
@@ -87,7 +87,7 @@ export default [
     endDate: '2022-11-15',
     picture: 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644522820/project_3_sei61/alcohol_rbzw0o.jpg',
     _id: 'c03a1ec39dda8e241a9b8ddb',
-    likes: 0,
+    likesCount: 0,
     category: 'Mental'
   },
   {
@@ -100,7 +100,7 @@ export default [
     endDate: '2022-12-16',
     picture: 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644522820/project_3_sei61/alcohol_rbzw0o.jpg',
     _id: 'd61c199bc318a372b9731667',
-    likes: 0,
+    likesCount: 0,
     category: 'Mental'
   }
 ]

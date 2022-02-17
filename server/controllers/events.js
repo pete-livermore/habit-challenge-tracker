@@ -57,12 +57,8 @@ export const updateEvent = async (req, res) => {
 }
 
 export const joinEvent = async (req, res) => {
-  const { eventId } = req.params
-  console.log(eventId)
   try {
-    
-    console.log(req.body)
-    
+    const { eventId } = req.params
     const currentUserProfile = await User.findById(req.currentUser._id)
     console.log(currentUserProfile)
     const event = await Event.findById(eventId)

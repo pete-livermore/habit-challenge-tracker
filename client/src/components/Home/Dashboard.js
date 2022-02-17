@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { Container, Flex, VStack, Center, Alert,Box, Heading, Select, Image, Wrap, WrapItem, Stat, StatLabel, StatNumber, StatGroup, Progress, Spinner, Text, Button } from '@chakra-ui/react'
+import { Container, Flex, VStack, Center, Alert, Box, Heading, Select, Image, Wrap, WrapItem, Stat, StatLabel, StatNumber, StatGroup, Progress, Spinner, Text, Button } from '@chakra-ui/react'
 import { createBreakpoints } from '@chakra-ui/theme-tools'
 import { useNavigate, Link } from "react-router-dom"
 import { getTokenFromLocalStorage, userIsAuthenticated } from '../helper/auth'
 import { HabitsCompletedDashboard } from '../helper/habitStats'
 import EventDropdown from '../helper/eventDropdown'
-import { startDateFormat, endDateFormat, daysLeftUntilEvent, daysLeftInEvent, habitDateFormat, todayDateFormat, eventBeforeStartDate, eventAfterEndDate} from '../helper/eventData'
+import { startDateFormat, endDateFormat, daysLeftUntilEvent, daysLeftInEvent, habitDateFormat, todayDateFormat, eventBeforeStartDate, eventAfterEndDate } from '../helper/eventData'
 
 
 const Dashboard = ({ eventList }) => {
@@ -124,7 +124,7 @@ const Dashboard = ({ eventList }) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      await axios.post(`/api/events/${selectedEvent}`,{ data: 'hello' },  {
+      await axios.post(`/api/events/${selectedEvent}`, { data: 'hello' }, {
         headers: {
           Authorization: `Bearer ${getTokenFromLocalStorage()}`
         }
@@ -139,68 +139,68 @@ const Dashboard = ({ eventList }) => {
   }
 
   return (
-    <> 
+    <>
       {userIsAuthenticated() && userEvents.length ?
-          
-          <>
-          
+
+        <>
+
           {Object.keys(selectedEvent).length ?
-              <> 
-          <Flex name='welcome-header' width='xl' mb='5' display='flex' flexDirection='column' align='center'>
-              <Heading fontWeight='regular' size='md' mt='5' mb='3' color='second'>Welcome {profileData.firstName}!</Heading>
-
-            
-            
-              
-              {selectedEvent.isLive &&                 
-                <Heading size='lg' name='event-selector' mb='5' color='second' textAlign='center'>You have {daysLeftInEvent(selectedEvent)} left in your challenge!</Heading>}
-              {!selectedEvent.isLive && eventBeforeStartDate(selectedEvent) && 
-                <Heading size='lg' name='event-selector' mb='5' color='second' textAlign='center'>Your challenge starts in {daysLeftUntilEvent(selectedEvent)}!</Heading>               
-              }
-              {!selectedEvent.isLive && eventAfterEndDate(selectedEvent) && <Text fontSize={{ base: '12px', md: '16px', lg: '24px' }} fontWeight='bold' textAlign='center'>The challenge is over</Text>}
-
-              <EventDropdown mt='5' handleOptionChange={handleOptionChange} selectedEvent={selectedEvent} userEvents={userEvents} />
-          </Flex>
-          <Flex name="actions" mt='5' bg='white' width='300px' flexDirection='column' alignItems='center' boxShadow='lg' borderRadius='10'>
-            <Link to={`/events/${selectedEvent._id}`}>
-              <Box name="widget-header" w='300px' height='310px' borderTopRadius='10' bgGradient='linear(to-r, first, third)' >
-                <Heading textAlign='center' pt='10' fontSize="6em">{selectedEvent.emoji}</Heading>
-                <Box name="headline" p='4' width=''>
-                  <Text name='subtitle' mt='3' fontSize='14px' color='second'>{selectedEvent.subTitle}</Text>
-                  <Heading name='eventName' color='white' mt='0' size='lg'>{selectedEvent.name}</Heading>
-                  {selectedEvent.isLive && userIsAuthenticated() && 
-                    <HabitsCompletedDashboard eventHabitCompletions={eventHabitCompletions} />   
-                  }
-                </Box>
-              </Box>
-            </Link>
-            {selectedEvent.isLive && userIsAuthenticated() ?
             <>
-            <Box mt='1'>
-              <Wrap p='4'>{widget}</Wrap>
-            </Box>
-            <Button onClick={toAddHabitPage} fontSize='16px' fontWeight='bold' mt='2' mb='10' w='60%' backgroundColor='fourth' boxShadow='lg' p='6' rounded='md' bg='white' color='white'>Add Habit</Button>
-            </>
-            :
-              <>
-              <Box display='flex' flexDirection='column' p='6' alignItems='center'>
-                <Text fontSize='16px'color='gray.600'>{`${selectedEvent.description.substring(0, 90)}...`}</Text>
-                <Link to={`/events/${selectedEvent._id}`} >
-                <Button fontSize='16px' fontWeight='bold' mt='6' backgroundColor='fourth' boxShadow='lg' p='6' rounded='md' bg='white' color='white'>View Event</Button>
+              <Flex name='welcome-header' width='xl' mb='5' display='flex' flexDirection='column' align='center'>
+                <Heading fontWeight='regular' size='md' mt='5' mb='3' color='second'>Welcome {profileData.firstName}!</Heading>
+
+
+
+
+                {selectedEvent.isLive &&
+                  <Heading size='lg' name='event-selector' mb='5' color='second' textAlign='center'>You have {daysLeftInEvent(selectedEvent)} left in your challenge!</Heading>}
+                {!selectedEvent.isLive && eventBeforeStartDate(selectedEvent) &&
+                  <Heading size='lg' name='event-selector' mb='5' color='second' textAlign='center'>Your challenge starts in {daysLeftUntilEvent(selectedEvent)}!</Heading>
+                }
+                {!selectedEvent.isLive && eventAfterEndDate(selectedEvent) && <Text fontSize={{ base: '12px', md: '16px', lg: '24px' }} fontWeight='bold' textAlign='center'>The challenge is over</Text>}
+
+                <EventDropdown mt='5' handleOptionChange={handleOptionChange} selectedEvent={selectedEvent} userEvents={userEvents} />
+              </Flex>
+              <Flex name="actions" mt='5' bg='white' width='300px' flexDirection='column' alignItems='center' boxShadow='lg' borderRadius='10'>
+                <Link to={`/events/${selectedEvent._id}`}>
+                  <Box name="widget-header" w='300px' height='310px' borderTopRadius='10' bgGradient='linear(to-r, first, third)' >
+                    <Heading textAlign='center' pt='10' fontSize="6em">{selectedEvent.emoji}</Heading>
+                    <Box name="headline" p='4' width=''>
+                      <Text name='subtitle' mt='3' fontSize='14px' color='second'>{selectedEvent.subTitle}</Text>
+                      <Heading name='eventName' color='white' mt='0' size='lg'>{selectedEvent.name}</Heading>
+                      {selectedEvent.isLive && userIsAuthenticated() &&
+                        <HabitsCompletedDashboard eventHabitCompletions={eventHabitCompletions} />
+                      }
+                    </Box>
+                  </Box>
                 </Link>
-              </Box>
+                {selectedEvent.isLive && userIsAuthenticated() ?
+                  <>
+                    <Box mt='1'>
+                      <Wrap p='4'>{widget}</Wrap>
+                    </Box>
+                    <Button onClick={toAddHabitPage} fontSize='16px' fontWeight='bold' mt='2' mb='10' w='60%' backgroundColor='fourth' boxShadow='lg' p='6' rounded='md' bg='white' color='white'>Add Habit</Button>
+                  </>
+                  :
+                  <>
+                    <Box display='flex' flexDirection='column' p='6' alignItems='center'>
+                      <Text fontSize='16px' color='gray.600'>{`${selectedEvent.description.substring(0, 90)}...`}</Text>
+                      <Link to={`/events/${selectedEvent._id}`} >
+                        <Button fontSize='16px' fontWeight='bold' mt='6' backgroundColor='fourth' boxShadow='lg' p='6' rounded='md' bg='white' color='white'>View Event</Button>
+                      </Link>
+                    </Box>
 
-              </>
+                  </>
 
-            }
-          </Flex>
+                }
+              </Flex>
 
             </>
             :
             hasError.error ?
               <p>{hasError.message}</p> : <Spinner />
-            }
-          </>
+          }
+        </>
         :
         <Box mb='4'>
           <Heading textAlign='center' as='h1' size='lg'>Welcome to TinyHabit</Heading>

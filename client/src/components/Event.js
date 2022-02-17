@@ -20,10 +20,8 @@ const Event = () => {
   // const [widget, setWidget] = useState([])
   const [hasError, setHasError] = useState('')
   const [joinError, setJoinError] = useState('')
-  const [likeClick, setLikeClick] = useState(JSON.parse(window.localStorage.getItem('likeClick')) || { liked: false })
   const [userHasJoined, setUserHasJoined] = useState()
   const [buttonText, setButtonText] = useState('')
-
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -36,13 +34,13 @@ const Event = () => {
       }
     }
     getEventData()
-  }, [eventId, likeClick])
+  }, [eventId])
 
   useEffect(() => {
     const getAllProfiles = async () => {
       try {
         const { data } = await axios.get(`/api/profile/all`)
-        console.log('all profiles', data)
+        // console.log('all profiles', data)
         setAllProfileData(data)
       } catch (err) {
         setIsError({ error: true, message: 'Server error' })
@@ -74,10 +72,7 @@ const Event = () => {
       }
     }
     getProfileData()
-
   }, [eventId])
-
-
 
   useEffect(() => {
     if (profileData.habitCompletions && eventData && Object.keys(eventData).length) {
@@ -87,7 +82,7 @@ const Event = () => {
   }, [profileData, eventData])
 
   useEffect(() => {
-    console.log('profile data events ->', profileData.events)
+    // console.log('profile data events ->', profileData.events)
     if (profileData.events && eventData) {
       if (profileData.events.some(event => event._id === eventData._id)) {
         setUserHasJoined(true)
@@ -137,19 +132,19 @@ const Event = () => {
         .map(member => member)
         .map(habit => habit.habitCompletions)
         .forEach(array => array.forEach(object => filteredHabits.push(object)))
-      console.log('members.filtered', filteredHabits);
+      // console.log('members.filtered', filteredHabits);
       setHabitsFiltered(filteredHabits)
     }
   }, [eventData])
 
-  console.log('eventdata ->', eventData)
-  console.log('profileData All ->', allProfileData)
-  console.log('ise user part of event already', Object.keys(profileData).length && profileData.events.some(event => event._id === eventId))
+  // console.log('eventdata ->', eventData)
+  // console.log('profileData All ->', allProfileData)
+  // console.log('ise user part of event already', Object.keys(profileData).length && profileData.events.some(event => event._id === eventId))
   return (
     <>
       {Object.keys(eventData).length ?
         <>
-          {console.log('joined events ->', userHasJoined)}
+          {/* {console.log('joined events ->', userHasJoined)} */}
           <Flex zIndex='0' p='0' mt='5' name="wrapper" width='80%' direction={{ base: 'column', md: 'row' }}>
             <VStack display='flex' name="content" mr='10' direction='column' width='70%' alignItems='flex-start' mb='6'>
               <Box name="header" mb='45px' >
@@ -181,8 +176,8 @@ const Event = () => {
                 {habitsFiltered && habitsFiltered.sort(function (a, b) {
                   return new Date(b.createdAt) - new Date(a.createdAt)
                 }).map(habit => {
-                  console.log('habit', habit)
-                  console.log('allprofiledata filters', Object.keys(allProfileData).length && allProfileData.filter(user => user._id === habit.owner))
+                  // console.log('habit', habit)
+                  // console.log('allprofiledata filters', Object.keys(allProfileData).length && allProfileData.filter(user => user._id === habit.owner))
                   return (habit.event === eventId ?
                     <Box name="habit-box" key={habit._id} mt='5' borderWidth='1px' width='100%' borderRadius='lg' overflow='hidden'>
                       <Box pl='6' mt='6' name="event-owner" display='flex'>
@@ -249,7 +244,7 @@ const Event = () => {
                     <Button onClick={toAddHabitPage} fontSize='16px' fontWeight='bold' mt='6' w='60%' backgroundColor='fourth' boxShadow='lg' p='6' rounded='md' bg='white' color='white'>Add Habit</Button>
                   </>
                 }
-                <Likes eventId={eventId} eventData={eventData} setEventData={setEventData} likeClick={likeClick} setLikeClick={setLikeClick} />
+                <Likes eventId={eventId} profileData={profileData} />
                 <Comments />
               </Flex>
             </Container>
