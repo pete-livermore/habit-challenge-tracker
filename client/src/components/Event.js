@@ -20,10 +20,8 @@ const Event = () => {
   // const [widget, setWidget] = useState([])
   const [hasError, setHasError] = useState('')
   const [joinError, setJoinError] = useState('')
-  const [likeClick, setLikeClick] = useState(JSON.parse(window.localStorage.getItem('likeClick')) || { liked: false })
   const [userHasJoined, setUserHasJoined] = useState()
   const [buttonText, setButtonText] = useState('')
-
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -36,13 +34,13 @@ const Event = () => {
       }
     }
     getEventData()
-  }, [eventId, likeClick, eventData])
+  }, [eventId, eventData])
 
   useEffect(() => {
     const getAllProfiles = async () => {
       try {
         const { data } = await axios.get(`/api/profile/all`)
-        console.log('all profiles', data)
+        // console.log('all profiles', data)
         setAllProfileData(data)
       } catch (err) {
         setIsError({ error: true, message: 'Server error' })
@@ -74,10 +72,7 @@ const Event = () => {
       }
     }
     getProfileData()
-
   }, [eventId])
-
-
 
   useEffect(() => {
     if (profileData.habitCompletions && eventData && Object.keys(eventData).length) {
@@ -147,7 +142,7 @@ const Event = () => {
           <Flex zIndex='0' p='0' mt='5' name="wrapper" width='80%' direction={{ base: 'column', md: 'row' }}>
             <VStack display='flex' name="content" mr='10' direction='column' width={{ base: '100%', md: '55%' }} alignItems='flex-start' mb='6'>
               <Box name="header" mb='45px' >
-                <Box name="image" w={{base:'250px', mb:'450px'}}>
+                <Box name="image" w={{ base: '250px', mb: '450px' }}>
                   <Heading fontSize="6em">{eventData.emoji}</Heading>
                 </Box>
                 <Box name="headline">
@@ -172,7 +167,7 @@ const Event = () => {
               </Box>
               <Flex name='widget' bg='white' w='100%' flexDirection='column' alignItems='center' rounded='md'>
                 {habitsFiltered && habitsFiltered.sort(function (a, b) {
-                    return new Date(b.createdAt) - new Date(a.createdAt)
+                  return new Date(b.createdAt) - new Date(a.createdAt)
                 }).map(habit => {
             
                     return (habit.event === eventId ?
@@ -180,25 +175,25 @@ const Event = () => {
                         <Box name="habit-box" key={habit._id} mt='5' borderWidth='1px' width='100%' borderRadius='lg' overflow='hidden'>
                           <Box pl='6' mt='6' name="event-owner" display='flex'>
                           <Link to={`/profile/${Object.keys(allProfileData).length && allProfileData.filter(user => user._id === habit.owner)[0]._id}`}>
-                              <Avatar size='md' src={Object.keys(allProfileData).length ? allProfileData.filter(user => user._id === habit.owner)[0].profilePicture : ''} />
-                            </Link>
-                            <Box name='habitOwner' ml='2' display='flex' flexDirection='column'>
-                              <Box>
+                            <Avatar size='md' src={Object.keys(allProfileData).length ? allProfileData.filter(user => user._id === habit.owner)[0].profilePicture : ''} />
+                          </Link>
+                          <Box name='habitOwner' ml='2' display='flex' flexDirection='column'>
+                            <Box>
                               <Link to={`/profile/${Object.keys(allProfileData).length && allProfileData.filter(user => user._id === habit.owner)[0]._id}`}>
-                                  <Text fontWeight='bold' color='third'>{Object.keys(allProfileData).length ? allProfileData.filter(user => user._id === habit.owner)[0].firstName : ''} {Object.keys(allProfileData).length ? allProfileData.filter(user => user._id === habit.owner)[0].lastName : ''}</Text>
-                                </Link>
-                              </Box>
-                              <Box>
-                                <Text fontSize='sm' color='gray.500'>{habitDateFormat(habit)}</Text>
-                              </Box>
+                                <Text fontWeight='bold' color='third'>{Object.keys(allProfileData).length ? allProfileData.filter(user => user._id === habit.owner)[0].firstName : ''} {Object.keys(allProfileData).length ? allProfileData.filter(user => user._id === habit.owner)[0].lastName : ''}</Text>
+                              </Link>
+                            </Box>
+                            <Box>
+                              <Text fontSize='sm' color='gray.500'>{habitDateFormat(habit)}</Text>
                             </Box>
                           </Box>
                         </Box>
-                        <Box pl='6' mt='5' name='comment'>
-                          <Text color='gray.500' pb='6'>{habit.comment}</Text>
-                        </Box>
-                        <Image src={habit.picture} alt='habit-pic' />
                       </Box>
+                      <Box pl='6' mt='5' name='comment'>
+                        <Text color='gray.500' pb='6'>{habit.comment}</Text>
+                      </Box>
+                      <Image src={habit.picture} alt='habit-pic' />
+                    </Box>
                     :
                     ''
                   )
@@ -242,7 +237,7 @@ const Event = () => {
                     <Button onClick={toAddHabitPage} fontSize='16px' fontWeight='bold' mt='6' w='60%' backgroundColor='fourth' boxShadow='2xl' p='6' rounded='md' bg='white' color='white'>Add Habit</Button>
                   </>
                 }
-                <Likes eventId={eventId} eventData={eventData} setEventData={setEventData} likeClick={likeClick} setLikeClick={setLikeClick} />
+                <Likes eventId={eventId} profileData={profileData} />
                 <Comments />
               </Flex>
             </Flex>

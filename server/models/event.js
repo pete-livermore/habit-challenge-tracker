@@ -4,6 +4,14 @@ import mongoose from 'mongoose'
 
 const { Schema } = mongoose
 
+const likeSchema = new Schema({
+  owner: { type: mongoose.Schema.ObjectId, ref: 'User', required: true },
+  event: { type: mongoose.Schema.ObjectId, ref: 'Event', required: true }
+},
+  {
+    timestamps: true
+  })
+
 const commentSchema = new Schema({
   owner: { type: mongoose.Schema.ObjectId, ref: 'User', required: true },
   text: { type: String, required: true },
@@ -31,7 +39,7 @@ const eventSchema = new Schema({
   picture: { type: String },
   owner: { type: mongoose.Schema.ObjectId, ref: 'User', required: true },
   comments: [commentSchema],
-  likes: { type: Number, required: true },
+  likes: [likeSchema],
 })
 
 // * Add virtuals for calculating analytics...
