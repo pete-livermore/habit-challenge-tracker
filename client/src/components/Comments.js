@@ -1,6 +1,6 @@
-import react, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Box, Text, Textarea, Flex, Avatar, Heading, FormControl, FormLabel, Button, Spinner, Alert, AlertIcon } from '@chakra-ui/react'
+import { Box, Text, Textarea, Flex, Avatar, Heading, Button, Spinner, Alert, AlertIcon } from '@chakra-ui/react'
 import { userIsAuthenticated } from './helper/auth'
 import axios from 'axios'
 
@@ -8,11 +8,9 @@ const Comments = () => {
   const [commentFormData, setCommentFormData] = useState({
     text: '',
   })
-  // const [formErrors, setFormErrors] = useState({
-  //   text: '',
-  // })
-
-  // const [backEndError, setBackEndError] = useState('')
+  const [formErrors, setFormErrors] = useState({
+    text: '',
+  })
   const [comments, setComments] = useState(null)
   const [hasError, setHasError] = useState({ error: false, message: '' })
   const { eventId } = useParams()
@@ -42,8 +40,7 @@ const Comments = () => {
       setFormSubmitted(true)
       setCommentFormData({ text: '' })
     } catch (err) {
-      // setBackEndError(err.response.data.message)
-      // setFormErrors(err.response.data.errors)
+      setFormErrors(err.response.data.errors)
     }
   }
 
@@ -58,10 +55,6 @@ const Comments = () => {
     setCommentFormData({
       text: e.target.value
     })
-  }
-
-  const handleClick = () => {
-    console.log('hello')
   }
 
   const generateDate = (comment) => {
@@ -93,7 +86,7 @@ const Comments = () => {
             }
           </Box>
           {comments !== null ?
-            <Box  mt='6' p='4' backgroundColor='secondary' w='100%' borderWidth='1px' rounded='lg'>
+            <Box mt='6' p='4' backgroundColor='secondary' w='100%' borderWidth='1px' rounded='lg'>
               <Heading as='h3' size='sm' mb='4'>Comments</Heading>
               {comments.length ?
                 comments.map(comment => {
@@ -107,7 +100,7 @@ const Comments = () => {
                           </Text>
                           <Text fontSize='10px' color='gray.500' lineHeight='190%'>{`  ${generateDate(comment)} at ${String(comment.createdAt).substring(11, 16)}`}</Text>
                         </Flex>
-                        <Text mt='2'fontSize='sm'>{comment.text}</Text>
+                        <Text mt='2' fontSize='sm'>{comment.text}</Text>
                       </Box>
                     </Flex>
                   )

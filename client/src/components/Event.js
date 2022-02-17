@@ -17,7 +17,6 @@ const Event = () => {
   const [eventHabitCompletions, setEventHabitCompletions] = useState([])
   const [habitsFiltered, setHabitsFiltered] = useState(null)
   const [allProfileData, setAllProfileData] = useState({})
-  // const [widget, setWidget] = useState([])
   const [hasError, setHasError] = useState('')
   const [joinError, setJoinError] = useState('')
   const [userHasJoined, setUserHasJoined] = useState()
@@ -54,7 +53,7 @@ const Event = () => {
 
   useEffect(() => {
 
-    if (!userIsAuthenticated()){
+    if (!userIsAuthenticated()) {
       setButtonText('Join Event')
     }
     const getProfileData = async () => {
@@ -118,7 +117,7 @@ const Event = () => {
       changeButtonText = "Leave Event"
     } else if (buttonText === 'Leave Event') {
       changeButtonText = "Join Event"
-    } else if (buttonText === 'Join Event'){
+    } else if (buttonText === 'Join Event') {
       changeButtonText = "Join Event"
       navigate('/register')
     }
@@ -177,23 +176,23 @@ const Event = () => {
                 {habitsFiltered && habitsFiltered.sort(function (a, b) {
                   return new Date(b.createdAt) - new Date(a.createdAt)
                 }).map(habit => {
-            
-                    return (habit.event === eventId ?
-                        <Box name="habit-box" key={habit._id} mt='5' borderWidth='1px' width='100%' borderRadius='lg' overflow='hidden'>
-                          <Box pl='6' mt='6' name="event-owner" display='flex'>
-                          <Link to={`/profile/${Object.keys(allProfileData).length && allProfileData.filter(user => user._id === habit.owner)[0]._id}`}>
-                            <Avatar size='md' src={Object.keys(allProfileData).length ? allProfileData.filter(user => user._id === habit.owner)[0].profilePicture : ''} />
-                          </Link>
-                          <Box name='habitOwner' ml='2' display='flex' flexDirection='column'>
-                            <Box>
-                              <Link to={`/profile/${Object.keys(allProfileData).length && allProfileData.filter(user => user._id === habit.owner)[0]._id}`}>
-                                <Text fontWeight='bold' color='third'>{Object.keys(allProfileData).length ? allProfileData.filter(user => user._id === habit.owner)[0].firstName : ''} {Object.keys(allProfileData).length ? allProfileData.filter(user => user._id === habit.owner)[0].lastName : ''}</Text>
-                              </Link>
-                            </Box>
-                            <Box>
-                              <Text fontSize='sm' color='gray.500'>{habitDateFormat(habit)}</Text>
-                            </Box>
+
+                  return (habit.event === eventId ?
+                    <Box name="habit-box" key={habit._id} mt='5' borderWidth='1px' width='100%' borderRadius='lg' overflow='hidden'>
+                      <Box pl='6' mt='6' name="event-owner" display='flex'>
+                        <Link to={`/profile/${Object.keys(allProfileData).length && allProfileData.filter(user => user._id === habit.owner)[0]._id}`}>
+                          <Avatar size='md' src={Object.keys(allProfileData).length ? allProfileData.filter(user => user._id === habit.owner)[0].profilePicture : ''} />
+                        </Link>
+                        <Box name='habitOwner' ml='2' display='flex' flexDirection='column'>
+                          <Box>
+                            <Link to={`/profile/${Object.keys(allProfileData).length && allProfileData.filter(user => user._id === habit.owner)[0]._id}`}>
+                              <Text fontWeight='bold' color='third'>{Object.keys(allProfileData).length ? allProfileData.filter(user => user._id === habit.owner)[0].firstName : ''} {Object.keys(allProfileData).length ? allProfileData.filter(user => user._id === habit.owner)[0].lastName : ''}</Text>
+                            </Link>
                           </Box>
+                          <Box>
+                            <Text fontSize='sm' color='gray.500'>{habitDateFormat(habit)}</Text>
+                          </Box>
+                        </Box>
                       </Box>
                       <Box pl='6' mt='5' name='comment'>
                         <Text color='gray.500' pb='6'>{habit.comment}</Text>
@@ -202,7 +201,7 @@ const Event = () => {
                     </Box>
                     :
                     ''
-                    
+
                   )
 
                 }
@@ -213,7 +212,7 @@ const Event = () => {
             <Flex display='flex' flexDirection='column' width={{ base: '100%', md: '32%' }} name="widget">
               <Box name="challengers" p='8' mt='0' backgroundColor='#0075ff' color='white' borderTopRadius='10' w='100%'>
                 <Heading size='sm'>Challengers ({eventData.eventMembers.length})</Heading>
-                <Flex flexWrap='wrap' mt='4' w='100%'>
+                <Flex flexWrap='wrap' mt='4' w='100%' >
                   {eventData.eventMembers.map(members => {
                     return (
                       <Link key={members._id} to={`/profile/${members._id}`}>
