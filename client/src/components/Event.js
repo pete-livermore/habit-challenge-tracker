@@ -3,8 +3,8 @@ import axios from 'axios'
 import { Link, useParams, useNavigate } from 'react-router-dom'
 import { Container, VStack, Box, Alert, Heading, Flex, Avatar, Text, Image, Button, Spinner } from '@chakra-ui/react'
 import { startDateFormat, endDateFormat, daysLeftUntilEvent, daysLeftInEvent, habitDateFormat, todayDateFormat, eventBeforeStartDate, eventAfterEndDate } from './helper/eventData'
-import { userIsAuthenticated, getTokenFromLocalStorage } from './helper/auth'
 import { HabitsCompleted } from './helper/habitStats'
+import { getTokenFromLocalStorage, userIsAuthenticated } from './helper/auth'
 import Comments from './Comments'
 import likeIcon from '../assets/images/like_icon_unclicked.png'
 import likeIconClicked from '../assets/images/like_icon_clicked.png'
@@ -224,8 +224,8 @@ const changeText = (text) => setButtonText(text)
               <Flex name='widget' bg='white' w='100%' flexDirection='column' alignItems='center' rounded='md'>
                 {console.log('habits filtered -> ', habitsFiltered)}
                 {habitsFiltered && habitsFiltered.sort(function (a, b) {
-                                                                    return new Date(b.createdAt) - new Date(a.createdAt)
-                                                                }).map(habit => {
+                    return new Date(b.createdAt) - new Date(a.createdAt)
+                }).map(habit => {
                     console.log('habit', habit)
                     console.log('allprofiledata filters', Object.keys(allProfileData).length && allProfileData.filter(user => user._id === habit.owner))
                     return (habit.event === eventId ?
@@ -273,14 +273,14 @@ const changeText = (text) => setButtonText(text)
                   })}
                 </Flex>
               </Box>
-              <Flex name="actions" p='8' mt='0' bg='white' w='100%' flexDirection='column' alignItems='center' boxShadow='lg' borderBottomRadius='10'>
+              <Flex name="actions" p='8' mt='0' bg='white' w='100%' flexDirection='column' alignItems='center' boxShadow='2xl' borderBottomRadius='10'>
 
                 {eventData.isLive &&
                   <Text fontSize={{ base: '12px', md: '16px', lg: '24px' }} fontWeight='bold' textAlign='center'>The challenge<br></br> has {daysLeftInEvent(eventData)} left</Text>}
                 {!eventData.isLive && eventBeforeStartDate(eventData) &&
                   <>
                     <Text fontSize={{ base: '12px', md: '16px', lg: '24px' }} fontWeight='bold' textAlign='center'>The challenge<br></br> starts in {daysLeftUntilEvent(eventData)}</Text>
-                    <Button onClick={handleSubmit} fontSize='16px' fontWeight='bold' my='6' w='60%' backgroundColor='#ffbb0f' boxShadow='lg' p='6' rounded='md' bg='white' color='white'>{buttonText}</Button>
+                    <Button onClick={handleSubmit} fontSize='16px' fontWeight='bold' my='6' w='60%' backgroundColor='#ffbb0f' boxShadow='2xl' p='6' rounded='md' bg='white' color='white'>{buttonText}</Button>
 
                   </>
                 }
@@ -291,7 +291,7 @@ const changeText = (text) => setButtonText(text)
                 {eventData.isLive && userIsAuthenticated() && userHasJoined &&
                   <>
                     <HabitsCompleted eventHabitCompletions={eventHabitCompletions} />
-                    <Button onClick={toAddHabitPage} fontSize='16px' fontWeight='bold' mt='6' w='60%' backgroundColor='fourth' boxShadow='lg' p='6' rounded='md' bg='white' color='white'>Add Habit</Button>
+                    <Button onClick={toAddHabitPage} fontSize='16px' fontWeight='bold' mt='6' w='60%' backgroundColor='fourth' boxShadow='2xl' p='6' rounded='md' bg='white' color='white'>Add Habit</Button>
                   </>
                 }
                 {/* This is the like click functionality */}

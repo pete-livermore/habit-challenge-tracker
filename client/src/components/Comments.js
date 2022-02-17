@@ -99,7 +99,7 @@ const Comments = () => {
                 comments.map(comment => {
                   return (
                     <Flex key={comment._id} borderWidth='1px' rounded='md' p='4' backgroundColor='white' mb='4' ml='2'>
-                      <Avatar size='sm' src='' mt='1' />
+                      <Avatar src={comment.owner.profilePicture} size='sm' mt='1' />
                       <Box ml='3'>
                         <Flex direction='column'>
                           <Text fontWeight='bold' mr='2'>
