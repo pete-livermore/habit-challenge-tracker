@@ -144,7 +144,7 @@ export default [
     email: 'gurpal@singh.com',
     password: 'pass',
     passwordConfirmation: 'pass',
-    profilePicture: 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644522696/project_3_sei61/blueEmoji3_ymmhq0.jpg',
+    profilePicture: 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1645186410/project_3_sei61/DSC00627-2_2_q92rry.jpg',
     _id: '620970bfebd967d62df7572a',
     events: [
       {

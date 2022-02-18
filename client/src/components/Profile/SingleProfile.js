@@ -97,12 +97,12 @@ const SingleProfile = () => {
 
     return (
         <>
-            {profileData ?
+            {profileData && eventData ?
                 <>
                 <Flex zIndex='0' p='0' mt='5' name="wrapper" width='80%' flexDirection='column'>
                     <Flex zIndex='0' width='100%' p='0' mt='5' alignItems='center' name="wrapper" direction={{ base: 'column', md: 'row' }}>
-                      <VStack display='flex' name="content" direction='column' alignItems='flex-start'>
-                          <Box width='100%' name="header" mb='70px' >
+                      <VStack display='flex' name="content" direction='column' alignItems={{ base: 'center', md: 'flex-start' }}>
+                          <Box width='100%' name="header" mb='25px' >
                               <Flex flexDirection={{ base: 'column', md: 'row'}} alignItems={{ base: 'center', md: 'center' }}>
                                   <Box name="image">
                                       <Avatar
@@ -132,7 +132,7 @@ const SingleProfile = () => {
                               {profileData.events.map(joinedEvent => {
                                 return (
                                   <Flex key={eventData.filter(event => event._id === joinedEvent._id)[0]._id} name="actions" mr={{ base: '0', md:'6'}} p='4' mb='5' bgGradient='linear(to-r, white, gray.100)' width='150px' height='160px' flexDirection='column' borderWidth='1px' alignItems='center' justifyContent='flex-start' boxShadow='2xl' borderRadius='10'>
-                                    <Link to={`/events/${eventData.filter(event => event._id === joinedEvent._id)[0].id}`}>
+                                    <Link to={`/events/${eventData.filter(event => event._id === joinedEvent._id)[0]._id}`}>
                                         <Box name="headline" pl='4' pr='4' mb='4' width=''>
                                         <Heading textAlign='center' pt='4' fontSize="3em">{eventData.filter(event => event._id === joinedEvent._id)[0].emoji}</Heading>
                                           <Heading textAlign='center' name='eventName' color='primary' mt='0' size='sm'>{eventData.filter(event => event._id === joinedEvent._id)[0].name}</Heading>
@@ -149,11 +149,11 @@ const SingleProfile = () => {
                         </Flex>
                       </Flex>
                           <Box>
-                              <Box width='50%'>
+                              <Box width='100%'>
                                   <Flex name='habits' flexDirection='column' justifyContent='flex-start'>
-                                      {habitsFiltered ?
+                                      {habitsFiltered && habitsFiltered.length ?
                                           <>
-                                          <Box name="habits-completed-box" mt='0' color='black' borderTopRadius='10'>
+                                          <Box name="habits-completed-box" mt='8' color='black' borderTopRadius='10'>
                                               <Heading mb='3' textAlign={{ base: 'center', md: 'left' }} size='md'>Habits Completed</Heading>
                                               <Flex flexDirection={{ base: 'column', md: 'row' }}>
                                                   <Select mr={{ base: 0, md: 1 }} mb={{ base: '2', md: '0' }} className='filterHabit' name="event" id="event" onChange={filterHabitsFunction}>
@@ -186,7 +186,7 @@ const SingleProfile = () => {
                                             }).map(habit => {
                                               return (habitsFiltered ? 
                                               <Box name="habit-box" key={habit._id} mt='5' borderWidth='1px' width='100%' borderRadius='lg' overflow='hidden'>
-                                              <Box name="habit-header" pl='6' pt='6' pb='1'>
+                                              <Box name="habit-header" pl='6' pt='26' pb='1'>
                                                 <Box name='event-widget' display='flex'>
                                                     <Box name="event-emoji">
                                                       <Heading size='md'>{eventData.length ? eventData.filter(event => event._id === habit.event)[0].emoji : '...'}</Heading>
@@ -230,7 +230,7 @@ const SingleProfile = () => {
                                           </Flex>                                    
                                           </>
                                           :
-                                          <Text mb='4'>Nothing to see</Text>}
+                                          ''}
                                   </Flex>
                               </Box>
                           </Box>
