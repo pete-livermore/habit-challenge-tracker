@@ -134,7 +134,7 @@ const SingleProfile = () => {
                                                                 {profileData.events.map(joinedEvent => {
                                                                     // console.log('CHECKKK', eventData.filter(event => event._id === joinedEvent._id)[0].name)
                                                                     return (
-                                                                        <option key={joinedEvent._id}>{eventData.length ? eventData.filter(event => event._id === joinedEvent._id)[0].name : '...'}</option>
+                                                                        <option key={joinedEvent._id}>{eventData.length ? habitsFiltered.some(habit => habit.event.includes(joinedEvent._id)) ? eventData.filter(event => event._id === joinedEvent._id)[0].name : '' : ''}</option>
                                                                     )
                                                                 })}
                                                             </Select>
