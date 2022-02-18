@@ -104,7 +104,7 @@ export default [
     category: 'Mental'
   },
   {
-    emoji: '👩🏾‍🍳',
+    emoji: '👨‍🍳',
     name: 'Cook something',
     subTitle: '30-day challenge',
     description: 'Cooking is one of the easiest skills to learn and will get you closer to food',
