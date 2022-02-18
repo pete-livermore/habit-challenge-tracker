@@ -20,7 +20,7 @@ const HabitFormTemplate = ({ formData, formErrors, handleChange, handleSubmit, h
     <Box width='100%' p={8} backgroundColor='white' maxWidth="500px" borderWidth={1} borderRadius={8} boxShadow="lg">
         <>
           <Box textAlign="center">
-            <Heading>Habit Completed Form</Heading>
+            <Heading>Add habit</Heading>
             {habitError && <Alert status='error' mt={4}>{habitError}</Alert>}
           </Box>
           <Box my={4} textAlign="left">
@@ -44,7 +44,7 @@ const HabitFormTemplate = ({ formData, formErrors, handleChange, handleSubmit, h
               {/* {formErrors.picture && <Alert status='error' mt={4}>{formErrors.picture}</Alert>} */}
             {/* Error + Button */}
             {!imageUploading ?
-                <Button type="submit" colorScheme='blue' width="full" mt={4}>Submit</Button>
+                <Button type="submit" colorScheme='blue' width="full" mt={4}>Add Habit</Button>
                 :
                 <Spinner mt='4' />
               }
