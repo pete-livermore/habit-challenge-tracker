@@ -115,7 +115,7 @@ const AddHabitForm = () => {
       imageUploading={imageUploading}
       alert={alert}
        />
-      <Box width='100%' zIndex='-1' position='absolute' top='0' left='0' bgGradient='linear(to-r, first, third)' height={{ base: '460px', md: '460x', lg: '460' }}>
+       <Box width='100%' height='100vh' zIndex='-1' position='absolute' top='0' left='0' bgGradient='linear(to-r, first, third)' >
       </Box>
       </>
     

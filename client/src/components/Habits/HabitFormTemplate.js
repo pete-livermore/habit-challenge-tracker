@@ -16,7 +16,7 @@ import {
   } from '@chakra-ui/react'
 
 const HabitFormTemplate = ({ formData, formErrors, handleChange, handleSubmit, habitError, handleImageUrl, setImageUploading, imageUploading, alert }) => (
-    <Flex width="full" align="center" justifyContent="center">
+    <Flex width="full" pt='65' align="center" justifyContent="center">
     <Box width='100%' p={8} backgroundColor='white' maxWidth="500px" borderWidth={1} borderRadius={8} boxShadow="lg">
         <>
           <Box textAlign="center">
