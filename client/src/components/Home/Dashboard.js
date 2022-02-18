@@ -184,9 +184,10 @@ const Dashboard = ({ eventList }) => {
                 </Link>
                 {selectedEvent.isLive && userIsAuthenticated() ?
                   <>
-                    <Box name='widget-footer' display='flex' h='230px' flexDirection='column' p='6' alignItems='center' justifyContent='flex-end'>
+                    <Box name='widget-footer' display='flex' h='250px' flexDirection='column' p='6' alignItems='center' justifyContent='flex-end'>
                       <Button onClick={toAddHabitPage} fontSize='16px' fontWeight='bold' w='60%' backgroundColor='fourth' boxShadow='2xl' p='6' rounded='md' bg='white' color='white'>Add Habit</Button>
                       <Wrap p='4'>{widget}</Wrap>
+                      <Text fontSize='sm' color='gray.500'>Your best streak: {calcStreak()}</Text>
                     </Box>
                   </>
                   :
