@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Link, useParams, useNavigate } from 'react-router-dom'
-import { Container, VStack, Box, Alert, Heading, Flex, Avatar, Text, Image, Button, Spinner } from '@chakra-ui/react'
+import { Container, VStack, Box, Alert, Heading, Flex, Avatar, Text, Image, Button, Spinner, AlertIcon } from '@chakra-ui/react'
 import { startDateFormat, endDateFormat, daysLeftUntilEvent, daysLeftInEvent, habitDateFormat, todayDateFormat, eventBeforeStartDate, eventAfterEndDate } from './helper/eventData'
 import { HabitsCompleted } from './helper/habitStats'
 import { getTokenFromLocalStorage, userIsAuthenticated } from './helper/auth'
@@ -21,6 +21,8 @@ const Event = () => {
   const [joinError, setJoinError] = useState('')
   const [userHasJoined, setUserHasJoined] = useState()
   const [buttonText, setButtonText] = useState('')
+  const [buttonColour, setButtonColour] = useState('')
+  const [eventJoined, setEventJoined] = useState(false)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -33,7 +35,7 @@ const Event = () => {
       }
     }
     getEventData()
-  }, [eventId, eventData])
+  }, [eventId])
 
   useEffect(() => {
     const getAllProfiles = async () => {
@@ -65,10 +67,17 @@ const Event = () => {
         })
         setProfileData(res.data)
         let startButtonText
+        let buttonColourText
         if (res.data.events.some(event => event._id === eventId)) {
           startButtonText = 'Leave Event'
-        } else startButtonText = 'Join Event'
+          buttonColourText = 'black'
+        } else {
+          startButtonText = 'Join Event'
+        buttonColourText = '#ffbb0f'
+        }
         setButtonText(startButtonText)
+        setButtonColour(buttonColourText)
+
 
       } catch (err) {
         setHasError({ error: true, message: err.message })
@@ -111,15 +120,25 @@ const Event = () => {
       setJoinError(err.response.data.message)
     }
     let changeButtonText
+    let buttonColourText
+    let eventJoinedAlert
     if (buttonText === 'Join Event' && userIsAuthenticated()) {
       changeButtonText = "Leave Event"
+      buttonColourText = 'black'
+      eventJoinedAlert = true
     } else if (buttonText === 'Leave Event') {
       changeButtonText = "Join Event"
-    } else if (buttonText === 'Join Event') {
+      buttonColourText = '#ffbb0f'
+      eventJoinedAlert = false
+    } else if (buttonText === 'Join Event'){
       changeButtonText = "Join Event"
+      buttonColourText = '#ffbb0f'
+      eventJoinedAlert = false
       navigate('/register')
     }
     changeText(changeButtonText)
+    setButtonColour(buttonColourText)
+    setEventJoined(eventJoinedAlert)
   }
 
 
@@ -128,16 +147,16 @@ const Event = () => {
   }
 
 
-  useEffect(() => {
-    let filteredHabits = []
-    if (Object.keys(eventData).length) {
-      (eventData.eventMembers)
-        .map(member => member)
-        .map(habit => habit.habitCompletions)
-        .forEach(array => array.forEach(object => filteredHabits.push(object)))
-      setHabitsFiltered(filteredHabits)
-    }
-  }, [eventData])
+  // useEffect(() => {
+  //   let filteredHabits = []
+  //   if (Object.keys(eventData).length) {
+  //     (eventData.eventMembers)
+  //       .map(member => member)
+  //       .map(habit => habit.habitCompletions)
+  //       .forEach(array => array.forEach(object => filteredHabits.push(object)))
+  //     setHabitsFiltered(filteredHabits)
+  //   }
+  // }, [eventData])
 
   return (
     <>
@@ -227,7 +246,14 @@ const Event = () => {
                 {!eventData.isLive && eventBeforeStartDate(eventData) &&
                   <>
                     <Text fontSize={{ base: '12px', md: '16px', lg: '24px' }} fontWeight='bold' textAlign='center'>The challenge<br></br> starts in {daysLeftUntilEvent(eventData)}</Text>
-                    <Button onClick={handleSubmit} fontSize='16px' fontWeight='bold' my='6' w='60%' backgroundColor='#ffbb0f' boxShadow='2xl' p='6' rounded='md' bg='white' color='white'>{buttonText}</Button>
+                    <Button onClick={handleSubmit} fontSize='16px' fontWeight='bold' my='6' w='60%' backgroundColor={buttonColour} boxShadow='2xl' p='6' rounded='md' bg='white' color='white'>{buttonText}</Button>
+                    {eventJoined && 
+                    <Alert mt='4' status='success'>
+                <AlertIcon />
+                You have joined this event!
+              </Alert>
+              
+}
                   </>
                 }
                 {!eventData.isLive && eventAfterEndDate(eventData) && <Text fontSize={{ base: '12px', md: '16px', lg: '24px' }} fontWeight='bold' textAlign='center'>The challenge is over</Text>}
@@ -240,7 +266,7 @@ const Event = () => {
                     <Button onClick={toAddHabitPage} fontSize='16px' fontWeight='bold' mt='6' w='60%' backgroundColor='fourth' boxShadow='2xl' p='6' rounded='md' bg='white' color='white'>Add Habit</Button>
                   </>
                 }
-                <Likes eventId={eventId} profileData={profileData} />
+                <Likes eventId={eventId} profileData={profileData} eventData={eventData} />
                 <Comments />
               </Flex>
             </Flex>

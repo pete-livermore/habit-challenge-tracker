@@ -159,7 +159,7 @@ const SingleProfile = () => {
                                                       <option>All</option>
                                                       {profileData.events.map(joinedEvent => {
                                                           return (
-                                                              <option key={joinedEvent._id}>{eventData.length ? eventData.filter(event => event._id === joinedEvent._id)[0].name : '...'}</option>
+                                                              <option key={joinedEvent._id}>{eventData.length && habitsFiltered ? habitsFiltered.some(habit => habit.event.includes(joinedEvent._id)) ? eventData.filter(event => event._id === joinedEvent._id)[0].name : '' : ''}</option>
                                                           )
                                                       })}
                                                   </Select>
@@ -182,7 +182,6 @@ const SingleProfile = () => {
                                             return new Date(b.createdAt) - new Date(a.createdAt)
                                             }).map(habit => {
                                               return (habitsFiltered ? 
-                                              <>
                                               <Box name="habit-box" key={habit._id} mt='5' borderWidth='1px' width='100%' borderRadius='lg' overflow='hidden'>
                                               <Box name="habit-header" pl='6' pt='6' pb='1'>
                                                 <Box name='event-widget' display='flex'>
@@ -220,7 +219,6 @@ const SingleProfile = () => {
                                                 <Image src={habit.picture} alt='habit-pic' w='100%'/>
 
                                               </Box>
-                                              </>
                                               :
                                               <Text mb='4' color='black' fontSize='md'>No habits completed</Text>
                                               )
