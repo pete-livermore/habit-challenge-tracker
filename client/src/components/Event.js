@@ -162,8 +162,8 @@ const Event = () => {
     <>
       {Object.keys(eventData).length ?
         <>
-          <Flex zIndex='0' p='0' mt='5' name="wrapper" width='80%' direction={{ base: 'column', md: 'row' }}>
-            <VStack display='flex' name="content" mr='10' direction='column' width={{ base: '100%', md: '55%' }} alignItems='flex-start' mb='6'>
+          <Flex zIndex='0' p='0' mt='5' name="wrapper" direction={{ base: 'column', md: 'row' }}>
+            <VStack display='flex' name="content" mr='10' direction='column' width={{ base: '100%', md: '73%' }} alignItems='flex-start' mb='6'>
               <Box name="header" mb='45px' >
                 <Box name="image" w={{ base: '250px', mb: '450px' }}>
                   <Heading fontSize="6em">{eventData.emoji}</Heading>
@@ -226,7 +226,7 @@ const Event = () => {
               </Flex>
 
             </VStack>
-            <Flex display='flex' flexDirection='column' width={{ base: '100%', md: '32%' }} name="widget">
+            <Flex display='flex' flexDirection='column' width={{ base: '100%', md: '27%' }} name="widget">
               <Box name="challengers" p='8' mt='0' backgroundColor='#0075ff' color='white' borderTopRadius='10' w='100%'>
                 <Heading size='sm'>Challengers ({eventData.eventMembers.length})</Heading>
                 <Flex flexWrap='wrap' mt='4' w='100%' >
