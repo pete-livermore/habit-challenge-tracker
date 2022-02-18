@@ -212,12 +212,12 @@ const Dashboard = ({ eventList }) => {
         userIsAuthenticated()?
         <Box m='6' >
           <Heading color='white' textAlign='center' as='h1' mb='4' mt='14' size='2xl'>Welcome {profileData.firstName}</Heading>
-          <Text textAlign='center' fontSize='xl' color='white'>Create together a new habit in 30 days</Text>
+          <Text textAlign='center' fontSize='xl' color='white'>More than 352 people have created a new habit in 30 days</Text>
         </Box>
         :
         <Box m='6'>
           <Heading color='white' textAlign='center' as='h1' mb='4' mt='14' size='2xl'>Welcome to TinyHabit</Heading>
-          <Text textAlign='center' fontSize='xl' color='white'>Create together a new habit in 30 days</Text>
+          <Text textAlign='center' fontSize='xl' color='white'>More than 352 people have created a new habit in 30 days</Text>
         </Box>
       }
     </>
