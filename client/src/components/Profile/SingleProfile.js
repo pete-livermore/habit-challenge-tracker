@@ -97,7 +97,7 @@ const SingleProfile = () => {
 
     return (
         <>
-            {profileData && eventData ?
+            {profileData && eventData && eventData.length && Object.keys(profileData).length?
                 <>
                 <Flex zIndex='0' p='0' mt='5' name="wrapper" width='80%' flexDirection='column'>
                     <Flex zIndex='0' width='100%' p='0' mt='5' alignItems='center' name="wrapper" direction={{ base: 'column', md: 'row' }}>
