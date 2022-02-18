@@ -22,7 +22,8 @@ const AddHabitForm = () => {
   })
 
   const [backEndError, setBackEndError] = useState('')
-
+  const [alert, setAlert] = useState(false)
+  const [imageUploading, setImageUploading] = useState(false)
   const [getEvent, setGetEvent] = useState([])
 
   function handleChange(e) {
@@ -62,7 +63,7 @@ const AddHabitForm = () => {
             //  setUserProfileId(data.id)
           } catch (err) {
             console.log(err)
-          }
+          } 
         }
         getProfileId()
   
@@ -72,7 +73,10 @@ const AddHabitForm = () => {
         setBackEndError(err.response.data.message)
         setFormErrors(err.response.data.errors)
       }
-    }
+    } else setAlert(true)
+    setTimeout(() => {
+      setAlert(false)
+    }, 2000)
     
   }
 
@@ -104,7 +108,11 @@ const AddHabitForm = () => {
       formData={habitFormData}
       formErrors={formErrors}
       habitError={backEndError}
-      handleImageUrl={handleImageUrl} />
+      handleImageUrl={handleImageUrl}
+      setImageUploading={setImageUploading}
+      imageUploading={imageUploading}
+      alert={alert}
+       />
       <Box width='100%' zIndex='-1' position='absolute' top='0' left='0' bgGradient='linear(to-r, first, third)' height={{ base: '460px', md: '460x', lg: '460' }}>
       </Box>
       </>

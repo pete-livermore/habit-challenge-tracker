@@ -7,7 +7,9 @@ import {
     FormLabel,
     Input,
     Button,
-    Alert
+    Alert,
+    Spinner,
+    AlertIcon
 
 } from '@chakra-ui/react'
 import { useParams, useNavigate } from 'react-router-dom'
@@ -19,7 +21,8 @@ const EditProfile = () => {
 
     const navigate = useNavigate()
     const params = useParams()
-
+    const [imageUploading, setImageUploading] = useState(false)
+    const [alert, setAlert] = useState(false)
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
@@ -66,20 +69,26 @@ const EditProfile = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        try {
-            const token = localStorage.getItem('tinyhabits-token')
-            await axios.put('/api/profile', formData,
-                {
-                    'headers': {
-                        'Authorization': 'Bearer ' + token
-                    }
-                }) //Posting the data from the form
-            navigate(`/profile/${params.userId}`)
-        } catch (err) {
-            console.log('form error ->', formError)
-            console.log(err.response)
-            setFormError(err.response.data.message)
-        }
+        if (formData.profilePicture){
+            try {
+                const token = localStorage.getItem('tinyhabits-token')
+                await axios.put('/api/profile', formData,
+                    {
+                        'headers': {
+                            'Authorization': 'Bearer ' + token
+                        }
+                    }) //Posting the data from the form
+                navigate(`/profile/${params.userId}`)
+            } catch (err) {
+                console.log('form error ->', formError)
+                console.log(err.response)
+                setFormError(err.response.data.message)
+            }
+        } else setAlert(true)
+        setTimeout(() => {
+          setAlert(false)
+        }, 2000)
+        
     }
 
     const handleImageUrl = url => {
@@ -119,10 +128,23 @@ const EditProfile = () => {
                                 <ImageUpload
                                     value={formData.profilePicture}
                                     name='profilePicture'
-                                    handleImageUrl={handleImageUrl} />
+                                    handleImageUrl={handleImageUrl}
+                                    setImageUploading={setImageUploading}
+                                    alert={alert} />
                             </FormControl>
                             {/* Error + Button */}
-                            <Button type="submit" width="full" mt={4}>Save</Button>
+                            {!imageUploading ?
+                <Button type="submit" colorScheme='blue' width="full" mt={4}>Register</Button>
+                :
+                <Spinner mt='4' />
+              }
+              {alert &&
+                <Alert status='error'>
+                  <AlertIcon />
+                  Please upload a profile photo
+                </Alert>
+              }
+                            
                         </form>
                     </Box>
                 </>

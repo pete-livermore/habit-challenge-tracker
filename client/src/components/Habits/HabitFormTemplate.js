@@ -9,11 +9,13 @@ import {
     FormLabel,
     Input,
     Button,
-    Alert
+    Alert,
+    Spinner,
+    AlertIcon
   
   } from '@chakra-ui/react'
 
-const HabitFormTemplate = ({ formData, formErrors, handleChange, handleSubmit, habitError, handleImageUrl }) => (
+const HabitFormTemplate = ({ formData, formErrors, handleChange, handleSubmit, habitError, handleImageUrl, setImageUploading, imageUploading, alert }) => (
     <Flex width="full" align="center" justifyContent="center">
     <Box width='100%' p={8} backgroundColor='white' maxWidth="500px" borderWidth={1} borderRadius={8} boxShadow="lg">
         <>
@@ -36,11 +38,22 @@ const HabitFormTemplate = ({ formData, formErrors, handleChange, handleSubmit, h
                 value={formData.picture}
                 name='picture'
                 handleImageUrl={handleImageUrl}
+                setImageUploading={setImageUploading}
               />
               </FormControl>
               {/* {formErrors.picture && <Alert status='error' mt={4}>{formErrors.picture}</Alert>} */}
             {/* Error + Button */}
-            <Button type="submit" width="full" mt={4}>Submit</Button>      
+            {!imageUploading ?
+                <Button type="submit" colorScheme='blue' width="full" mt={4}>Submit</Button>
+                :
+                <Spinner mt='4' />
+              }
+              {alert &&
+                <Alert status='error'>
+                  <AlertIcon />
+                  Please upload a profile photo
+                </Alert>
+              }      
             </form>
           </Box>
         </>

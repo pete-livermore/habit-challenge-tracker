@@ -155,11 +155,12 @@ const SingleProfile = () => {
                                               <Heading mb='3' textAlign={{ base: 'center', md: 'left' }} size='md'>Habits Completed</Heading>
                                               <Flex flexDirection={{ base: 'column', md: 'row' }}>
                                                   <Select mr={{ base: 0, md: 1 }} mb={{ base: '2', md: '0' }} className='filterHabit' name="event" id="event" onChange={filterHabitsFunction}>
+                                                      {console.log(profileData.events.filter(joinedEvent => habitsFiltered.some(habit => habit.event.includes(joinedEvent._id))))}
                                                       <option hidden>Event</option>
                                                       <option>All</option>
-                                                      {profileData.events.map(joinedEvent => {
+                                                      {profileData.events.filter(object => habitsFiltered.some(habit => habit.event.includes(object._id))).map(joinedEvent => {
                                                           return (
-                                                              <option key={joinedEvent._id}>{eventData.length && habitsFiltered ? habitsFiltered.some(habit => habit.event.includes(joinedEvent._id)) ? eventData.filter(event => event._id === joinedEvent._id)[0].name : '' : ''}</option>
+                                                              <option key={joinedEvent._id}>{eventData.length && eventData.filter(event => event._id === joinedEvent._id)[0].name }</option>
                                                           )
                                                       })}
                                                   </Select>
