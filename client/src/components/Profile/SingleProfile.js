@@ -101,8 +101,8 @@ const SingleProfile = () => {
                 <>
                 <Flex zIndex='0' p='0' mt='5' name="wrapper" width='80%' flexDirection='column'>
                     <Flex zIndex='0' width='100%' p='0' mt='5' alignItems='center' name="wrapper" direction={{ base: 'column', md: 'row' }}>
-                      <VStack display='flex' name="content" direction='column' alignItems='flex-start'>
-                          <Box width='100%' name="header" mb='70px' >
+                      <VStack display='flex' name="content" direction='column' alignItems={{ base: 'center', md: 'flex-start' }}>
+                          <Box width='100%' name="header" mb='25px' >
                               <Flex flexDirection={{ base: 'column', md: 'row'}} alignItems={{ base: 'center', md: 'center' }}>
                                   <Box name="image">
                                       <Avatar
@@ -153,7 +153,7 @@ const SingleProfile = () => {
                                   <Flex name='habits' flexDirection='column' justifyContent='flex-start'>
                                       {habitsFiltered && habitsFiltered.length ?
                                           <>
-                                          <Box name="habits-completed-box" mt='0' color='black' borderTopRadius='10'>
+                                          <Box name="habits-completed-box" mt='8' color='black' borderTopRadius='10'>
                                               <Heading mb='3' textAlign={{ base: 'center', md: 'left' }} size='md'>Habits Completed</Heading>
                                               <Flex flexDirection={{ base: 'column', md: 'row' }}>
                                                   <Select mr={{ base: 0, md: 1 }} mb={{ base: '2', md: '0' }} className='filterHabit' name="event" id="event" onChange={filterHabitsFunction}>
@@ -186,7 +186,7 @@ const SingleProfile = () => {
                                             }).map(habit => {
                                               return (habitsFiltered ? 
                                               <Box name="habit-box" key={habit._id} mt='5' borderWidth='1px' width='100%' borderRadius='lg' overflow='hidden'>
-                                              <Box name="habit-header" pl='6' pt='6' pb='1'>
+                                              <Box name="habit-header" pl='6' pt='26' pb='1'>
                                                 <Box name='event-widget' display='flex'>
                                                     <Box name="event-emoji">
                                                       <Heading size='md'>{eventData.length ? eventData.filter(event => event._id === habit.event)[0].emoji : '...'}</Heading>
