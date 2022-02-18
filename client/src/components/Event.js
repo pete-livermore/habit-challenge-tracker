@@ -33,7 +33,7 @@ const Event = () => {
       }
     }
     getEventData()
-  }, [eventId, eventData])
+  }, [eventId])
 
   useEffect(() => {
     const getAllProfiles = async () => {
@@ -130,16 +130,16 @@ const Event = () => {
   }
 
 
-  useEffect(() => {
-    let filteredHabits = []
-    if (Object.keys(eventData).length) {
-      (eventData.eventMembers)
-        .map(member => member)
-        .map(habit => habit.habitCompletions)
-        .forEach(array => array.forEach(object => filteredHabits.push(object)))
-      setHabitsFiltered(filteredHabits)
-    }
-  }, [eventData])
+  // useEffect(() => {
+  //   let filteredHabits = []
+  //   if (Object.keys(eventData).length) {
+  //     (eventData.eventMembers)
+  //       .map(member => member)
+  //       .map(habit => habit.habitCompletions)
+  //       .forEach(array => array.forEach(object => filteredHabits.push(object)))
+  //     setHabitsFiltered(filteredHabits)
+  //   }
+  // }, [eventData])
 
   return (
     <>
@@ -242,7 +242,7 @@ const Event = () => {
                     <Button onClick={toAddHabitPage} fontSize='16px' fontWeight='bold' mt='6' w='60%' backgroundColor='fourth' boxShadow='2xl' p='6' rounded='md' bg='white' color='white'>Add Habit</Button>
                   </>
                 }
-                <Likes eventId={eventId} profileData={profileData} />
+                <Likes eventId={eventId} profileData={profileData} eventData={eventData} />
                 <Comments />
               </Flex>
             </Flex>

@@ -6,16 +6,16 @@ import likeIcon from '../assets/images/like_icon_unclicked.png'
 import likeIconClicked from '../assets/images/like_icon_clicked.png'
 import { userIsAuthenticated } from './helper/auth'
 
-const Likes = ({ eventId, profileData }) => {
+const Likes = ({ eventId, eventData }) => {
   const [hasError, setHasError] = useState('')
   const [eventLikesData, setEventsLikesData] = useState([])
   const [likeClick, setLikeClick] = useState({})
 
   useEffect(() => {
-    if (eventLikesData.some(like => like.event === eventId)) {
+    if (eventData.likes.some(like => like.event === eventId)) {
       setLikeClick({ liked: true })
     } else setLikeClick({ liked: false })
-  }, [eventLikesData, eventId])
+  }, [eventData, eventId])
 
   useEffect(() => {
     const getEventLikesData = async () => {
@@ -55,7 +55,7 @@ const Likes = ({ eventId, profileData }) => {
   return (
     <>
       <Box mt='6' name='likes' display='flex' borderWidth='1px' borderRadius='lg' pl='4' pr='4' pt='2' pb='2' onClick={handleClick} style={{ cursor: 'pointer' }} >
-        <Image boxSize='20px' sized='sm' mr='2' src={!likeClick.liked ? likeIcon : likeIconClicked} ></Image>
+        <Image boxSize='20px' sized='sm' mr='2' src={likeClick && !likeClick.liked ? likeIcon : likeIconClicked} ></Image>
         <Text fontSize='sm' fontWeight='bold'>Likes({eventLikesData.length})</Text>
       </Box>
       {hasError.error &&
