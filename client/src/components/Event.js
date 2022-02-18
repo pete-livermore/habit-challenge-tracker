@@ -163,7 +163,7 @@ const Event = () => {
     <>
       {Object.keys(eventData).length ?
         <>
-          <Flex zIndex='0' p='0' mt='10' name="wrapper" direction={{ base: 'column', md: 'row' }}>
+          <Flex zIndex='0' p='0' mt='10' name="wrapper" mb='10' direction={{ base: 'column', md: 'row' }}>
             <VStack display='flex' name="content" mr='10' direction='column' width={{ base: '100%', md: '73%' }} alignItems='flex-start' mb='6'>
               <Box name="header" mb='45px' >
                 <Box name="image" w={{ base: '250px', mb: '450px' }}>
