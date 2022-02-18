@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import {
   Flex,
   Box,
@@ -42,6 +42,7 @@ const Register = () => {
     setFormData(newObj)
     setFormError({ ...formError, [e.target.name]: '' })
   }
+
   const [alert, setAlert] = useState(false)
 
   // Saves the token from handleSubmit in the localStorage
@@ -53,6 +54,8 @@ const Register = () => {
   }
 
   const handleSubmit = async (e) => {
+    // if (formData.password && formData.passwordConfirmation && formData.password !== formData.passwordConfirmation)
+    //   setFormError({ ...formError, passwordConfirmation: 'passwords don\'t match' })
     e.preventDefault()
     if (formData.profilePicture) {
       try {
@@ -61,20 +64,15 @@ const Register = () => {
         setTokenToLocalStorage(data.token) // pass on the token to the localStorage
         navigate('/')
       } catch (err) {
-        console.log('form error ->', formError)
-        console.log(err.response)
-        // Just messing around with setting the specific input for the error (in this case password confirmation) - this works but obviously only for that one input
-        setFormError({ ...formError, [e.target[4].name]: err.response.data.message })
+        const arr = Object.keys(err.response.data.errors)
+        const key = (arr[0])
+        setFormError({ [key]: err.response.data.message })
       }
     } else setAlert(true)
     setTimeout(() => {
       setAlert(false)
     }, 2000)
   }
-
-  useEffect(() => {
-    console.log('form error=>', formError)
-  }, [formError])
 
   const handleImageUrl = url => {
     setFormData({ ...formData, profilePicture: url })
