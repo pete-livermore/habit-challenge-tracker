@@ -10,19 +10,13 @@ import {
     Input,
     Button,
     Alert,
-    AlertIcon,
-    Spinner
+    Spinner,
+    AlertIcon
   
   } from '@chakra-ui/react'
 
-const HabitFormTemplate = ({ formData, formErrors, handleChange, handleSubmit, habitError, handleImageUrl }) => {
-  
-  const [imageUploading, setImageUploading] = useState(false)
-  const [alert, setAlert] = useState(false)
-
-  return (
-    <>
-    <Flex width="full" align="center" justifyContent="center" mt='20'>
+const HabitFormTemplate = ({ formData, formErrors, handleChange, handleSubmit, habitError, handleImageUrl, setImageUploading, imageUploading, alert }) => (
+    <Flex width="full" align="center" justifyContent="center">
     <Box width='100%' p={8} backgroundColor='white' maxWidth="500px" borderWidth={1} borderRadius={8} boxShadow="lg">
         <>
           <Box textAlign="center">
@@ -50,23 +44,22 @@ const HabitFormTemplate = ({ formData, formErrors, handleChange, handleSubmit, h
               {/* {formErrors.picture && <Alert status='error' mt={4}>{formErrors.picture}</Alert>} */}
             {/* Error + Button */}
             {!imageUploading ?
-              <Button type="submit" colorScheme='blue' width="full" mt={4}>Submit habit</Button>
-              :
-              <Spinner mt='4' />
-            }
-            {alert &&
-              <Alert status='error'>
-                <AlertIcon />
-                Please show a picture of your habit
-              </Alert>
-            }    
+                <Button type="submit" colorScheme='blue' width="full" mt={4}>Submit</Button>
+                :
+                <Spinner mt='4' />
+              }
+              {alert &&
+                <Alert status='error'>
+                  <AlertIcon />
+                  Please upload a profile photo
+                </Alert>
+              }      
             </form>
           </Box>
         </>
     </Box>
     </Flex>
-    </>
     )
-}
+
 
 export default HabitFormTemplate

@@ -8,7 +8,8 @@ const EditHabit = () => {
 
 const params = useParams()
 const navigate = useNavigate()
-
+const [alert, setAlert] = useState(false)
+  const [imageUploading, setImageUploading] = useState(false)
 const [singleHabitData, setSingleHabitData] = useState({
     comment: '',
     picture: '',
@@ -47,19 +48,22 @@ const [ formErrors, setFormErrors ] = useState({
 
     const handleSubmit = async (e) => {
         e.preventDefault() // prevent reload
-        try {
-          const token = localStorage.getItem('tinyhabits-token')
-      
-          await axios.put(`/api/events/${params.eventId}/habits/${params.habitId}`, singleHabitData, {
-            'headers': {
-              'Authorization': 'Bearer ' + token
+        if (singleHabitData.picture){
+          try {
+            const token = localStorage.getItem('tinyhabits-token')
+        
+            await axios.put(`/api/events/${params.eventId}/habits/${params.habitId}`, singleHabitData, {
+              'headers': {
+                'Authorization': 'Bearer ' + token
+              }
+              })
+              navigate(`/profile/${params.userId}`)
+          } catch (err) {
+              console.log(err.response.data.message)
+              setFormErrors(err.response.data.errors)
             }
-            })
-            navigate(`/profile/${params.userId}`)
-        } catch (err) {
-            console.log(err.response.data.message)
-            setFormErrors(err.response.data.errors)
-          }
+        }
+        
         }
 
         const handleChange = (e) => {
@@ -79,7 +83,11 @@ const [ formErrors, setFormErrors ] = useState({
         formData={singleHabitData}
         formErrors={formErrors}
         habitError={habitError}
-        handleImageUrl={handleImageUrl} />
+        handleImageUrl={handleImageUrl}
+        setImageUploading={setImageUploading}
+        imageUploading={imageUploading}
+        alert={alert}
+         />
         <Box width='100%' zIndex='-1' position='absolute' top='0' left='0' bgGradient='linear(to-r, first, third)' height={{ base: '460px', md: '460x', lg: '460' }}>
         </Box></>
     )

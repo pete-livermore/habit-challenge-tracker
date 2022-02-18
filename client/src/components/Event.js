@@ -35,7 +35,7 @@ const Event = () => {
       }
     }
     getEventData()
-  }, [eventId])
+  }, [eventId, buttonText])
 
   useEffect(() => {
     const getAllProfiles = async () => {
