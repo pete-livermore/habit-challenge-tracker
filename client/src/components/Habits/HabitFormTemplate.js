@@ -38,7 +38,7 @@ const HabitFormTemplate = ({ formData, formErrors, handleChange, handleSubmit, h
             {/* {formErrors.comment && <Alert status='error' mt={4}>{formErrors.comment}</Alert>} */}
             </FormControl>
               {/* Picture */}
-              <FormControl mt={6}>
+              <FormControl mt={6} isRequired>
               <FormLabel htmlFor='picture'>Add Picture</FormLabel>
             <ImageUpload
                 value={formData.picture}
@@ -50,7 +50,7 @@ const HabitFormTemplate = ({ formData, formErrors, handleChange, handleSubmit, h
               {/* {formErrors.picture && <Alert status='error' mt={4}>{formErrors.picture}</Alert>} */}
             {/* Error + Button */}
             {!imageUploading ?
-              <Button type="submit" colorScheme='blue' width="full" mt={4}>Register</Button>
+              <Button type="submit" colorScheme='blue' width="full" mt={4}>Submit habit</Button>
               :
               <Spinner mt='4' />
             }

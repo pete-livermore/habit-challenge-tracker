@@ -147,16 +147,16 @@ const Event = () => {
   }
 
 
-  // useEffect(() => {
-  //   let filteredHabits = []
-  //   if (Object.keys(eventData).length) {
-  //     (eventData.eventMembers)
-  //       .map(member => member)
-  //       .map(habit => habit.habitCompletions)
-  //       .forEach(array => array.forEach(object => filteredHabits.push(object)))
-  //     setHabitsFiltered(filteredHabits)
-  //   }
-  // }, [eventData])
+  useEffect(() => {
+    let filteredHabits = []
+    if (Object.keys(eventData).length) {
+      (eventData.eventMembers)
+        .map(member => member)
+        .map(habit => habit.habitCompletions)
+        .forEach(array => array.forEach(object => filteredHabits.push(object)))
+      setHabitsFiltered(filteredHabits)
+    }
+  }, [eventData])
 
   return (
     <>

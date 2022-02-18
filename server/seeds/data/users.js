@@ -1,11 +1,11 @@
 export default [
   {
-    firstName: 'pete',
-    lastName: 'livermore',
+    firstName: 'Pete',
+    lastName: 'Livermore',
     email: 'pete@livermore.com',
     password: 'pass',
     passwordConfirmation: 'pass',
-    profilePicture: 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644526616/project_3_sei61/hfczx1owa0vxprp3dpu1.jpg',
+    profilePicture: 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1645179825/project_3_sei61/trmffyp24fl3d5sikixp.jpg',
     _id: '620ab29d5e1a4c63aa55ec64',
     events: [
       {
