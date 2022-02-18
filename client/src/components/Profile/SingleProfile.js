@@ -123,7 +123,7 @@ const SingleProfile = () => {
                                   </Box>
                               </Flex>
                           </Box>
-                          <Heading mb='3' textAlign={{ base: 'center', sm: 'left', md: 'left', lg: 'left' }} size='md'>Joined events</Heading>
+                          <Heading mb='3' color='white' textAlign={{ base: 'center', sm: 'left', md: 'left', lg: 'left' }} size='md'>Joined events</Heading>
                           <Flex name='joinedEvents' width='100%'>                          
                           <Flex name='discover-container' alignItems='center' w='100%' justifyContent={{ base: 'center', sm: 'left', md: 'left', lg: 'left' }} flexDirection={{ base: 'column', md: 'row', lg: 'row' }} flexWrap='wrap' mt='4' mb='6'>
                             <>
@@ -217,7 +217,7 @@ const SingleProfile = () => {
                                                   </Box>
                                                 }
                                               </Box>
-                                                <Image src={habit.picture} alt='habit-pic' />
+                                                <Image src={habit.picture} alt='habit-pic' w='100%'/>
 
                                               </Box>
                                               </>

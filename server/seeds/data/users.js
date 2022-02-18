@@ -685,6 +685,9 @@ export default [
     events: [
       {
         '_id': '620a1935c600f37f9715d83f',
+      },
+      {
+        '_id': 'e5d85ae2090096348ebdcd31',
       }
     ],
   },
@@ -725,6 +728,10 @@ export default [
       },
       {
         '_id': 'c03a1ec39dda8e241a9b8ddb',
+      }
+      ,
+      {
+        '_id': 'e5d85ae2090096348ebdcd31',
       }
     ],
   },
@@ -1111,6 +1118,51 @@ export default [
     events: [
       {
         '_id': '620a1935c600f37f9715d83f',
+      },
+      {
+        '_id': 'e5d85ae2090096348ebdcd31',
+      }
+    ],
+    'habitCompletions': [
+      {
+        'owner': '620970bfebd967d62df75030',
+        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1645172988/project_3_sei61/Screenshot_2022-02-18_at_09.29.33_a4jryt.png',
+        'comment': 'Meatball spaghetti - the best',
+        'event': 'e5d85ae2090096348ebdcd31',
+        'createdAt': '2022-02-01T14:11:09.859Z',
+        'updatedAt': '2022-02-01T14:11:09.859Z',
+      },
+      {
+        'owner': '620970bfebd967d62df75030',
+        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1645173017/project_3_sei61/IMG_0067_yevnqn.jpg',
+        'comment': 'Bibimbap Bibimbap',
+        'event': 'e5d85ae2090096348ebdcd31',
+        'createdAt': '2022-02-02T21:11:09.859Z',
+        'updatedAt': '2022-02-02T21:11:09.859Z',
+      },
+      {
+        'owner': '620970bfebd967d62df75030',
+        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1645173032/project_3_sei61/IMG_20190712_205912_yb2qcd.jpg',
+        'comment': 'Middle eastern food is after mexican food one of the most interesting cuisines',
+        'event': 'e5d85ae2090096348ebdcd31',
+        'createdAt': '2022-02-03T21:09:09.859Z',
+        'updatedAt': '2022-02-03T21:09:09.859Z',
+      },
+      {
+        'owner': '620970bfebd967d62df75030',
+        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1645173005/project_3_sei61/Screenshot_2022-02-18_at_09.25.19_vhrwcj.png',
+        'comment': 'Chicken terayaki',
+        'event': 'e5d85ae2090096348ebdcd31',
+        'createdAt': '2022-02-04T21:11:09.859Z',
+        'updatedAt': '2022-02-04T21:11:09.859Z',
+      },
+      {
+        'owner': '620970bfebd967d62df75030',
+        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1645173004/project_3_sei61/Screenshot_2022-02-18_at_09.28.09_zmtwof.png',
+        'comment': 'I felt uninspired today',
+        'event': 'e5d85ae2090096348ebdcd31',
+        'createdAt': '2022-02-05T21:04:09.859Z',
+        'updatedAt': '2022-02-05T21:04:09.859Z',
       }
     ],
   },
@@ -1199,6 +1251,9 @@ export default [
     events: [
       {
         '_id': '620a1935c600f37f9715d83e',
+      },
+      {
+        '_id': 'e5d85ae2090096348ebdcd31',
       }
     ],
   },
