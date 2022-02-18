@@ -151,7 +151,7 @@ const Dashboard = ({ eventList }) => {
 
           {Object.keys(selectedEvent).length ?
 
-            <Container name='header' justifyContent={{ sm: 'center', md: 'center', lg:'space-between'}} alignItems={{ base: 'center', md: 'center',lg: 'flex-start'}} p='0' m='0' display='flex' flexDirection={{base: 'column', md:'row'}} maxW='container.lg' flexWrap='wrap'>
+            <Container name='header' justifyContent={{ sm: 'center', md: 'center', lg:'space-between'}} alignItems={{ base: 'center', md: 'center',lg: 'flex-start'}} p='0'  mt='15' display='flex' flexDirection={{base: 'column', md:'row'}} maxW='container.lg' flexWrap='wrap'>
 
               <Flex name='welcome-header' alignItems={{ base: 'center', md: 'center',lg: 'flex-start'}} justifyContent={{sm: 'center', md: 'center',lg: 'flex-start'}} width='65%' pb='50' pt={{base:0, md:0}} mr='0' display='flex' flexDirection='column' textAlign={{md:'left'}}>
                 <Heading fontWeight='regular' size='md' mt={{base: '5', md:'20'}} mb='3' textAlign={{xs:'center', sm:'left', md:'center',lg: 'left'}} color='second'>Welcome {profileData.firstName}!</Heading>
@@ -210,7 +210,7 @@ const Dashboard = ({ eventList }) => {
         </>
         :
         userIsAuthenticated()?
-        <Box m='6'>
+        <Box m='6' >
           <Heading color='white' textAlign='center' as='h1' mb='4' mt='14' size='2xl'>Welcome {profileData.firstName}</Heading>
           <Text textAlign='center' fontSize='xl' color='white'>Create together a new habit in 30 days</Text>
         </Box>
