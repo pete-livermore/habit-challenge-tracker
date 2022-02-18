@@ -26,6 +26,8 @@ const AddHabitForm = () => {
   const [imageUploading, setImageUploading] = useState(false)
   const [getEvent, setGetEvent] = useState([])
 
+
+
   function handleChange(e) {
     const newObj = { ...habitFormData, [e.target.name]: e.target.value }
     // console.log(newObj)

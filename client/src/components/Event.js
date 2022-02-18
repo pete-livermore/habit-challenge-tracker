@@ -102,8 +102,6 @@ const Event = () => {
   }, [profileData, eventData])
 
 
-
-
   const toAddHabitPage = () => {
     navigate(`/events/${eventId}/AddHabitCompletion`)
   }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { ImageUpload } from '../helper/ImageUpload'
 // Import Bootstrap Components
 import {
@@ -59,6 +59,7 @@ const HabitFormTemplate = ({ formData, formErrors, handleChange, handleSubmit, h
         </>
     </Box>
     </Flex>
-)
+    )
+
 
 export default HabitFormTemplate
