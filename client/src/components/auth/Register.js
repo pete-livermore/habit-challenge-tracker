@@ -79,7 +79,7 @@ const Register = () => {
   }
 
   return (
-    <><Flex width="full" align="center" justifyContent="center">
+    <><Flex width="full" align="center" justifyContent="center" mt='10'>
       <Box background='white' p={8} maxWidth="500px" borderWidth={1} borderRadius={8} boxShadow="2xl">
         <>
           <Box textAlign="center">
