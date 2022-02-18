@@ -149,7 +149,7 @@ const SingleProfile = () => {
                         </Flex>
                       </Flex>
                           <Box>
-                              <Box width='50%'>
+                              <Box width='100%'>
                                   <Flex name='habits' flexDirection='column' justifyContent='flex-start'>
                                       {habitsFiltered && habitsFiltered.length ?
                                           <>

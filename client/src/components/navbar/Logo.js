@@ -1,13 +1,13 @@
 import React from "react";
-import { Box, Text, Link } from "@chakra-ui/react";
+import { Box, Image, Link } from "@chakra-ui/react";
 
 const Logo = (props) => {
   return (
     <Box {...props} >
     <Link href='/'>
-      <Text fontSize="lg" fontWeight="bold">
-        TinyHabit
-      </Text>
+    <Box width='160px'>
+        <Image src='https://res.cloudinary.com/dmbkzjwzq/image/upload/v1645186990/project_3_sei61/logo_tfdfy1.png' width='160px'alt='logo' />
+      </Box>
     </Link>
     </Box>
   )
