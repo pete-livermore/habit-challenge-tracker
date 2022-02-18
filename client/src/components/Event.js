@@ -22,7 +22,7 @@ const Event = () => {
   const [userHasJoined, setUserHasJoined] = useState()
   const [buttonText, setButtonText] = useState('')
   const [buttonColour, setButtonColour] = useState('')
-  const [eventJoined, setEventJoined] = useState()
+  const [eventJoined, setEventJoined] = useState(false)
   const navigate = useNavigate()
 
   useEffect(() => {
