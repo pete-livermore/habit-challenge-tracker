@@ -57,6 +57,7 @@ const Event = () => {
 
     if (!userIsAuthenticated()) {
       setButtonText('Join Event')
+      setButtonColour('#ffbb0f')
     }
     const getProfileData = async () => {
       try {
