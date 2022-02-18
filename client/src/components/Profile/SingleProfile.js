@@ -111,19 +111,21 @@ const SingleProfile = () => {
                                           src={profileData.profilePicture !== '' ? profileData.profilePicture : ''}
                                           alt='profile picture' />
                                   </Box>
-                                  <Box name="headline">
-                                      <Heading ml={{ base: '0', md: '6'}} justify='center' textAlign={{ base: 'center', md: 'left' }} color='white' mt='2' as='h1' fontSize={{ base: '20px', md: '24px', lg: '30px' }} mb='2'>{profileData.firstName + ' ' + profileData.lastName}</Heading>
+                                  <Box>
+                                    <Box name="username">
+                                        <Heading ml={{ base: '0', md: '6'}} justify='center' textAlign={{ base: 'center', md: 'left' }} color='white' mt='2' as='h1' fontSize={{ base: '20px', md: '24px', lg: '30px' }} mb='2'>{profileData.firstName + ' ' + profileData.lastName}</Heading>
+                                    </Box>
+                                    {loggedInProfile && userIsAuthenticated() && loggedInProfile.id === userId ?
+                                        <Link to={`/profile/${profileData.id}/edit-profile`}>
+                                            <Button mt='2' ml='6' boxShadow='lg' rounded='md' size='sm' width='80px'colorScheme='blue'>Edit</Button>
+                                        </Link>
+                                        : <Box h='48px'></Box>}
                                   </Box>
-                                  {loggedInProfile && userIsAuthenticated() && loggedInProfile.id === userId ?
-                                      <Link to={`/profile/${profileData.id}/edit-profile`}>
-                                          <Button w='100%' mt='2' backgroundColor='#ffbb0f' boxShadow='lg' rounded='md' bg='white' color='white'>Edit</Button>
-                                      </Link>
-                                      : <Box h='48px'></Box>}
                               </Flex>
                           </Box>
-                          <Heading mb='3' textAlign={{ base: 'center', md: 'left' }} size='md'>Joined events</Heading>
+                          <Heading mb='3' textAlign={{ base: 'center', sm: 'left', md: 'left', lg: 'left' }} size='md'>Joined events</Heading>
                           <Flex name='joinedEvents' width='100%'>                          
-                          <Flex name='discover-container' alignItems='center' w='100%' justifyContent='center' flexDirection={{ base: 'column', md: 'row', lg: 'row' }} flexWrap='wrap' mt='4' mb='6'>
+                          <Flex name='discover-container' alignItems='center' w='100%' justifyContent={{ base: 'center', sm: 'left', md: 'left', lg: 'left' }} flexDirection={{ base: 'column', md: 'row', lg: 'row' }} flexWrap='wrap' mt='4' mb='6'>
                             <>
                               {profileData.events.map(joinedEvent => {
                                 return (
@@ -145,7 +147,7 @@ const SingleProfile = () => {
                         </Flex>
                       </Flex>
                           <Box>
-                              <Box width='100%'>
+                              <Box width='70%'>
                                   <Flex name='habits' flexDirection='column' justifyContent='flex-start'>
                                       {habitsFiltered ?
                                           <>
@@ -199,15 +201,16 @@ const SingleProfile = () => {
                                                 </Box>
                                                 {loggedInProfile && userIsAuthenticated() && loggedInProfile.id === userId &&
                                                   <Box>
-                                                      <Flex flexDirection='row' ml='8' justifyContent='left'>
+                                                      <Flex flexDirection='row' ml='2' justifyContent='left'>
                                                           <Box mr='2'>
                                                               <Link to={`/profile/${profileData.id}/${habit.event}/${habit._id}/edit`}>
-                                                                  <Button w='100%' mb='5' backgroundColor='#ffbb0f' boxShadow='lg' rounded='md' bg='white' color='white'>Edit</Button>
+                                                              <Button mt='2' ml='6' boxShadow='lg' rounded='md' size='sm' width='80px'colorScheme='blue'>Edit</Button>
+
                                                               </Link>
                                                           </Box>
                                                           <Box mr='2'>
                                                               <Link to={`/profile/${profileData.id}/${habit.event}/${habit._id}/delete-habit`}>
-                                                                  <Button w='100%' mb='5' backgroundColor='#ffbb0f' boxShadow='lg' rounded='md' bg='white' color='white'>Delete</Button>
+                                                              <Button mt='2' ml='6' boxShadow='lg' rounded='md' size='sm' width='80px'colorScheme='blue'>Delete</Button>
                                                               </Link>
                                                           </Box>
                                                       </Flex>

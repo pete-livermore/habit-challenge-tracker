@@ -104,17 +104,17 @@ export default [
     category: 'Mental'
   },
   {
-    emoji: '☕️',
+    emoji: '👩🏾‍🍳',
     name: 'Cook something',
     subTitle: '30-day challenge',
-    description: 'Unlike your 30-day romance challenge, caffeine doesn\'t get your heart racing in a good way. In fact, it\'s the opposite of romantic - you sweat and you need to shit. How about trying another means to wake up in the morning? Cold shower? Morning stroll? Give your bowels and nerves a rest by droppping the coffee/coke/red bull habit for 30 days.',
+    description: 'Cooking is one of the easiest skills to learn and will get you closer to food',
     frequency: 'Daily',
-    startDate: '2022-11-16',
-    endDate: '2022-12-16',
+    startDate: '2022-02-01',
+    endDate: '2022-03-03',
     picture: 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644522820/project_3_sei61/alcohol_rbzw0o.jpg',
     _id: 'e5d85ae2090096348ebdcd31',
     likesCount: 0,
-    category: 'Mental'
+    category: 'Health',
   }
 ]
 
