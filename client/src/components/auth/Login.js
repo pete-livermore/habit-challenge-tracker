@@ -52,7 +52,7 @@ const Login = () => {
 
   return (
     <><Flex width="full" align="center" justifyContent="center">
-      <Box background='white' p={8} maxWidth="500px" borderWidth={1} borderRadius={8} boxShadow="lg">
+      <Box background='white' p={8} maxWidth="500px" borderWidth={1} borderRadius={8} boxShadow="2xl">
         <>
           <Box textAlign="center">
             <Heading>Login</Heading>
@@ -71,13 +71,15 @@ const Login = () => {
               </FormControl>
               {/* Error + Button */}
               {formError && <Alert status='error' mt={4}>{formError}</Alert>}
-              <Button type="submit" width="full" mt={4}>Login</Button>
+              <Button colorScheme='blue' type="submit" width="full" mt={4}>Login</Button>
             </form>
           </Box>
         </>
       </Box>
-    </Flex><Box width='100%' zIndex='-1' position='absolute' top='0' left='0' bgGradient='linear(to-r, first, third)' height={{ base: '460px', md: '460x', lg: '460' }}>
-      </Box></>
+    </Flex>
+    <Box width='100%' height='100vh' zIndex='-1' position='absolute' top='0' left='0' bgGradient='linear(to-r, first, third)' >
+    </Box>
+    </>
   )
 }
 

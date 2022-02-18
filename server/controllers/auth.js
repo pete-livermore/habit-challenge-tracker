@@ -6,7 +6,9 @@ export const registerUser = async (req, res) => {
   try {
     const newUser = await User.create(req.body)
     console.log(newUser)
-    return res.status(202).json({ message: 'Registration Successful' })
+    const token = jwt.sign({ sub: newUser._id }, secret, { expiresIn: '7 days' })
+    return res.status(202).json({ message: 'Registration Successful',token: token  })
+    
   } catch (err) {
     console.log(err)
     return res.status(422).json(err)

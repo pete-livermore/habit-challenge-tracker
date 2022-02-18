@@ -7,7 +7,9 @@ import {
   FormLabel,
   Input,
   Button,
-  Alert
+  Alert,
+  Spinner,
+  Text
 
 } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
@@ -44,6 +46,8 @@ const Register = () => {
   }
   
   // Saves the token from handleSubmit in the localStorage
+  const [imageUploading, setImageUploading] = useState(false)
+
   
   const setTokenToLocalStorage = (token) => {
     window.localStorage.setItem('tinyhabits-token', token)
@@ -56,7 +60,7 @@ const Register = () => {
         const { data } = await axios.post('/api/register', formData) //Posting the data from the form
         console.log('token', data.token)
         setTokenToLocalStorage(data.token) // pass on the token to the localStorage
-        navigate('/login')
+        navigate('/')
       } catch (err) {
         console.log('form error ->',formError)
         console.log(err.response)
@@ -72,7 +76,7 @@ const Register = () => {
 console.log(formData)
   return (
     <><Flex width="full" align="center" justifyContent="center">
-      <Box background='white' p={8} maxWidth="500px" borderWidth={1} borderRadius={8} boxShadow="lg">
+      <Box background='white' p={8} maxWidth="500px" borderWidth={1} borderRadius={8} boxShadow="2xl">
         <>
           <Box textAlign="center">
             <Heading>Register</Heading>
@@ -80,6 +84,7 @@ console.log(formData)
           <Box my={4} textAlign="left">
             <form onSubmit={handleSubmit}>
               {/* FirstName */}
+              <Text fontSize='sm' fontWeight='500'>All fields below are required</Text>
               <FormControl isRequired>
                 <FormLabel htmlFor='firstName'>Firstname</FormLabel>
                 <Input onChange={handleChange} type="firstName" name="firstName" placeholder='Firstname' defaultValue={formData.firstName} />
@@ -112,18 +117,24 @@ console.log(formData)
               <FormControl mt={6}>
                 <FormLabel htmlFor='picture'>Add Profile Picture</FormLabel>
                 <ImageUpload
-                  value={formData.profilePicture}
-                  name='picture'
-                  handleImageUrl={handleImageUrl} />
+                value={formData.profilePicture}
+                name='picture'
+                handleImageUrl={handleImageUrl}
+                setImageUploading={setImageUploading} />
               </FormControl>
               {/* Error + Button */}
-              <Button type="submit" width="full" mt={4}>Register</Button>
+              {!imageUploading ?
+
+              <Button type="submit" colorScheme='blue' width="full" mt={4}>Register</Button>
+              :
+              <Spinner mt='4' />
+            }
             </form>
           </Box>
         </>
       </Box>
-    </Flex><Box width='100%' zIndex='-1' position='absolute' top='0' left='0' bgGradient='linear(to-r, first, third)' height={{ base: '460px', md: '460x', lg: '460' }}>
-      </Box></>
+    </Flex><Box width='100%' height='100vh' zIndex='-1' position='absolute' top='0' left='0' bgGradient='linear(to-r, first, third)' >
+    </Box></>
   )
 }
 

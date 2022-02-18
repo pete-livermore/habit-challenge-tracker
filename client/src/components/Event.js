@@ -17,13 +17,12 @@ const Event = () => {
   const [eventHabitCompletions, setEventHabitCompletions] = useState([])
   const [habitsFiltered, setHabitsFiltered] = useState(null)
   const [allProfileData, setAllProfileData] = useState({})
-  // const [widget, setWidget] = useState([])
   const [hasError, setHasError] = useState('')
   const [joinError, setJoinError] = useState('')
   const [userHasJoined, setUserHasJoined] = useState()
   const [buttonText, setButtonText] = useState('')
   const [buttonColour, setButtonColour] = useState('')
-  const [eventJoined, setEventJoined] = useState(false)
+  const [eventJoined, setEventJoined] = useState()
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -56,7 +55,7 @@ const Event = () => {
 
   useEffect(() => {
 
-    if (!userIsAuthenticated()){
+    if (!userIsAuthenticated()) {
       setButtonText('Join Event')
     }
     const getProfileData = async () => {
@@ -78,6 +77,7 @@ const Event = () => {
         }
         setButtonText(startButtonText)
         setButtonColour(buttonColourText)
+
 
       } catch (err) {
         setHasError({ error: true, message: err.message })
@@ -171,8 +171,9 @@ const Event = () => {
                   <Heading fontSize="6em">{eventData.emoji}</Heading>
                 </Box>
                 <Box name="headline">
-                  <Text mt='10' size='lg' color='second'>{eventData.subTitle}</Text>
-                  <Heading color='white' mt='4' as='h1' size='2xl' mb='4'>{eventData.name}</Heading>
+
+                  <Heading color='white' mt='4' as='h1' size='2xl' >{eventData.name}</Heading>
+                  <Text mt='5' size='lg' color='second'>{eventData.subTitle}</Text>
                 </Box>
                 <Box mt='6' name="event-owner" display='flex'>
                   <Link to={`/profile/${eventData.owner.id}`}>
@@ -194,23 +195,23 @@ const Event = () => {
                 {habitsFiltered && habitsFiltered.sort(function (a, b) {
                   return new Date(b.createdAt) - new Date(a.createdAt)
                 }).map(habit => {
-            
-                    return (habit.event === eventId ?
-                        <Box name="habit-box" key={habit._id} mt='5' borderWidth='1px' width='100%' borderRadius='lg' overflow='hidden'>
-                          <Box pl='6' mt='6' name="event-owner" display='flex'>
-                          <Link to={`/profile/${Object.keys(allProfileData).length && allProfileData.filter(user => user._id === habit.owner)[0]._id}`}>
-                            <Avatar size='md' src={Object.keys(allProfileData).length ? allProfileData.filter(user => user._id === habit.owner)[0].profilePicture : ''} />
-                          </Link>
-                          <Box name='habitOwner' ml='2' display='flex' flexDirection='column'>
-                            <Box>
-                              <Link to={`/profile/${Object.keys(allProfileData).length && allProfileData.filter(user => user._id === habit.owner)[0]._id}`}>
-                                <Text fontWeight='bold' color='third'>{Object.keys(allProfileData).length ? allProfileData.filter(user => user._id === habit.owner)[0].firstName : ''} {Object.keys(allProfileData).length ? allProfileData.filter(user => user._id === habit.owner)[0].lastName : ''}</Text>
-                              </Link>
-                            </Box>
-                            <Box>
-                              <Text fontSize='sm' color='gray.500'>{habitDateFormat(habit)}</Text>
-                            </Box>
+
+                  return (habit.event === eventId ?
+                    <Box name="habit-box" key={habit._id} mt='5' borderWidth='1px' width='100%' borderRadius='lg' overflow='hidden'>
+                      <Box pl='6' mt='6' name="event-owner" display='flex'>
+                        <Link to={`/profile/${Object.keys(allProfileData).length && allProfileData.filter(user => user._id === habit.owner)[0]._id}`}>
+                          <Avatar size='md' src={Object.keys(allProfileData).length ? allProfileData.filter(user => user._id === habit.owner)[0].profilePicture : ''} />
+                        </Link>
+                        <Box name='habitOwner' ml='2' display='flex' flexDirection='column'>
+                          <Box>
+                            <Link to={`/profile/${Object.keys(allProfileData).length && allProfileData.filter(user => user._id === habit.owner)[0]._id}`}>
+                              <Text fontWeight='bold' color='third'>{Object.keys(allProfileData).length ? allProfileData.filter(user => user._id === habit.owner)[0].firstName : ''} {Object.keys(allProfileData).length ? allProfileData.filter(user => user._id === habit.owner)[0].lastName : ''}</Text>
+                            </Link>
                           </Box>
+                          <Box>
+                            <Text fontSize='sm' color='gray.500'>{habitDateFormat(habit)}</Text>
+                          </Box>
+                        </Box>
                       </Box>
                       <Box pl='6' mt='5' name='comment'>
                         <Text color='gray.500' pb='6'>{habit.comment}</Text>
@@ -219,7 +220,7 @@ const Event = () => {
                     </Box>
                     :
                     ''
-                    
+
                   )
 
                 }
@@ -227,10 +228,10 @@ const Event = () => {
               </Flex>
 
             </VStack>
-            <Flex display='flex' flexDirection='column' width={{ base: '100%', md: '33%' }} name="widget">
+            <Flex display='flex' flexDirection='column' width={{ base: '100%', md: '32%' }} name="widget">
               <Box name="challengers" p='8' mt='0' backgroundColor='#0075ff' color='white' borderTopRadius='10' w='100%'>
                 <Heading size='sm'>Challengers ({eventData.eventMembers.length})</Heading>
-                <Flex flexWrap='wrap' mt='4' w='100%'>
+                <Flex flexWrap='wrap' mt='4' w='100%' >
                   {eventData.eventMembers.map(members => {
                     return (
                       <Link key={members._id} to={`/profile/${members._id}`}>
@@ -253,6 +254,7 @@ const Event = () => {
                 <AlertIcon />
                 You have joined this event!
               </Alert>
+              
 }
                   </>
                 }
