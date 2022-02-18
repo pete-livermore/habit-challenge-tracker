@@ -25,6 +25,8 @@ const AddHabitForm = () => {
 
   const [getEvent, setGetEvent] = useState([])
 
+
+
   function handleChange(e) {
     const newObj = { ...habitFormData, [e.target.name]: e.target.value }
     // console.log(newObj)
@@ -105,7 +107,7 @@ const AddHabitForm = () => {
       formErrors={formErrors}
       habitError={backEndError}
       handleImageUrl={handleImageUrl} />
-      <Box width='100%' zIndex='-1' position='absolute' top='0' left='0' bgGradient='linear(to-r, first, third)' height={{ base: '460px', md: '460x', lg: '460' }}>
+      <Box width='100%' height='100vh' zIndex='-1' position='absolute' top='0' left='0' bgGradient='linear(to-r, first, third)' >
       </Box>
       </>
     

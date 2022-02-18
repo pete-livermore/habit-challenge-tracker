@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { ImageUpload } from '../helper/ImageUpload'
 // Import Bootstrap Components
 import {
@@ -9,12 +9,20 @@ import {
     FormLabel,
     Input,
     Button,
-    Alert
+    Alert,
+    AlertIcon,
+    Spinner
   
   } from '@chakra-ui/react'
 
-const HabitFormTemplate = ({ formData, formErrors, handleChange, handleSubmit, habitError, handleImageUrl }) => (
-    <Flex width="full" align="center" justifyContent="center">
+const HabitFormTemplate = ({ formData, formErrors, handleChange, handleSubmit, habitError, handleImageUrl }) => {
+  
+  const [imageUploading, setImageUploading] = useState(false)
+  const [alert, setAlert] = useState(false)
+
+  return (
+    <>
+    <Flex width="full" align="center" justifyContent="center" mt='20'>
     <Box width='100%' p={8} backgroundColor='white' maxWidth="500px" borderWidth={1} borderRadius={8} boxShadow="lg">
         <>
           <Box textAlign="center">
@@ -36,16 +44,29 @@ const HabitFormTemplate = ({ formData, formErrors, handleChange, handleSubmit, h
                 value={formData.picture}
                 name='picture'
                 handleImageUrl={handleImageUrl}
+                setImageUploading={setImageUploading}
               />
               </FormControl>
               {/* {formErrors.picture && <Alert status='error' mt={4}>{formErrors.picture}</Alert>} */}
             {/* Error + Button */}
-            <Button type="submit" width="full" mt={4}>Submit</Button>      
+            {!imageUploading ?
+              <Button type="submit" colorScheme='blue' width="full" mt={4}>Register</Button>
+              :
+              <Spinner mt='4' />
+            }
+            {alert &&
+              <Alert status='error'>
+                <AlertIcon />
+                Please show a picture of your habit
+              </Alert>
+            }    
             </form>
           </Box>
         </>
     </Box>
     </Flex>
-)
+    </>
+    )
+}
 
 export default HabitFormTemplate
