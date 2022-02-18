@@ -119,7 +119,7 @@ const Register = () => {
                 <Input onChange={handleChange} type="password" name="passwordConfirmation" placeholder='Password Confirmation' defaultValue={formData.passwordConfirmation} />
                 {formError.passwordConfirmation && <Alert status='error' mt={4}>{formError.passwordConfirmation}</Alert>}
               </FormControl>
-              <FormControl mt={6}>
+              <FormControl isRequired mt={6}>
                 <FormLabel htmlFor='picture'>Add Profile Picture</FormLabel>
                 <ImageUpload
                   value={formData.profilePicture}

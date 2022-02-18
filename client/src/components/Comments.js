@@ -76,7 +76,7 @@ const Comments = () => {
                 placeholder='Leave a comment'
                 size='sm'
               />
-              <Button backgroundColor='blue.500' color='second' mt='2' type='submit'>Comment</Button>
+              <Button backgroundColor='black' color='second' mt='2' type='submit'>Comment</Button>
             </form>
             {formSubmitted &&
               <Alert mt='4' status='success'>

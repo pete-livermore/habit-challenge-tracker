@@ -111,15 +111,17 @@ const SingleProfile = () => {
                                           src={profileData.profilePicture !== '' ? profileData.profilePicture : ''}
                                           alt='profile picture' />
                                   </Box>
-                                  <Box>
+                                  <Box display='flex' justify='center' flexDirection='column'>
                                     <Box name="username">
                                         <Heading ml={{ base: '0', md: '6'}} justify='center' textAlign={{ base: 'center', md: 'left' }} color='white' mt='2' as='h1' fontSize={{ base: '20px', md: '24px', lg: '30px' }} mb='2'>{profileData.firstName + ' ' + profileData.lastName}</Heading>
-                                    </Box>
-                                    {loggedInProfile && userIsAuthenticated() && loggedInProfile.id === userId ?
-                                        <Link to={`/profile/${profileData.id}/edit-profile`}>
-                                            <Button mt='2' ml='6' boxShadow='lg' rounded='md' size='sm' width='80px'colorScheme='blue'>Edit</Button>
-                                        </Link>
-                                        : <Box h='48px'></Box>}
+                                    </Box>                                  
+                                  </Box>
+                                  <Box>
+                                  {loggedInProfile && userIsAuthenticated() && loggedInProfile.id === userId ?
+                                    <Link to={`/profile/${profileData.id}/edit-profile`}>
+                                        <Button mt='2' ml='6' boxShadow='lg' rounded='md' size='sm' width='80px'colorScheme='blue'>Edit</Button>
+                                    </Link>
+                                    : <Box h='48px'></Box>}
                                   </Box>
                               </Flex>
                           </Box>

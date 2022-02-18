@@ -32,7 +32,7 @@ const HabitFormTemplate = ({ formData, formErrors, handleChange, handleSubmit, h
             {/* {formErrors.comment && <Alert status='error' mt={4}>{formErrors.comment}</Alert>} */}
             </FormControl>
               {/* Picture */}
-              <FormControl mt={6}>
+              <FormControl mt={6} isRequired>
               <FormLabel htmlFor='picture'>Add Picture</FormLabel>
             <ImageUpload
                 value={formData.picture}
