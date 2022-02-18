@@ -24,12 +24,12 @@ export default [
     
   },
   {
-    firstName: 'bo',
-    lastName: 'cho',
+    firstName: 'Borahm',
+    lastName: 'Cho',
     email: 'bo@cho.com',
     password: 'pass',
     passwordConfirmation: 'pass',
-    profilePicture: 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1644522696/project_3_sei61/blueEmoji2_l1qrcn.jpg',
+    profilePicture: 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1645174244/project_3_sei61/Screenshot_2022-02-18_at_09.50.39_gtffa9.png',
     _id: '620ab4e0b4027a630d42e017',
     events: [
       {
@@ -39,9 +39,104 @@ export default [
         '_id': '620a1935c600f37f9715d83e',
       },
       {
-        '_id': '620a1935c600f37f9715d83f',
+        '_id': 'e5d85ae2090096348ebdcd31',
       }
     ],
+    'habitCompletions': [
+      {
+        'owner': '620ab4e0b4027a630d42e017',
+        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1645173025/project_3_sei61/IMG_20180421_100514_kyvzxv.jpg',
+        'comment': 'Its brunch time!',
+        'event': 'e5d85ae2090096348ebdcd31',
+        'createdAt': '2022-02-01T14:11:09.859Z',
+        'updatedAt': '2022-02-01T14:11:09.859Z',
+      },
+      {
+        'owner': '620ab4e0b4027a630d42e017',
+        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1645172998/project_3_sei61/Screenshot_2022-02-18_at_09.26.52_zmo1jd.png',
+        'comment': 'Seefood FTW',
+        'event': 'e5d85ae2090096348ebdcd31',
+        'createdAt': '2022-02-02T21:11:09.859Z',
+        'updatedAt': '2022-02-02T21:11:09.859Z',
+      },
+      {
+        'owner': '620ab4e0b4027a630d42e017',
+        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1645172990/project_3_sei61/Screenshot_2022-02-18_at_09.28.55_thvqgh.png',
+        'comment': 'I love roasted vegetables. Great for a light dinner',
+        'event': 'e5d85ae2090096348ebdcd31',
+        'createdAt': '2022-02-03T21:09:09.859Z',
+        'updatedAt': '2022-02-03T21:09:09.859Z',
+      },
+      {
+        'owner': '620ab4e0b4027a630d42e017',
+        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1645172991/project_3_sei61/Screenshot_2022-02-18_at_09.28.27_lsrl9w.png',
+        'comment': 'If it was just me, I would eat noodles and rice every day',
+        'event': 'e5d85ae2090096348ebdcd31',
+        'createdAt': '2022-02-04T21:11:09.859Z',
+        'updatedAt': '2022-02-04T21:11:09.859Z',
+      },
+      {
+        'owner': '620ab4e0b4027a630d42e017',
+        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1645172999/project_3_sei61/Screenshot_2022-02-18_at_09.26.32_chueds.png',
+        'comment': 'Every day asian food!',
+        'event': 'e5d85ae2090096348ebdcd31',
+        'createdAt': '2022-02-05T21:04:09.859Z',
+        'updatedAt': '2022-02-05T21:04:09.859Z',
+      }
+      ,
+      {
+        'owner': '620ab4e0b4027a630d42e017',
+        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1645173029/project_3_sei61/IMG_20180813_191037_vrak2i.jpg',
+        'comment': 'Outdoor cooking!',
+        'event': 'e5d85ae2090096348ebdcd31',
+        'createdAt': '2022-02-06T21:04:09.859Z',
+        'updatedAt': '2022-02-06T21:04:09.859Z',
+      },
+      {
+        'owner': '620ab4e0b4027a630d42e017',
+        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1645173024/project_3_sei61/IMG_20161026_120442_sppkr6.jpg',
+        'comment': 'Chopping vegetables',
+        'event': 'e5d85ae2090096348ebdcd31',
+        'createdAt': '2022-02-07T21:04:09.859Z',
+        'updatedAt': '2022-02-07T21:04:09.859Z',
+      }
+      ,
+      {
+        'owner': '620ab4e0b4027a630d42e017',
+        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1645173027/project_3_sei61/2018-07-09_09.47.59_1_dpfvim.jpg',
+        'comment': 'Best cold noodle soup dish in the world',
+        'event': 'e5d85ae2090096348ebdcd31',
+        'createdAt': '2022-02-08T21:04:09.859Z',
+        'updatedAt': '2022-02-08T21:04:09.859Z',
+      }
+      ,
+      {
+        'owner': '620ab4e0b4027a630d42e017',
+        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1645173015/project_3_sei61/_DSC5487.ARW_jjtqhl.jpg',
+        'comment': 'I just want to eat pie',
+        'event': 'e5d85ae2090096348ebdcd31',
+        'createdAt': '2022-02-09T21:04:09.859Z',
+        'updatedAt': '2022-02-09T21:04:09.859Z',
+      },
+      {
+        'owner': '620ab4e0b4027a630d42e017',
+        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1645173002/project_3_sei61/Screenshot_2022-02-18_at_09.26.14_get3mc.png',
+        'comment': 'Yum yum',
+        'event': 'e5d85ae2090096348ebdcd31',
+        'createdAt': '2022-02-12T21:04:09.859Z',
+        'updatedAt': '2022-02-12T21:04:09.859Z',
+      }
+      ,
+      {
+        'owner': '620ab4e0b4027a630d42e017',
+        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1645173001/project_3_sei61/Screenshot_2022-02-18_at_09.24.46_be1anr.png',
+        'comment': 'Noodles every day',
+        'event': 'e5d85ae2090096348ebdcd31',
+        'createdAt': '2022-02-13T21:04:09.859Z',
+        'updatedAt': '2022-02-13T21:04:09.859Z',
+      }
+    ],
+    
   },
   {
     firstName: 'gurpal',
@@ -488,6 +583,9 @@ export default [
       },
       {
         '_id': 'e5d85ae2090096388ebdcd31',
+      },
+      {
+        '_id': 'e5d85ae2090096348ebdcd31',
       }
     ],
   },
@@ -553,6 +651,9 @@ export default [
     events: [
       {
         '_id': '620a1935c600f37f9715d83f',
+      },
+      {
+        '_id': 'e5d85ae2090096348ebdcd31',
       }
     ],
   },
@@ -706,6 +807,9 @@ export default [
       },
       {
         '_id': 'e5d85ae2090096388ebdcd31',
+      },
+      {
+        '_id': 'e5d85ae2090096348ebdcd31',
       }
     ],
     'habitCompletions': [
@@ -819,6 +923,9 @@ export default [
       },
       {
         '_id': '87f13bebc0b1e6e61a48b260',
+      },
+      {
+        '_id': 'e5d85ae2090096348ebdcd31',
       }
     ],
     'habitCompletions': [
@@ -1153,7 +1260,7 @@ export default [
     _id: '620970bfebd967d62df75039',
     events: [
       {
-        '_id': '9ece492b040e8b1e1cc2c302',
+        '_id': 'e5d85ae2090096348ebdcd31',
       },
       {
         '_id': 'c03a1ec39dda8e241a9b8ddb',
@@ -1163,6 +1270,48 @@ export default [
       },
       {
         '_id': 'e5d85ae2090096388ebdcd31',
+      }
+    ],
+    'habitCompletions': [
+      {
+        'owner': '620970bfebd967d62df75039',
+        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1645173037/project_3_sei61/IMG-20191224-WA0003_fhu6vu.jpg',
+        'comment': 'Today, I cooked with the family some breakfast tacos! Yummy',
+        'event': 'e5d85ae2090096348ebdcd31',
+        'createdAt': '2022-02-01T14:11:09.859Z',
+        'updatedAt': '2022-02-01T14:11:09.859Z',
+      },
+      {
+        'owner': '620970bfebd967d62df75039',
+        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1645173036/project_3_sei61/IMG-20200606-WA0003_sifz1m.jpg',
+        'comment': 'Amazing korean bbq',
+        'event': 'e5d85ae2090096348ebdcd31',
+        'createdAt': '2022-02-02T21:11:09.859Z',
+        'updatedAt': '2022-02-02T21:11:09.859Z',
+      },
+      {
+        'owner': '620970bfebd967d62df75039',
+        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1645173006/project_3_sei61/Screenshot_2022-02-18_at_09.24.51_bs3erx.png',
+        'comment': 'One of those soup days :)',
+        'event': 'e5d85ae2090096348ebdcd31',
+        'createdAt': '2022-02-03T21:09:09.859Z',
+        'updatedAt': '2022-02-03T21:09:09.859Z',
+      },
+      {
+        'owner': '620970bfebd967d62df75039',
+        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1645173020/project_3_sei61/IMG_2227_zvzfeu.jpg',
+        'comment': 'Friday is pizza day',
+        'event': 'e5d85ae2090096348ebdcd31',
+        'createdAt': '2022-02-04T21:11:09.859Z',
+        'updatedAt': '2022-02-04T21:11:09.859Z',
+      },
+      {
+        'owner': '620970bfebd967d62df75039',
+        'picture': 'https://res.cloudinary.com/dmbkzjwzq/image/upload/v1645172994/project_3_sei61/Screenshot_2022-02-18_at_09.27.50_w07j4m.png',
+        'comment': 'Does that count as cooking?',
+        'event': 'e5d85ae2090096348ebdcd31',
+        'createdAt': '2022-02-05T21:04:09.859Z',
+        'updatedAt': '2022-02-05T21:04:09.859Z',
       }
     ],
   }
