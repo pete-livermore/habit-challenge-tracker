@@ -175,7 +175,7 @@ const Event = () => {
                   <Text mt='5' size='lg' color='second'>{eventData.subTitle}</Text>
                 </Box>
                 <Box mt='6' name="event-owner" display='flex'>
-                  <Link to={`/profile/${eventData.owner.id}`}>
+                  <Link to={`/profile/${eventData.owner && eventData.owner._id}`}>
                     <Avatar size='md' src={eventData ? eventData.owner.profilePicture : ''} />
                   </Link>
                   <Box ml='3'>
@@ -247,7 +247,7 @@ const Event = () => {
                 {!eventData.isLive && eventBeforeStartDate(eventData) &&
                   <>
                     <Text fontSize={{ base: '12px', md: '16px', lg: '24px' }} fontWeight='bold' textAlign='center'>The challenge<br></br> starts in {daysLeftUntilEvent(eventData)}</Text>
-                    <Button onClick={handleSubmit} fontSize='16px' fontWeight='bold' my='6' w='60%' backgroundColor={buttonColour} boxShadow='2xl' p='6' rounded='md' bg='white' color='white'>{buttonText}</Button>
+                    <Button onClick={handleSubmit} fontSize='16px' fontWeight='bold' my='6' w='100%' backgroundColor={buttonColour} boxShadow='2xl' p='6' rounded='md' bg='white' color='white'>{buttonText}</Button>
                     {eventJoined && 
                     <Alert mt='4' status='success'>
                 <AlertIcon />
