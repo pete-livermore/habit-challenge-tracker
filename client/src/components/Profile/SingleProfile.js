@@ -149,7 +149,7 @@ const SingleProfile = () => {
                           <Box>
                               <Box width='50%'>
                                   <Flex name='habits' flexDirection='column' justifyContent='flex-start'>
-                                      {habitsFiltered ?
+                                      {habitsFiltered && habitsFiltered.length ?
                                           <>
                                           <Box name="habits-completed-box" mt='0' color='black' borderTopRadius='10'>
                                               <Heading mb='3' textAlign={{ base: 'center', md: 'left' }} size='md'>Habits Completed</Heading>
@@ -228,7 +228,7 @@ const SingleProfile = () => {
                                           </Flex>                                    
                                           </>
                                           :
-                                          <Text mb='4'>Nothing to see</Text>}
+                                          ''}
                                   </Flex>
                               </Box>
                           </Box>
