@@ -30,7 +30,7 @@ const Home = () => {
       {events.length ?
         <>
           <Dashboard eventList={events} />
-          <Container display='flex' flexDirection='column' mb='16' name='discover' maxW='container.lg' mt=''>
+          <Container display='flex' flexDirection='column' mb='16' name='discover' maxW='container.lg' mt='' m='0' p='0'>
             {userIsAuthenticated()
               ?
               <Heading textAlign={{ base: 'center', md: 'left' }} mt='10' mb='5' size='lg'>Discover challenges</Heading>
