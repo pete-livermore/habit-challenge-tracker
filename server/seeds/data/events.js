@@ -65,7 +65,7 @@ export default [
     category: 'Physical'
   },
   {
-    emoji: '♥️',
+    emoji: '💖',
     name: 'Be more romantic',
     subTitle: '30-day challenge',
     description: 'Has your partner recently had to watch you sitting on the sofa in your pants, picking food debris out of the crevaces of your t-shirt and then eating it? Maybe it\'s time to crack open a tub of romance to keep your relationship moving forward! It keeps a relationship lively, exciting and meaningful. Embrace your romantic side ',
@@ -78,7 +78,7 @@ export default [
     category: 'Emotional'
   },
   {
-    emoji: '🇪🇸  🇫🇷',
+    emoji: '🌎',
     name: 'Learn a new language',
     subTitle: '30-day challenge',
     description: 'Ever travelled abroad and felt like shouting English at people is not going to ingratiate yourself to the locals? Whilst you may not achieve fluency, in 30 days you can learn enough of the basics to survive in a foreing city, and who knows - it may just start your journey to becoming a polyglot.',
@@ -91,7 +91,7 @@ export default [
     category: 'Mental'
   },
   {
-    emoji: '☕️',
+    emoji: '👩🏿‍🎨',
     name: 'Make art',
     subTitle: '30-day challenge',
     description: 'Unlike your 30-day romance challenge, caffeine doesn\'t get your heart racing in a good way. In fact, it\'s the opposite of romantic - you sweat and you need to shit. How about trying another means to wake up in the morning? Cold shower? Morning stroll? Give your bowels and nerves a rest by droppping the coffee/coke/red bull habit for 30 days.',
