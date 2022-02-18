@@ -147,7 +147,7 @@ const SingleProfile = () => {
                         </Flex>
                       </Flex>
                           <Box>
-                              <Box width='70%'>
+                              <Box width='50%'>
                                   <Flex name='habits' flexDirection='column' justifyContent='flex-start'>
                                       {habitsFiltered ?
                                           <>
@@ -197,11 +197,11 @@ const SingleProfile = () => {
                                                       <Text fontSize='xs' color='gray.500'>{habitDateFormat(habit)}</Text>
                                                     </Box>
                                                 <Box mt='4' ml='9' name='comment'>
-                                                    <Text color='gray.500' pb='6'>{habit.comment}</Text>
+                                                    <Text color='gray.500' pb='4'>{habit.comment}</Text>
                                                 </Box>
                                                 {loggedInProfile && userIsAuthenticated() && loggedInProfile.id === userId &&
                                                   <Box>
-                                                      <Flex flexDirection='row' ml='2' justifyContent='left'>
+                                                      <Flex flexDirection='row' ml='2' mb='5' justifyContent='left'>
                                                           <Box mr='2'>
                                                               <Link to={`/profile/${profileData.id}/${habit.event}/${habit._id}/edit`}>
                                                               <Button mt='2' ml='6' boxShadow='lg' rounded='md' size='sm' width='80px'colorScheme='blue'>Edit</Button>
