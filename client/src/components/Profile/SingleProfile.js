@@ -97,7 +97,7 @@ const SingleProfile = () => {
 
     return (
         <>
-            {profileData ?
+            {profileData && eventData ?
                 <>
                 <Flex zIndex='0' p='0' mt='5' name="wrapper" width='80%' flexDirection='column'>
                     <Flex zIndex='0' width='100%' p='0' mt='5' alignItems='center' name="wrapper" direction={{ base: 'column', md: 'row' }}>
@@ -132,7 +132,7 @@ const SingleProfile = () => {
                               {profileData.events.map(joinedEvent => {
                                 return (
                                   <Flex key={eventData.filter(event => event._id === joinedEvent._id)[0]._id} name="actions" mr={{ base: '0', md:'6'}} p='4' mb='5' bgGradient='linear(to-r, white, gray.100)' width='150px' height='160px' flexDirection='column' borderWidth='1px' alignItems='center' justifyContent='flex-start' boxShadow='2xl' borderRadius='10'>
-                                    <Link to={`/events/${eventData.filter(event => event._id === joinedEvent._id)[0].id}`}>
+                                    <Link to={`/events/${eventData.filter(event => event._id === joinedEvent._id)[0]._id}`}>
                                         <Box name="headline" pl='4' pr='4' mb='4' width=''>
                                         <Heading textAlign='center' pt='4' fontSize="3em">{eventData.filter(event => event._id === joinedEvent._id)[0].emoji}</Heading>
                                           <Heading textAlign='center' name='eventName' color='primary' mt='0' size='sm'>{eventData.filter(event => event._id === joinedEvent._id)[0].name}</Heading>
