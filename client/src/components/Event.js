@@ -215,7 +215,7 @@ const Event = () => {
                       <Box pl='6' mt='5' name='comment'>
                         <Text color='gray.500' pb='6'>{habit.comment}</Text>
                       </Box>
-                      <Image src={habit.picture} alt='habit-pic' />
+                      <Image src={habit.picture} alt='habit-pic' width='100%' />
                     </Box>
                     :
                     ''

@@ -219,7 +219,7 @@ const SingleProfile = () => {
                                                   </Box>
                                                 }
                                               </Box>
-                                                <Image src={habit.picture} alt='habit-pic' w='100%'/>
+                                                <Image src={habit.picture} alt='habit-pic' width='100%'/>
 
                                               </Box>
                                               :
