@@ -8,9 +8,12 @@ export const secureRoute = async (req, res, next) => {
     if (!req.headers.authorization) throw new Error('Header missing')
     const token = req.headers.authorization.replace('Bearer ', '')
     const payload = jwt.verify(token, secret)
+    console.log('payload ->', payload)
     const user = await User.findById(payload.sub)
+    console.log('payload.sub ->', payload.sub)
     if (!user) throw new Error('User is not found')
     req.currentUser = user
+    console.log('User ->', user)
     next()
   } catch (e) {
     console.log(e)
