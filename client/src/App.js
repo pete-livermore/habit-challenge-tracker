@@ -3,15 +3,15 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import Register from './components/auth/Register'
 import Login from './components/auth/Login'
-import Event from './components/Event'
-import Home from './components/Home/Home'
-import AddHabitForm from './components/Habits/AddHabitForm'
+import Event from './components/events/Event'
+import Home from './components/home/Home'
+import AddHabitForm from './components/habits/AddHabitForm'
 import TopNavbar from './components/navbar/TopNavbar'
-import SingleProfile from './components/Profile/SingleProfile'
-import DeleteHabit from './components/Habits/DeleteHabit'
+import SingleProfile from './components/profile/SingleProfile'
+import DeleteHabit from './components/habits/DeleteHabit'
 import Comments from './components/Comments'
-import EditHabit from './components/Habits/EditHabit'
-import EditProfile from './components/Profile/EditProfile'
+import EditHabit from './components/habits/EditHabit'
+import EditProfile from './components/profile/EditProfile'
 
 const App = () => {
   return (

@@ -17,21 +17,21 @@ const Login = () => {
 
   let navigate = useNavigate()
 
-  const [ formData, setFormData ] = useState({
+  const [formData, setFormData] = useState({
     email: '',
     password: '',
   })
 
-  const [ formError, setFormError ] = useState('') // We expect only a string now
+  const [formError, setFormError] = useState('')
 
   const handleChange = (e) => {
-    const newObj = { ...formData, [e.target.name]: e.target.value } //Spreading formData makes sure we maintain the data structure of formData
+    const newObj = { ...formData, [e.target.name]: e.target.value }
     setFormData(newObj)
-    setFormError('') 
+    setFormError('')
   }
-  
+
   // Saves the token from handleSubmit in the localStorage
-  
+
   const setTokenToLocalStorage = (token) => {
     window.localStorage.setItem('tinyhabits-token', token)
   }
@@ -44,7 +44,7 @@ const Login = () => {
       setTokenToLocalStorage(data.token) // pass on the token to the localStorage
       navigate('/')
     } catch (err) {
-      console.log('form error ->',formError)
+      console.log('form error ->', formError)
       console.log(err.response)
       setFormError(err.response.data.message)
     }
@@ -77,8 +77,8 @@ const Login = () => {
         </>
       </Box>
     </Flex>
-    <Box width='100%' height='100vh' zIndex='-1' position='absolute' top='0' left='0' bgGradient='linear(to-r, first, third)' >
-    </Box>
+      <Box width='100%' height='100vh' zIndex='-1' position='absolute' top='0' left='0' bgGradient='linear(to-r, first, third)' >
+      </Box>
     </>
   )
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box, Progress, Badge, Text, Image, Flex, Button } from '@chakra-ui/react'
-import { userIsAuthenticated } from '../helper/auth'
+import { userIsAuthenticated } from './auth'
 import { Link } from 'react-router-dom'
 
 export const HabitsCompleted = ({ eventHabitCompletions }) => {

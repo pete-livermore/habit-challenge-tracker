@@ -60,11 +60,17 @@ export const joinEvent = async (req, res) => {
   try {
     const { eventId } = req.params
     const currentUserProfile = await User.findById(req.currentUser._id)
+    console.log(currentUserProfile)
     const event = await Event.findById(eventId)
     const currentDate = new Date()
+    console.log(currentDate > event.startDate)
     if (currentDate > event.startDate.toLocaleDateString()) throw new Error('Event already started')
-
+    // console.log('events for current user =>', currentUserProfile.events)
+    // console.log('current event id =>', eventId)
+    // console.log('if statement',currentUserProfile.events.some(event => event._id.equals(eventId)))
     if (currentUserProfile.events.some(event => event._id.equals(eventId))) { //If the user already joined the event, it will remove the user from the event
+      console.log(Object.entries(currentUserProfile.events).filter(array => array[1]._id.equals(eventId)))
+      console.log(eventId)
       currentUserProfile.events.splice(Object.entries(currentUserProfile.events).filter(array => array[1]._id.equals(eventId))[0][0], 1)
     } else {
       currentUserProfile.events.push(eventId) //Otherwise add the user to the event

@@ -1,7 +1,4 @@
 import React, { useEffect, useState } from 'react'
-// import Form from 'react-bootstrap/Form'
-// import Button from 'react-bootstrap/Button'
-// import Container from 'react-bootstrap/Container'
 import axios from 'axios'
 import { useParams, useNavigate } from 'react-router-dom'
 import HabitFormTemplate from './HabitFormTemplate'
@@ -30,7 +27,6 @@ const AddHabitForm = () => {
 
   function handleChange(e) {
     const newObj = { ...habitFormData, [e.target.name]: e.target.value }
-    // console.log(newObj)
     setHabitFormData(newObj)
     setFormErrors({ ...formErrors, [e.target.name]: '' })
   }
@@ -39,18 +35,18 @@ const AddHabitForm = () => {
   console.log(eventId)
 
   const handleSubmit = async (e) => {
-    e.preventDefault() // prevent reload
-    if (habitFormData.picture){
+    e.preventDefault()
+    if (habitFormData.picture) {
       try {
         const token = localStorage.getItem('tinyhabits-token')
         console.log(token)
-  
+
         await axios.post(`/api/events/${eventId}/habits`, habitFormData, {
           'headers': {
             'Authorization': 'Bearer ' + token
           }
         })
-  
+
         const getProfileId = async () => {
           try {
             const token = localStorage.getItem('tinyhabits-token')
@@ -62,13 +58,12 @@ const AddHabitForm = () => {
             })
             console.log('data', data.id)
             navigate(`/profile/${data.id}`)
-            //  setUserProfileId(data.id)
           } catch (err) {
             console.log(err)
-          } 
+          }
         }
         getProfileId()
-  
+
         // Redirect using the navigate variable, passing in the route we want to redirect to
       } catch (err) {
         console.log(err.response.data.message)
@@ -79,7 +74,7 @@ const AddHabitForm = () => {
     setTimeout(() => {
       setAlert(false)
     }, 2000)
-    
+
   }
 
   const handleImageUrl = url => {
@@ -114,11 +109,11 @@ const AddHabitForm = () => {
       setImageUploading={setImageUploading}
       imageUploading={imageUploading}
       alert={alert}
-       />
-       <Box width='100%' height='100vh' zIndex='-1' position='absolute' top='0' left='0' bgGradient='linear(to-r, first, third)' >
+    />
+      <Box width='100%' height='100vh' zIndex='-1' position='absolute' top='0' left='0' bgGradient='linear(to-r, first, third)' >
       </Box>
-      </>
-    
+    </>
+
   )
 }
 

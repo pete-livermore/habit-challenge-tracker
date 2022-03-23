@@ -1,6 +1,6 @@
 import React from "react"
 import { CloseIcon, MenuIcon } from './MenuIcons'
-import { Box } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react"
 
 
 export const MenuToggle = ({ toggle, isOpen }) => {

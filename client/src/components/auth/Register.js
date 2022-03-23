@@ -38,7 +38,7 @@ const Register = () => {
     profilePicture: '',
   })
   const handleChange = (e) => {
-    const newObj = { ...formData, [e.target.name]: e.target.value } //Spreading formData makes sure we maintain the data structure of formData
+    const newObj = { ...formData, [e.target.name]: e.target.value }
     setFormData(newObj)
     setFormError({ ...formError, [e.target.name]: '' })
   }
@@ -71,13 +71,12 @@ const Register = () => {
     } else setAlert(true)
     setTimeout(() => {
       setAlert(false)
-    }, 2000)
+    }, 2200)
   }
 
   const handleImageUrl = url => {
     setFormData({ ...formData, profilePicture: url })
   }
-
   return (
     <><Flex width="full" align="center" justifyContent="center" mt='10'>
       <Box background='white' p={8} maxWidth="500px" borderWidth={1} borderRadius={8} boxShadow="2xl">

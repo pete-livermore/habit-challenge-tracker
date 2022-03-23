@@ -1,28 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { Container, Flex, VStack, Center, Alert, Box, Heading, Select, Image, Wrap, WrapItem, Stat, StatLabel, StatNumber, StatGroup, Progress, Spinner, Text, Button } from '@chakra-ui/react'
-import { createBreakpoints } from '@chakra-ui/theme-tools'
+import { Container, Flex, Box, Heading, Wrap, WrapItem, Spinner, Text, Button, Image } from '@chakra-ui/react'
 import { useNavigate, Link } from "react-router-dom"
 import { getTokenFromLocalStorage, userIsAuthenticated } from '../helper/auth'
 import { HabitsCompletedDashboard } from '../helper/habitStats'
 import EventDropdown from '../helper/eventDropdown'
-import { startDateFormat, endDateFormat, daysLeftUntilEvent, daysLeftInEvent, habitDateFormat, todayDateFormat, eventBeforeStartDate, eventAfterEndDate } from '../helper/eventData'
+import { daysLeftUntilEvent, daysLeftInEvent, eventBeforeStartDate, eventAfterEndDate } from '../helper/eventData'
 
 
-const Dashboard = ({ eventList }) => {
+const Dashboard = ({ eventData }) => {
   const [profileData, setProfileData] = useState({})
   const [userEvents, setUserEvents] = useState([])
   const [selectedEvent, setSelectedEvent] = useState({})
   const [eventHabitCompletions, setEventHabitCompletions] = useState([])
   const [widget, setWidget] = useState([])
   const [hasError, setHasError] = useState({ error: false, message: '' })
-  const breakpoints = createBreakpoints({
-    sm: '30em',
-    md: '48em',
-    lg: '62em',
-    xl: '80em',
-    '2xl': '96em',
-  })
   const navigate = useNavigate()
 
   // Fetching user profile data if user is logged in
@@ -45,27 +37,21 @@ const Dashboard = ({ eventList }) => {
 
   // Setting the list of events user has joined and initially populating the selected event
   useEffect(() => {
-    console.log(profileData)
-    if (eventList.length && Object.keys(profileData).length) {
-      const filtered = eventList.filter(event => profileData.events.some(ev => ev._id === event._id))
+    if (eventData.length && Object.keys(profileData).length) {
+      const filtered = eventData.filter(event => profileData.events.some(ev => ev._id === event._id))
       setUserEvents(filtered)
       const sortFiltered = filtered.sort(function (a, b) {
         return new Date(a.startDate) - new Date(b.startDate)
-    })
-    // console.log('sort Filtered', sortFiltered)
-    // console.log('sort Filtered first value', sortFiltered[0])
+      })
       setSelectedEvent(sortFiltered[0])
     }
-  }, [profileData, eventList])
+  }, [profileData, eventData])
 
   // Changing the selected event on user's input
   const handleOptionChange = (e) => {
     const filtered = userEvents.filter(event => event.name === e.target.value)
-    console.log('selected event =>', filtered)
     setSelectedEvent(filtered[0])
   }
-
-  // Calculating the days remaining of the event
 
   // Calculating the user's best habit completion streak
   const calcStreak = () => {
@@ -115,9 +101,8 @@ const Dashboard = ({ eventList }) => {
       })
       if (eventHabitCompletions.length) {
         const completedDates = eventHabitCompletions.map(habit => new Date(habit.createdAt).toLocaleDateString())
-        console.log('completed dates =>', completedDates)
         arr.filter(obj => completedDates.includes(obj.key)).forEach(obj => {
-          arr[arr.indexOf(obj)] = <WrapItem h='20px' w='20px' backgroundColor='third' borderRadius='50%' justifyContent='center' key={obj.key} id={obj.key}></WrapItem>
+          arr[arr.indexOf(obj)] = <WrapItem h='20px' w='20px' backgroundColor='fifth' borderRadius='50%' justifyContent='center' key={obj.key} id={obj.key}></WrapItem>
         })
         setWidget(arr)
       } else {
@@ -126,19 +111,6 @@ const Dashboard = ({ eventList }) => {
     }
   }, [selectedEvent, eventHabitCompletions])
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    try {
-      await axios.post(`/api/events/${selectedEvent}`, { data: 'hello' }, {
-        headers: {
-          Authorization: `Bearer ${getTokenFromLocalStorage()}`
-        }
-      })
-    } catch (err) {
-      console.log(err.response)
-    }
-  }
-
   const toAddHabitPage = () => {
     navigate(`/events/${selectedEvent.id}/AddHabitCompletion`)
   }
@@ -146,63 +118,53 @@ const Dashboard = ({ eventList }) => {
   return (
     <>
       {userIsAuthenticated() && userEvents.length ?
-
         <>
-
           {Object.keys(selectedEvent).length ?
-
-            <Container name='header' justifyContent={{ sm: 'center', md: 'center', lg:'space-between'}} alignItems={{ base: 'center', md: 'center',lg: 'flex-start'}} p='0'  mt='15' display='flex' flexDirection={{base: 'column', md:'row'}} maxW='container.lg' flexWrap='wrap'>
-
-              <Flex name='welcome-header' alignItems={{ base: 'center', md: 'center',lg: 'flex-start'}} justifyContent={{sm: 'center', md: 'center',lg: 'flex-start'}} width='65%' pb='50' pt={{base:0, md:0}} mr='0' display='flex' flexDirection='column' textAlign={{md:'left'}}>
-                <Heading fontWeight='regular' size='md' mt={{base: '5', md:'20'}} mb='3' textAlign={{xs:'center', sm:'left', md:'center',lg: 'left'}} color='second'>Welcome {profileData.firstName}!</Heading>
+            <Container name='header' justifyContent={{ sm: 'center', md: 'center', lg: 'space-between' }} alignItems={{ base: 'center', md: 'center', lg: 'flex-start' }} p='0' mt='15' display='flex' flexDirection={{ base: 'column', md: 'row' }} maxW='container.lg' flexWrap='wrap'>
+              <Flex name='welcome-header' alignItems={{ base: 'center', md: 'center', lg: 'flex-start' }} justifyContent={{ sm: 'center', md: 'center', lg: 'flex-start' }} width={{ lg: '55%' }} pb='50' pt={{ base: 0, md: 0 }} mr='0' display='flex' flexDirection='column'>
+                <Heading fontWeight='regular' size='md' mt={{ base: '5', md: '20' }} mb='3' textAlign={{ xs: 'center', sm: 'left', md: 'center', lg: 'left' }} color='second'>Welcome {profileData.firstName}!</Heading>
                 {selectedEvent.isLive &&
-                  <Text fontSize='2.3em' fontWeight='bold' name='event-selector' mb='5' color='second' textAlign={{base:'center', sm:'center', md:'center',lg: 'left'}}>You have {daysLeftInEvent(selectedEvent)} left in your challenge!</Text>}
+                  <Text fontSize='2.3em' fontWeight='bold' name='event-selector' mb='5' color='second' textAlign={{ base: 'center', sm: 'center', md: 'center', lg: 'left' }}>You have {daysLeftInEvent(selectedEvent)} left in your challenge!</Text>}
                 {!selectedEvent.isLive && eventBeforeStartDate(selectedEvent) &&
-                  <Text fontSize='2.3em' fontWeight='bold' name='event-selector' mb='5' color='second' textAlign={{base:'center', sm:'center', md:'center',lg: 'left'}}>Your challenge starts in {daysLeftUntilEvent(selectedEvent)}!</Text>
+                  <Text fontSize='2.3em' fontWeight='bold' name='event-selector' mb='5' color='second' textAlign={{ base: 'center', sm: 'center', md: 'center', lg: 'left' }}>Your challenge starts in {daysLeftUntilEvent(selectedEvent)}!</Text>
                 }
                 {!selectedEvent.isLive && eventAfterEndDate(selectedEvent) && <Text fontSize={{ base: '12px', md: '16px', xl: '24px' }} fontWeight='bold' textAlign='center'>The challenge is over</Text>}
-
                 <EventDropdown mt='5' handleOptionChange={handleOptionChange} selectedEvent={selectedEvent} userEvents={userEvents} />
               </Flex>
-              <Flex name="actions" mt='5' bg='white' width='300px' flexDirection='column' alignItems='center' justifyContent='space-evenly' boxShadow='2xl' borderRadius='10'>
-                <Link to={`/events/${selectedEvent._id}`}>
-                  <Box name="widget-header" display='flex' flexDirection='column' w='300px' minHeight='300px' p='4' justifyContent='space-evenly' borderTopRadius='10' bgGradient='linear(to-r, first, third)' >
-                    <Heading textAlign='center' mt='5' fontSize="6em">{selectedEvent.emoji}</Heading>
+              <Flex name="actions" mt='5' bg='white' width={{ md: '450px', lg: '600px', xl: '450px' }} mx={{ md: 'auto' }} flexDirection='column' alignItems='center' justifyContent='space-evenly' boxShadow='2xl' borderRadius='10'>
+                <Box name="widget-header" display='flex' flexDirection='column' w='100%' minHeight='300px' justifyContent='space-evenly' borderTopRadius='10' backgroundColor='#F56565' >
+                  <Link to={`/events/${selectedEvent._id}`}>
+                    {/* bgGradient='linear(to-r, , white)' */}
+                    <Image src={selectedEvent.picture} alt={selectedEvent.name} w='100%' />
                     <Box name="headline" pl='4' pr='4' mb='2' width=''>
-                      <Heading textAlign='center' name='eventName' color='white' mt='0' size='lg'>{selectedEvent.name}</Heading>
-                      <Text textAlign='center'  name='subtitle' mt='3' fontSize='14px' color='second'>{selectedEvent.subTitle}</Text>
-
+                      <Heading textAlign='center' name='eventName' color='white' mt='2' size='lg'>{selectedEvent.name}</Heading>
+                      <Text textAlign='center' name='subtitle' mt='3' fontSize='14px' color='second'>{selectedEvent.subTitle}</Text>
                     </Box>
-
                     {selectedEvent.isLive && userIsAuthenticated() &&
                       <Box name='progress' pl='4' pr='4' mb='6' >
                         <HabitsCompletedDashboard eventHabitCompletions={eventHabitCompletions} />
                       </Box>
                     }
-
-                  </Box>
-                </Link>
+                  </Link>
+                </Box>
                 {selectedEvent.isLive && userIsAuthenticated() ?
                   <>
                     <Box name='widget-footer' display='flex' h='250px' flexDirection='column' p='6' alignItems='center' justifyContent='flex-end'>
-                      <Button onClick={toAddHabitPage} fontSize='16px' fontWeight='bold' w='60%' backgroundColor='fourth' boxShadow='2xl' p='6' rounded='md' bg='white' color='white'>Add Habit</Button>
-                      <Wrap p='4'>{widget}</Wrap>
                       <Text fontSize='sm' color='gray.500'>Your best streak: {calcStreak()}</Text>
+                      <Wrap p='4'>{widget}</Wrap>
+                      <Button onClick={toAddHabitPage} fontSize='16px' fontWeight='bold' w='60%' backgroundColor='fourth' boxShadow='2xl' p='6' rounded='md' bg='white' color='white'>Add habit for today</Button>
                     </Box>
                   </>
                   :
                   <>
                     <Box display='flex' flexDirection='column' p='6' alignItems='center'>
                       <Link to={`/events/${selectedEvent._id}`} >
-                        < Button fontSize='16px' fontWeight='bold' backgroundColor='fourth' p='6' rounded='md' bg='white' color='white'>View Event</Button>
+                        < Button fontSize='16px' fontWeight='bold' backgroundColor='fourth' p='6' rounded='md' mt='2' bg='white' color='white'>View event</Button>
                       </Link>
                     </Box>
-
                   </>
-
                 }
               </Flex>
-
             </Container>
             :
             hasError.error ?
@@ -210,16 +172,16 @@ const Dashboard = ({ eventList }) => {
           }
         </>
         :
-        userIsAuthenticated()?
-        <Box m='6' >
-          <Heading color='white' textAlign='center' as='h1' mb='4' mt='14' size='2xl'>Welcome {profileData.firstName}</Heading>
-          <Text textAlign='center' fontSize='xl' color='white'>More than 352 people have created a new habit in 30 days</Text>
-        </Box>
-        :
-        <Box m='6'>
-          <Heading color='white' textAlign='center' as='h1' mb='4' mt='14' size='2xl'>Welcome to TinyHabit</Heading>
-          <Text textAlign='center' fontSize='xl' color='white'>More than 352 people have created a new habit in 30 days</Text>
-        </Box>
+        userIsAuthenticated() ?
+          <Box m='6' >
+            <Heading color='white' textAlign='center' as='h1' mb='4' mt='14' size='2xl'>Welcome {profileData.firstName}</Heading>
+            <Text textAlign='center' fontSize='xl' color='white'>More than 352 people have created a new habit in 30 days</Text>
+          </Box>
+          :
+          <Box m='6'>
+            <Heading color='white' textAlign='center' as='h1' mb='4' mt='14' size='2xl'>Welcome to TinyHabit</Heading>
+            <Text textAlign='center' fontSize='xl' color='white'>More than 352 people have created a new habit in 30 days</Text>
+          </Box>
       }
     </>
   )
