@@ -42,11 +42,11 @@ Users can register to create a profile and log in using their email address and 
 Once registered, a new user will land on their dashboard page, which initially will just show current events
 ![alt text](https://res.cloudinary.com/di7ndofao/image/upload/v1648046654/Habit_tracker_app/Screenshot_2022-03-23_at_14.43.58_ndrr6n.png "New user dashboard")
 
-# Viewing an event
+#### Viewing an event
 Clicking on an event card will take the user to an event page, where they can see the description, other members, likes and comments
 ![alt text](https://res.cloudinary.com/di7ndofao/image/upload/v1648046818/Habit_tracker_app/Screenshot_2022-03-23_at_14.44.31_vexbhr.png "event page")
 
-# Joining an event
+#### Joining an event
 Clicking "join event" will add the user to the event, giving them the ability to like and comment, and post their daily completions. Users can only join events that haven't yet started.
 ![alt text](https://res.cloudinary.com/di7ndofao/image/upload/v1648046818/Habit_tracker_app/Screenshot_2022-03-23_at_14.44.42_lv09kp.png "Join event")
 
@@ -56,7 +56,7 @@ The event now appears in the user's dashboard, and user can select between event
 Further functionality is outlined below in the logged-in user journey (these are essentially the same from this stage onwards)
 
 ### Logged in user
-# Submitting habit completion evidence
+#### Submitting habit completion evidence
 If an event that a user has joined has started, the user is able to submit one habit-completion 'evidence' per day - a photo and a comment. They can do this either from their dashboard, or from the event page:
 ![alt text](https://res.cloudinary.com/di7ndofao/image/upload/v1648047552/Habit_tracker_app/Screenshot_2022-03-23_at_14.58.59_ecremi.png "Add habit completion button")
 
@@ -72,10 +72,10 @@ The submitted habit completion evidence will also appear in the event page feed 
 
 ![alt text](https://res.cloudinary.com/di7ndofao/image/upload/v1648046019/Habit_tracker_app/Screenshot_2022-03-23_at_14.28.17_tsn4mi.png "Habit profile")
 
-## Liking an event
+#### Liking an event
 ![alt text](https://res.cloudinary.com/di7ndofao/image/upload/v1648046019/Habit_tracker_app/Screenshot_2022-03-23_at_14.29.33_vtg8ja.png "Event lik")
 
-## Commenting on an event
+#### Commenting on an event
 ![alt text](https://res.cloudinary.com/di7ndofao/image/upload/v1648046162/Habit_tracker_app/Comment_cjk8xi.png "Event comment")
 
 Code Examples
