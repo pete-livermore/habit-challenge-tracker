@@ -78,6 +78,45 @@ The submitted habit completion evidence will also appear in the event page feed 
 ## Commenting on an event
 ![alt text](https://res.cloudinary.com/di7ndofao/image/upload/v1648046162/Habit_tracker_app/Comment_cjk8xi.png "Event comment")
 
+Code Examples
+------
+
+How we worked
+------
+After an initial feature brainstorming session, we developed user stories and prioritised features to establish an MVP. After wireframing the UIs on Miro, and diagramming the database models and relationships, we established specific feature workflows that we managed via Trello. Using Trello, allowed us to prioritize tasks and, importantly, delineate tasks and roles to minimise duplicated/conflicted work. Specific tasks where assigned after discussions, by adding the relevant person to the Trello card, and progress was then monitored using a card checklist. 
+
+We started with developing our back end, as this was fundamental to establishing what data we would have on the front end to work with. We initially worked collaboratively using Microsoft Live Share and screen sharing and then once the back end was in place, we moved to coding separately on different git branches for specific tasks, merging together as a team to discuss any conflicts. Each day we ran a morning stand-up where we shared progress and discussed issues, but throughout the day we would get together when we had a particuarly complex issue to solve.
+
+Although I was involved with every aspect of the project, the following components were where I took the lead:
+
+* Building the progress widget for the dashboard (the progress bar and the circles that are coloured according to whether a habit has been completed on a specific date)
+* Form validation
+* Creating the like button functionality
+* Creating the comments section functionality
+* Creating the seeds for the events
+
+What I got from the project
+------
+### General points
+This was the most significant collaborative coding work I had undertaken, and while it brought challenges in the form of conflicting ideas and visions, and managing divergent branches and conflicting code, it also showed me the huge value of discussing issues/solving problems collaboratively. Often, when one of us was stuck, the other two collobarators with a fresh pair of eyes, could more quickly spot and error or find a solution. 
+
+The key elements for successful collaboration I found were: detailed planning, specific and well-defined tasks and features, regular communication, and seeking as much feedback as possible.
+
+### Technical points
+*Git* - I felt a significant improvement in my understanding of Git and my comfortablity in managing different branches and versions of code, and we were able to almost completely eliminate merge conflicts by the end.
+
+*Node/Express* - This was my first significant practical experience of these tools, and I felt I got up to speed quickly. Working on both the front end and  Together, we were able to build a functional backend in a couple of days. 
+
+*MongoDB/Mongoose* - Also the first time I had used these tools and initially found the flexibility in develpoing data models slightly overwhelming because I was focussed on the optimal way to do things, and model relationships were somewhat complex with our app. However, once we began designing schemas, defining relationships and testing these out, I was able to focus on producing code that works rather than a single optimal solution. And ultimately I began to realise the value of this flexibility, especially as we needed to make changes at later stages.
+
+*React* - Though I had previously built a project using React, I felt like this project significantly advanced my understanding. Firstly, because of its relative size and complexity, there were a lot more issues around managing state with hooks. In particuar, the like and comment functionality brought a new dimension to thinking about state in React for me, which involved the interplay with adding and fetching data from the backend, as well as just reflecting changes on the page.
+
+*Vanilla Javascript*
+I was very proud of the habit completion progress widget, which involved - I got to 
+
+Future features
+------
+
 
 
 
