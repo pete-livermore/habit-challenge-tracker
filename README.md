@@ -19,18 +19,18 @@ Brief & timeframe:
 
 Languages & tools used:
 ------
-Node.js
-Express
-MongoDB
-Mongoose
-JavaScript (ES6)
-React.js
-Chakra UI
-JWT
-Bcrypt
-Axios
-Git + GitHub
-Cloudinary
+* Node.js
+* Express
+* MongoDB
+* Mongoose
+* JavaScript (ES6)
+* React.js
+* Axios
+* Chakra UI
+* JWT
+* Bcrypt
+* Git + GitHub
+* Cloudinary Upload API
 
 App walkthrough:
 ------
