@@ -92,6 +92,32 @@ Users can add a comment and see it appear in the comments section after submissi
 
 Code Examples
 ------
+Generating the circle progress widget
+```javascript
+  useEffect(() => {
+    const arr = []
+    if (selectedEvent && Object.keys(selectedEvent).length) {
+      const strDate = Date.parse(selectedEvent.startDate)
+      const endDate = Date.parse(selectedEvent.endDate)
+      const days = []
+      for (let i = new Date(strDate); i <= endDate; i.setDate(i.getDate() + 1)) {
+        days.push(new Date(i).toLocaleDateString())
+      }
+      days.forEach((day, i) => {
+        arr.push(<WrapItem h='20px' w='20px' backgroundColor='gray.200' borderRadius='50%' justifyContent='center' key={day} id={day}></WrapItem>)
+      })
+      if (eventHabitCompletions.length) {
+        const completedDates = eventHabitCompletions.map(habit => new Date(habit.createdAt).toLocaleDateString())
+        arr.filter(obj => completedDates.includes(obj.key)).forEach(obj => {
+          arr[arr.indexOf(obj)] = <WrapItem h='20px' w='20px' backgroundColor='fifth' borderRadius='50%' justifyContent='center' key={obj.key} id={obj.key}></WrapItem>
+        })
+        setWidget(arr)
+      } else {
+        setWidget(arr)
+      }
+    }
+  }, [selectedEvent, eventHabitCompletions])
+```
 
 How we worked
 ------
@@ -110,21 +136,27 @@ Although I was involved with every aspect of the project, the following componen
 What I got from the project
 ------
 ### General points
-This was the most significant collaborative coding work I had undertaken, and while it brought challenges in the form of conflicting ideas and visions, and managing divergent branches and conflicting code, it also showed me the huge value of discussing issues/solving problems collaboratively. Often, when one of us was stuck, the other two collobarators with a fresh pair of eyes, could more quickly spot and error or find a solution. 
+This was the most significant collaborative coding work I had undertaken, and while it brought challenges in the form of conflicting ideas and visions, and managing divergent branches and conflicting code, it also showed me the huge value of discussing issues/solving problems collaboratively. Often, when one of us was stuck, the other two collaborators with a fresh pair of eyes, could more quickly spot and error or find a solution. 
 
 The key elements for successful collaboration I found were: detailed planning, specific and well-defined tasks and features, regular communication, and seeking as much feedback as possible.
 
 ### Technical points
-*Git* - I felt a significant improvement in my understanding of Git and my comfortablity in managing different branches and versions of code, and we were able to almost completely eliminate merge conflicts by the end.
+*Git* - Thanks to our collaborative Git approach, I saw a significant improvement in my understanding of Git and my comfortability in using and merging different branches and versions of code, and dealing with any merge conflicts. Though there were times when we encountered issues, taking the time to read documentation ensured that we were able to utilise Git's features to resolve them.
 
-*Node/Express* - This was my first significant practical experience of these tools, and I felt I got up to speed quickly. Working on both the front end and  Together, we were able to build a functional backend in a couple of days. 
+*Node/Express* - This was my first significant practical experience of these tools, and I was pleased with my progress with them in the timespan. By spending a whole day building and testing routes/controllers using Insomnia, I was able gain a better understanding of
+Because of my limited experience with Node, there are some elements of the controllers that I can optimise, but I was pleased that I was able to access all the data I needed on the frontend.
 
-*MongoDB/Mongoose* - Also the first time I had used these tools and initially found the flexibility in develpoing data models slightly overwhelming because I was focussed on the optimal way to do things, and model relationships were somewhat complex with our app. However, once we began designing schemas, defining relationships and testing these out, I was able to focus on producing code that works rather than a single optimal solution. And ultimately I began to realise the value of this flexibility, especially as we needed to make changes at later stages.
+*MongoDB/Mongoose* - Also the first time I had used these tools and initially found the flexibility in developing data models slightly overwhelming because I was focussed on the optimal way to do things, and model relationships were somewhat complex with our app. However, once we began designing schemas, defining relationships and testing these out, I was able to focus on producing code that works rather than a single optimal solution. And ultimately I began to see the benefits of NoSQL, especially as we needed to make changes at later stages.
 
-*React* - Though I had previously built a project using React, I felt like this project significantly advanced my understanding. Firstly, because of its relative size and complexity, there were a lot more issues around managing state with hooks. In particuar, the like and comment functionality brought a new dimension to thinking about state in React for me, which involved the interplay with adding and fetching data from the backend, as well as just reflecting changes on the page.
+*React* - Though I had previously built a project using React, I felt like this project significantly advanced my understanding. Firstly, because of its relative size and complexity, there were a lot more issues around managing state with hooks. In particular, the like and comment functionality brought a new dimension to thinking about state in React for me, which involved the interplay with adding and fetching data from the backend, as well as just reflecting changes on the page.
+
+*Chakra UI* - We felt that a UI framework would be necessary given the timeframe we had, and decided to use Chakra because we felt its components were easy to use and fit well with the feature we needed. Over the course of the project, I began to like the framework a lot, especially how easy it was to restyle components and ensure responsiveness.
 
 *Vanilla Javascript*
-I was very proud of the habit completion progress widget, which involved - I got to 
+I was proud of the habit completion progress widget, which involved generating circular divs with ids that corresponded to days of the month and then conditionally styling these divs green, depending on which date ids corresponded to the completed habit dates in the database. This involved using loops as well as some array methods including mapping and filtering. As mentioned above, there were aspects of the app backend that could be optimised to make the data easier to work with in the front end. However, I found that this actually gave me a good opportunity to get more practice of using JS methods to dig down and access nested data.
+
+*Cloudinary upload API* - Having never used Cloudinary before, I was able to develop an understanding of how to use a file upload element, React state and a Cloudinary account and credentials to add an uploaded image URL to the backend.
+
 
 Future features
 ------
