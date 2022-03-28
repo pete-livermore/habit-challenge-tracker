@@ -136,7 +136,7 @@ Although I was involved with every aspect of the project, the following componen
 What I got from the project
 ------
 ### General points
-This was the most significant collaborative coding work I had undertaken, and while it brought challenges in the form of conflicting ideas and visions, and managing divergent branches and conflicting code, it also showed me the huge value of discussing issues/solving problems collaboratively. Often, when one of us was stuck, the other two collaborators with a fresh pair of eyes, could more quickly spot and error or find a solution. 
+This was the most significant collaborative coding work I had undertaken, and while it brought challenges in the form of conflicting ideas and visions, and managing divergent branches and conflicting code, it also showed me the huge value of discussing issues/solving problems collaboratively. Often, when one of us was stuck, the other two collaborators with a fresh pair of eyes, could more quickly spot an error or find a solution. 
 
 The key elements for successful collaboration I found were: detailed planning, specific and well-defined tasks and features, regular communication, and seeking as much feedback as possible.
 
@@ -150,7 +150,7 @@ Because of my limited experience with Node, there are some elements of the contr
 
 *React* - Though I had previously built a project using React, I felt like this project significantly advanced my understanding. Firstly, because of its relative size and complexity, there were a lot more issues around managing state with hooks. In particular, the like and comment functionality brought a new dimension to thinking about state in React for me, which involved the interplay with adding and fetching data from the backend, as well as just reflecting changes on the page.
 
-*Chakra UI* - We felt that a UI framework would be necessary given the timeframe we had, and decided to use Chakra because we felt its components were easy to use and fit well with the feature we needed. Over the course of the project, I began to like the framework a lot, especially how easy it was to restyle components and ensure responsiveness.
+*Chakra UI* - We felt that a UI framework would be necessary given the timeframe we had, and decided to use Chakra because we felt its components were easy to use and fit well with the features we needed. Over the course of the project, I began to like the framework a lot, especially how easy it was to restyle components and ensure responsiveness.
 
 *Vanilla Javascript*
 I was proud of the habit completion progress widget, which involved generating circular divs with ids that corresponded to days of the month and then conditionally styling these divs green, depending on which date ids corresponded to the completed habit dates in the database. This involved using loops as well as some array methods including mapping and filtering. As mentioned above, there were aspects of the app backend that could be optimised to make the data easier to work with in the front end. However, I found that this actually gave me a good opportunity to get more practice of using JS methods to dig down and access nested data.
