@@ -126,7 +126,6 @@ Calculating the user's best habit completion streak:
 
 ```javascript
 const calcStreak = () => {
-    console.log(selectedEvent)
     if (!eventHabitCompletions.length) return 0
     if (selectedEvent && Object.keys(selectedEvent).length) {
       const strDate = Date.parse(selectedEvent.startDate)
