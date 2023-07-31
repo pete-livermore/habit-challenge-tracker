@@ -1,10 +1,8 @@
 TinyHabit - an event-based, habit-tracking, MERN-stack application 
 ======
-This app was built with GA classmates [Borahm Cho](https://github.com/Borahm) and [Gurpal Singh](https://github.com/thisisgurpal) as the third project for my General Assembly Software Engineering course.
+In collaboration with [Borahm Cho](https://github.com/Borahm) and [Gurpal Singh](https://github.com/thisisgurpal), we embarked on an exciting mission to develop a unique habit app. This groundbreaking platform invites users to participate in upcoming 30-day habit challenges, harnessing the power of React, Node JS, Express JS, and MongoDB – the formidable MERN stack.
 
-Users are able to join 30-day events that encourage positive lifestyle habits, submitting and tracking their progress, as well as liking and commenting on the events. Users can also view other users' profiles.
-
-The app has been deployed with Heroku and is available [here](https://social-habit-tracker.herokuapp.com/).
+Immerse yourself in a world of possibilities as you register, create your personalised profile, and embark on a journey of self-improvement by joining captivating events. Capture your triumphant moments as you post your completed habits, engage with other users through thoughtful comments, and spread motivation with uplifting likes.
 
 ![alt text](https://res.cloudinary.com/di7ndofao/image/upload/v1648038357/Habit_tracker_app/Screenshot_2022-03-23_at_12.25.26_wwbg8s.png "App homepage")
 
